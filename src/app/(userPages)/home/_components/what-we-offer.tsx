@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
+import Image from "next/image"
 
 export default function WhatWeOfferSection() {
   const offers = [
@@ -55,7 +56,7 @@ export default function WhatWeOfferSection() {
               <CardContent className="p-0">
                 <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-gray-200 mb-4">
                   {/* Replaced icon with image */}
-                  <img src={offer.image} alt={offer.title} className="w-6 h-6 object-cover rounded-full" />
+                  <Image height={20} width={20} src={offer.image} alt={offer.title} className="w-6 h-6 object-cover rounded-full" />
                 </div>
                 <h3 className="text-xl font-bold mb-2 text-left">{offer.title}</h3>
                 {offer.description.map((line, descIndex) => (

@@ -74,7 +74,7 @@ export default function Header() {
 
 
       <Button className="hidden lg:inline-flex bg-[#FF2424] cursor-pointer hover:opacity-90 text-white px-6 py-2 rounded-md shadow-md">
-        Let's Get Started
+        Let&apos;s Get Started
       </Button>
 
       <div className="lg:hidden ml-auto">
@@ -114,7 +114,7 @@ export default function Header() {
             </MobileNavLink>
           ))}
           <Button className="w-full bg-[#FF2424] hover:opacity-90 cursor-pointer text-white px-6 py-2 rounded-md mt-4 shadow-md">
-            Let's Get Started
+            Let&apos;s Get Started
           </Button>
         </div>
       </div>

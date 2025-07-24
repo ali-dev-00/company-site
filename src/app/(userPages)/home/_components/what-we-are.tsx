@@ -17,7 +17,7 @@ export default function WhoWeAre() {
           <p className="text-sm text-gray-700 leading-relaxed">
             Horumarka Dadka is a leading training provider dedicated to uplifting individuals, businesses, and
             government institutions. We specialise in short, accredited training designed to create real-world impact
-            across key industries. Whether it's community upskilling, workplace development, or public service
+            across key industries. Whether it&apos;s community upskilling, workplace development, or public service
             excellence we deliver solutions that drive growth.
           </p>
         </div>
