@@ -2,8 +2,8 @@ import Image from "next/image"
 
 export default function MissionSection() {
   return (
-    <section className="w-full max-w-[1366px] mx-auto bg-[#E8E8E8]">
-      <div className="container mx-auto px-4 md:px-8 lg:px-16 py-16 text-center">
+    <section className="w-full  bg-[#E8E8E8]">
+      <div className="container max-w-[1366px]  mx-auto px-4 md:px-8 lg:px-16 py-16 text-center">
         <h2 className="text-3xl font-semibold sm:text-4xl md:text-5xl mb-4">Our Mission</h2>
         <p className="mx-auto max-w-[700px] text-gray-500  mb-8">
           To empower individuals, communities, and organizations through practical, accessible training that leads to
