@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
 const LINKS = [
-  { href: "#about", label: "About Us" },
+  { href: "/about", label: "About Us" },
   { href: "#whattodo", label: "What We Do" },
   { href: "#workwithus", label: "Work With Us" },
   { href: "#gc", label: "GC Careers" },
