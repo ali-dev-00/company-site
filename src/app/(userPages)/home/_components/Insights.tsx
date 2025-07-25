@@ -62,12 +62,9 @@ export default function Insights() {
   ]
 
   const [current, setCurrent] = useState(0)
-  const [isClient, setIsClient] = useState(false)
   const [cardsPerView, setCardsPerView] = useState(3.5)
 
   useEffect(() => {
-    setIsClient(true)
-
     const updateCardsPerView = () => {
       if (window.innerWidth < 640) {
 
