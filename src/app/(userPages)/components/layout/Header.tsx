@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
 const LINKS = [
-  { href: "/about", label: "About Us" },
+  { href: "/about-us", label: "About Us" },
   { href: "#whattodo", label: "What We Do" },
-  { href: "#workwithus", label: "Work With Us" },
+  { href: "/work-with-us", label: "Work With Us" },
   { href: "#gc", label: "GC Careers" },
   { href: "#news", label: "News" },
   { href: "/contact-us", label: "Contact Us" },
@@ -59,9 +59,9 @@ export default function Header() {
   return (
     <header className="bg-[#1E1E1E] w-full">
       <div className="max-w-[1366px] mx-auto flex h-20 w-full items-center  px-4 md:px-8 lg:px-16 border-b border-black">
-        <Link href="#" className="flex items-center gap-1">
+        <Link href="/home" className="flex items-center gap-1">
           <Image src="/logo.svg" height={100} width={120} alt="logo" />
-          <span className="text-red-500 text-md ml-2">DADKA</span>
+          <span className="text-[#ff2424] text-md ml-2">DADKA</span>
         </Link>
 
         <nav className="hidden lg:flex gap-6 mx-auto">
@@ -95,7 +95,7 @@ export default function Header() {
             }`}
         >
           <div className="flex items-center gap-2 mb-6 w-full justify-between">
-            <Link href="#" className="flex items-center gap-1">
+            <Link href="/home" className="flex items-center gap-1">
               <Image src="/logo.svg" height={100} width={120} alt="logo" />
               <span className="text-red-500 text-md ml-2">DADKA</span>
             </Link>

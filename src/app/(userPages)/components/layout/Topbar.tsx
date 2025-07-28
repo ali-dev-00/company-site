@@ -30,7 +30,7 @@ export default function TopBar() {
           <Image src="/socials/facebook.svg" alt="Facebook" width={15} height={15} className="w-4 h-4 md:w-5 md:h-5" />
         </Link>
         <Link href="#" aria-label="X (Twitter)" className="hover:opacity-80 transition-opacity">
-          <Image src="/socials/x.svg" alt="X (Twitter)" width={15} height={15} className="w-4 h-4 md:w-4 md:h-4" />
+          <Image src="/socials/twitter.svg" alt="X (Twitter)" width={15} height={15} className="w-4 h-4 md:w-4 md:h-4" />
         </Link>
         <Link href="#" aria-label="TikTok" className="hover:opacity-80 transition-opacity">
           <Image src="/socials/tiktok.svg" alt="TikTok" width={15} height={15} className="w-4 h-4 md:w-4 md:h-4" />
