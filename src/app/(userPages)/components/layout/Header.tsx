@@ -5,14 +5,14 @@ import Link from "next/link"
 import { AlignRight, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
-import { usePathname, useSearchParams } from "next/navigation"
+import { usePathname } from "next/navigation"
 
 const LINKS = [
   { href: "/about-us", label: "About Us" },
-  { href: "#whattodo", label: "What We Do" },
+  { href: "/what-we-do", label: "What We Do" },
   { href: "/work-with-us", label: "Work With Us" },
-  { href: "#gc", label: "GC Careers" },
-  { href: "#news", label: "News" },
+  { href: "/careers", label: "Careers" },
+  { href: "/news", label: "News" },
   { href: "/contact-us", label: "Contact Us" },
 ]
 

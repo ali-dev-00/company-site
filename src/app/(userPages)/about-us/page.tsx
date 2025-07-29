@@ -4,6 +4,7 @@ import OurAmbition from './_components/our-ambition'
 import OurCredentials from './_components/our-credientials'
 import OurValues from './_components/our-values'
 import PageHeading from '../components/common/page-heading'
+import ContactUsBanner from '../components/common/contact-us-banner'
 
 const AboutUs = () => {
   return (
@@ -13,6 +14,7 @@ const AboutUs = () => {
      <OurAmbition />
      <OurValues />
      <OurCredentials />
+     <ContactUsBanner />
     </>
   )
 }

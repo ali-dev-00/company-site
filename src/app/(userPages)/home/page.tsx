@@ -4,6 +4,7 @@ import Hero from './_components/Hero'
 import LatestNews from './_components/LatestNews'
 import JoinWorkWithUs from './_components/join-work-with-us'
 import ParagraphSection from '../components/common/paragraph-section'
+import ContactUsBanner from '../components/common/contact-us-banner'
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
       <WhatWeDo />
       <LatestNews />
       <JoinWorkWithUs />
+      <ContactUsBanner />
     </>
   )
 }

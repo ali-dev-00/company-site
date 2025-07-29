@@ -152,7 +152,7 @@ export default function Footer() {
                                         </div>
                                         <div>
                                             <p className="text-xs text-gray-300">Email Us</p>
-                                            <p className="text-sm">info@horumarkadacka.com</p>
+                                            <p className="text-sm">info@horumarkadadka.com</p>
                                         </div>
                                     </div>
                                 </div>

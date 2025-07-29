@@ -3,6 +3,7 @@ import WorkWithUsHero from './_components/WorkWithUsHero'
 import PageHeading from '../components/common/page-heading'
 import WhyWorkWithUs from './_components/why-work-with-us'
 import ParagraphSection from '../components/common/paragraph-section'
+import ContactUsBanner from '../components/common/contact-us-banner'
 
 const WorkWithUsPage = () => {
     return (
@@ -16,6 +17,7 @@ delivers real impact."
                 para2='We work with organisations who share our values and commitment to making a difference, delivering the very best services and support.'
             />
             <WhyWorkWithUs />
+            <ContactUsBanner />
         </>
     )
 }
