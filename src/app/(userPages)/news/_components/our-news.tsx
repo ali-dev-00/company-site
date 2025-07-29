@@ -67,7 +67,7 @@ const newsArticles: NewsArticle[] = [
 
 export default function NewsArchive() {
     return (
-        <section className="py-16 bg-white">
+        <section className="pb-16 pt-8 bg-white">
             <div className="max-w-[1366px] mx-auto px-4 md:px-8 lg:px-16">
                 <div className="mb-8 max-w-[100px]">
                     <TitleWithUnderline title="News" />
