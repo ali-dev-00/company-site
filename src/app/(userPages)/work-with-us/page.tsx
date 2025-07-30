@@ -1,5 +1,5 @@
 import React from 'react'
-import WorkWithUsHero from './_components/WorkWithUsHero'
+import WorkWithUsHero from './_components/work-with-us-hero'
 import PageHeading from '../components/common/page-heading'
 import WhyWorkWithUs from './_components/why-work-with-us'
 import ParagraphSection from '../components/common/paragraph-section'

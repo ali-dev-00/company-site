@@ -2,7 +2,7 @@ import React from 'react'
 import PageHeading from '../components/common/page-heading'
 import OurServicesGrid from './_components/our-services-grid'
 import ContactUsBanner from '../components/common/contact-us-banner'
-import WhatWeDoHero from './_components/WhatWeDoHero'
+import WhatWeDoHero from './_components/what-we-do-hero'
 import ParagraphSection from '../components/common/paragraph-section'
 
 

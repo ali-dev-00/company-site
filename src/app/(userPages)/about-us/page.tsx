@@ -1,5 +1,5 @@
 import React from 'react'
-import AboutUsHeroSection from './_components/AboutUsHero'
+import AboutUsHeroSection from './_components/about-us-hero'
 import OurAmbition from './_components/our-ambition'
 import OurCredentials from './_components/our-credientials'
 import OurValues from './_components/our-values'
