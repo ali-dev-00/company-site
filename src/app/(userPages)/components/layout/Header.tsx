@@ -49,7 +49,7 @@ const MobileNavLink = ({ href, children }: { href: string; children: React.React
         ${isActive ? "text-[#ff2424]" : "text-white hover:text-[#ff2424]"}
         after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 
         after:w-0 after:h-[2px] after:bg-[#FF2424] after:transition-all after:duration-300 
-        ${isActive ? "after:w-full after:left-0 after:translate-x-0" : "hover:after:w-full hover:after:left-0 hover:after:translate-x-0"}`}
+         ${isActive ? "border-b-2" : "hover:after:w-full hover:after:left-0 hover:after:translate-x-0"}`}
     >
       {children}
     </Link>

@@ -157,9 +157,9 @@ export default function NewsArchive() {
 
                                 {/* Read More Link (now part of the overall card link) */}
                                 <div className="flex justify-between items-center">
-                                    <span className="inline-flex items-center text-[#ff2424] hover:text-red-600 font-medium text-sm transition-colors duration-200">
+                                    <span className="inline-flex items-center hover:underline text-[#ff2424] hover:text-red-600 font-medium text-sm transition-colors duration-200">
                                         Read more
-                                        <ArrowRight className="ml-2 h-4 w-4 group-hover:rotate-[-45deg] transition-transform duration-300" />
+                                        <ArrowRight className="ml-2 h-4 w-4  group-hover:rotate-[-45deg] transition-transform duration-300" />
                                     </span>
                                     <p className="text-gray-500 text-xs">{article.date}</p>
                                 </div>

@@ -16,7 +16,7 @@ export function SignUpForm() {
     }
 
     return (
-        <div className="max-h-[700px] my-10 flex items-center justify-center bg-white overflow-hidden">
+        <div className="max-h-[800px] sm:max-h-[700px] my-10 flex items-center justify-center bg-white overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 max-w-6xl mx-auto rounded-lg overflow-hidden">
                 {/* Left Column: Sign-up Form */}
                 <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center">
@@ -122,12 +122,7 @@ export function SignUpForm() {
                             Create an account
                         </Button>
 
-                        <p className="text-sm text-gray-600 text-center mt-4">
-                            Already have an account?{" "}
-                            <a href="#" className="text-v0-red hover:underline hover:text-gray-900">
-                                Log in
-                            </a>
-                        </p>
+                        
                     </div>
                 </div>
 
