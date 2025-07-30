@@ -15,7 +15,7 @@ export default function ContactForm() {
                 type="text"
                 id="firstName"
                 name="firstName"
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#ff2424] focus:border-[#ff2424] sm:text-sm"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[1.5px] focus:ring-[#ff2424] focus:border-[#ff2424] sm:text-sm"
               />
             </div>
             <div>
@@ -26,7 +26,7 @@ export default function ContactForm() {
                 type="text"
                 id="lastName"
                 name="lastName"
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#ff2424] focus:border-[#ff2424] sm:text-sm"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[1.5px] focus:ring-[#ff2424] focus:border-[#ff2424] sm:text-sm"
               />
             </div>
           </div>
@@ -41,7 +41,7 @@ export default function ContactForm() {
                 type="email"
                 id="emailAddress"
                 name="emailAddress"
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#ff2424] focus:border-[#ff2424] sm:text-sm"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[1.5px] focus:ring-[#ff2424] focus:border-[#ff2424] sm:text-sm"
               />
             </div>
             <div>
@@ -52,7 +52,7 @@ export default function ContactForm() {
                 type="tel"
                 id="contactNumber"
                 name="contactNumber"
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#ff2424] focus:border-[#ff2424] sm:text-sm"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[1.5px] focus:ring-[#ff2424] focus:border-[#ff2424] sm:text-sm"
               />
             </div>
           </div>
@@ -66,7 +66,7 @@ export default function ContactForm() {
               id="message"
               name="message"
               rows={5}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#ff2424] focus:border-[#ff2424] sm:text-sm"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[1.5px] focus:ring-[#ff2424] focus:border-[#ff2424] sm:text-sm"
             ></textarea>
           </div>
 

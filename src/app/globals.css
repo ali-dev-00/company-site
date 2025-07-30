@@ -6,36 +6,3 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-/* Custom clip-path for the red section */
-.custom-clip-path-red {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-}
-
-.custom-clip-path-image {
-  clip-path: polygon(0 0, 100% 0, 100% 65%, 90% 100%, 10% 100%, 0 0);
-}
-
-.custom-clip-path-left-image {
-  clip-path: polygon(10% 0, 10% 100%, 0 100%, 90% 100%, 100% 65%, 100% 0);
-}
-
-/* Diagonal stripes background pattern */
-.diagonal-stripes {
-  background-image: repeating-linear-gradient(
-    -45deg,
-    rgba(255, 255, 255, 0.1) 0,
-    rgba(255, 255, 255, 0.1) 10px,
-    transparent 10px,
-    transparent 20px
-  );
-}
-
-/* Responsive adjustments for clip-paths */
-@media (max-width: 1023px) {
-  .custom-clip-path-red {
-    clip-path: none; /* Remove clip-path on smaller screens */
-  }
-  .custom-clip-path-image {
-    clip-path: none; /* Remove clip-path on smaller screens */
-  }
-}
