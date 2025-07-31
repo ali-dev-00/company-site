@@ -4,5 +4,6 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
+  overflow: unset !important;
 }
 

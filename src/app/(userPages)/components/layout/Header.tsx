@@ -59,6 +59,7 @@ const MobileNavLink = ({ href, children }: { href: string; children: React.React
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [currentHash, setCurrentHash] = useState("")
+  console.log(currentHash)
 
   const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev)
 
