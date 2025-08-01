@@ -40,7 +40,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
         </header>
 
         {/* Scrollable Content Only */}
-        <main className="flex-1 bg-white">{children}</main>
+        <main className="flex-1 bg-white overflow-y-auto  ">{children}</main>
       </div>
     </div>
   )

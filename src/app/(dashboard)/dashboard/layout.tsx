@@ -11,7 +11,7 @@ export default function DashboardLayout({
 }) {
 
   return (
-    <SidebarProvider>
+    <SidebarProvider className="overflow-hidden fixed">
       <DashboardShell>{children}</DashboardShell>
     </SidebarProvider>
   )
