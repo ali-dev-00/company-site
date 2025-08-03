@@ -307,7 +307,7 @@ export default function JobsManagement() {
       />
       <AddJobModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} />
       {/* Third Section: Pagination with border and rounded corners */}
-      <div className="rounded-lg border border-gray-200 p-4 mt-6 bg-white">
+      <div className="overflow-x-auto rounded-lg border border-gray-200 p-4 mt-6 bg-white">
         <div className="flex items-center justify-between">
           <Button
             variant="outline"

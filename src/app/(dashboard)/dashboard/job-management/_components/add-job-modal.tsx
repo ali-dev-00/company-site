@@ -37,7 +37,7 @@ export default function AddJobModal({ isOpen, onClose }: AddJobModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[700px] max-h-[500px] h-[600px] p-0 rounded-lg overflow-hidden bg-white  overflow-y-auto my-2 mb-2">
+      <DialogContent className="sm:max-w-[700px] max-h-[450px] h-[600px] p-0 rounded-lg overflow-hidden bg-white  overflow-y-auto my-2 mb-2">
         <DialogHeader className="p-3 px-6 border-b border-gray-200 flex flex-row items-center justify-between">
           <DialogTitle className="text-xl font-bold">Add Job</DialogTitle>
         

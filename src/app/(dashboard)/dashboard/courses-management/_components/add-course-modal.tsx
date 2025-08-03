@@ -41,7 +41,7 @@ export default function AddCourseModal({ isOpen, onClose }: AddCourseModalProps)
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[700px] max-h-[500px] h-[600px] p-0 rounded-lg overflow-hidden bg-white overflow-y-auto ">
+      <DialogContent className="sm:max-w-[700px]  max-h-[450px] h-[600px] p-0 rounded-lg overflow-hidden bg-white overflow-y-auto ">
         <DialogHeader className="p-3 px-6 border-b border-gray-200 flex flex-row items-center justify-between">
           <DialogTitle className="text-xl font-bold">Add Courses</DialogTitle>
         </DialogHeader>
