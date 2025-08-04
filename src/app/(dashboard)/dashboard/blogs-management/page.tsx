@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Search, ChevronLeft, ChevronRight, Trash, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
+import AddBlogModal from "./_components/add-blog-modal"
+import DeleteBlogModal from "./_components/delete-blog-modal"
 
 interface Blog {
   _id: string
@@ -86,6 +88,7 @@ export default function BlogsManagement() {
   const [loading, setLoading] = useState(false)
   const [globalSearchQuery, setGlobalSearchQuery] = useState("")
 
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const fetchBlogs = () => {
     setLoading(true)
     try {
@@ -154,6 +157,26 @@ export default function BlogsManagement() {
     return pageNumbers
   }, [page, totalPages])
 
+  const [SelectedBlogId, setSelectedBlogId] = useState<string | null>(null);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+
+  const handleDelete = (courseId: string) => {
+    setSelectedBlogId(courseId);
+    setDeleteModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (SelectedBlogId) {
+      setBlogs(blogs.filter((blog) => blog._id !== SelectedBlogId));
+      setDeleteModalOpen(false);
+      setSelectedBlogId(null);
+    }
+  };
+
+  const cancelDelete = () => {
+    setDeleteModalOpen(false);
+    setSelectedBlogId(null);
+  };
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       {/* First Section: Header with border and rounded corners */}
@@ -175,7 +198,7 @@ export default function BlogsManagement() {
                 onChange={handleGlobalSearchChange}
               />
             </div>
-            <Button className="bg-[#FF2424] hover:bg-[#FF2424]/90 text-white">Add New Blog</Button>
+            <Button className="bg-[#FF2424] hover:bg-[#FF2424]/90 text-white" onClick={() => setIsAddModalOpen(true)}>Add New Blog</Button>
           </div>
         </div>
       </div>
@@ -198,7 +221,7 @@ export default function BlogsManagement() {
                   className="w-full h-48 object-cover rounded-t-lg"
                 />
                 <div className="absolute top-4 right-4 flex gap-2">
-                  <Button variant="ghost" size="icon" className="cursor-pointer h-8 w-8 text-gray-300 bg-white/20 hover:bg-white/25">
+                  <Button onClick={() => handleDelete(blog._id)} variant="ghost" size="icon" className="cursor-pointer h-8 w-8 text-gray-300 bg-white/20 hover:bg-white/25">
                     <Trash className="h-4 w-4" />
                   </Button>
                 </div>
@@ -217,6 +240,13 @@ export default function BlogsManagement() {
         </div>
       )}
 
+      <AddBlogModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} />
+      {/* Delete modal */}
+      <DeleteBlogModal
+        isOpen={isDeleteModalOpen}
+        onClose={cancelDelete}
+        onDelete={confirmDelete}
+      />
       {/* Third Section: Pagination with border and rounded corners */}
       <div className="rounded-lg border border-gray-200 p-4 mt-6 bg-white">
         <div className="flex items-center justify-between">
