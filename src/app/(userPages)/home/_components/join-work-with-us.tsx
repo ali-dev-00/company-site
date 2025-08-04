@@ -20,7 +20,7 @@ export default function JoinWorkWithUs() {
             </div>
 
             <a
-              href="/careers"
+              href="/join-us"
               className="hover:underline   inline-flex items-center text-[#ff2424] hover:text-red-600 font-medium text-base transition-all duration-300 group"
             >
               See our current opportunities
@@ -42,7 +42,7 @@ export default function JoinWorkWithUs() {
             </div>
 
             <a
-              href="/partnerships"
+              href="/work-with-us"
               className="inline-flex items-center hover:underline text-[#ff2424] hover:text-red-600 font-medium text-base transition-all duration-300 group"
             >
               Talk to our team

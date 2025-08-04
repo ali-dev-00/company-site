@@ -63,7 +63,7 @@ export default function WhyWorkWithUs() {
         {/* Call to Action Link */}
         <div className="text-center mt-8">
           <Link
-            href="/become-a-supplier"
+            href="contact-us"
             className="inline-flex items-center hover:underline text-[#ff2424] hover:text-red-600 font-medium text-lg transition-all duration-300 group"
           >
             Find out more about becoming a supplier

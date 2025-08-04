@@ -16,7 +16,7 @@ const offerings: OfferCard[] = [
   {
     id: "adult-courses",
     image: "/home/our-offer-01.svg",
-    linkHref: "/adult-courses",
+    linkHref: "/courses",
     overlayTitle: "Adult Courses",
     overlaySubtitle: "Fully Funded Adult Courses",
     overlayDescription: "Find out more about our fully funded Adult Courses",
@@ -25,7 +25,7 @@ const offerings: OfferCard[] = [
   {
     id: "insight",
     image: "/home/our-offer-02.svg",
-    linkHref: "/insight",
+    linkHref: "/courses",
     overlayTitle: "Insight",
     overlaySubtitle: "Discover key insights", 
     overlayDescription: "Explore data-driven reports and market analysis.", 
@@ -34,7 +34,7 @@ const offerings: OfferCard[] = [
   {
     id: "growth-flag",
     image: "/home/our-offer-03.svg",
-    linkHref: "/growth-flag",
+    linkHref: "/courses",
     overlayTitle: "Growth Flag",
     overlaySubtitle: "Accelerate your growth", // Example subtitle for Growth Flag
     overlayDescription: "Tools and resources to boost your business.", // Example description for Growth Flag

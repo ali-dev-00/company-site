@@ -2,9 +2,9 @@ import Image from "next/image";
 
 export default function CareerHero() {
   return (
-    <section className="relative flex bg-[#FF2424]/100 gap-10 sm:gap-0   flex-col lg:flex-row min-h-[400px] overflow-hidden">
-
-      <div className="relative w-full lg:w-1/2 bg-[#FF2424]  text-white p-8 md:p-12 flex items-center justify-center">
+    <section className="bg-[#FF2424]/100 overflow-hidden" >
+      <div className="relative flex max-w-[1366px] mx-auto  gap-10 sm:gap-0   flex-col lg:flex-row min-h-[400px] ">
+      <div className="relative w-full lg:w-1/2 bg-[#FF2424]  text-white  py-12 px-4 md:px-8 lg:px-16 flex items-center ">
         <div className="absolute inset-0 opacity-20"></div>
         <div className="relative z-10 max-w-md text-left">
 
@@ -19,7 +19,7 @@ export default function CareerHero() {
           If you want a rewarding career where you’ll have the opportunity to make a real difference, you’ve come to the right place.
           </p>
         </div>
-        <div className="bg-black/6 top-[-150px] -left-[-94.7px] bottom-[-350px] rotate-45 w-[180px] h-[600px] absolute " />
+        <div className="bg-black/6 top-[-350px] -left-[-20.7px] bottom-[-350px] rotate-45 w-[180px] h-[950px] absolute " />
       </div>
       <div className=" relative  z-1 w-full lg:w-1/2 flex items-center justify-center overflow-hidden">
        <div className="absolute bg-[#FF2424]  h-[150px] w-[120px] rotate-45 -top-16 -left-15" >
@@ -32,6 +32,7 @@ export default function CareerHero() {
           className="object-cover w-full h-full"
         />
        <div className="absolute bg-white  h-[150px] w-[120px] rotate-45 -bottom-16 -right-15" ></div>
+      </div>
       </div>
     </section>
   );

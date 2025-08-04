@@ -1,5 +1,5 @@
 import React from 'react'
-import WhatWeDo from './_components/whatWedo'
+import WhatWeDo from './_components/what-we-do-home'
 import Hero from './_components/Hero'
 import LatestNews from './_components/LatestNews'
 import JoinWorkWithUs from './_components/join-work-with-us'

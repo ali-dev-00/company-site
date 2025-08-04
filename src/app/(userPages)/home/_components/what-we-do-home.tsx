@@ -20,7 +20,7 @@ const services: ServiceCard[] = [
       "The Growth Company is a leading provider of education, skills, employment, youth and offender rehabilitation support. Since 2020, to improve lives we&apos;ve created over 42,000 new jobs, supported over 48,000 clients into work and seen over",
     image: "/home/what-we-do-01.svg",
     linkText: "Find out more",
-    linkHref: "/supporting-people",
+    linkHref: "/courses",
   },
   {
     id: "supporting-businesses",
@@ -29,7 +29,7 @@ const services: ServiceCard[] = [
       "Businesses face ongoing challenges and since 2020, the Growth Company has assisted over 10,000 businesses to innovate, transform their businesses and create new jobs.",
     image: "/home/what-we-do-02.svg",
     linkText: "Business",
-    linkHref: "/supporting-businesses",
+    linkHref: "/courses",
   },
   {
     id: "exceptional-consulting",
@@ -38,7 +38,7 @@ const services: ServiceCard[] = [
       "By collaborating with a diverse range of organisations, places and partnerships, we help you understand the potential impact of various scenarios to deliver measurable results and achieve economic growth.",
     image: "/home/what-we-do-03.svg",
     linkText: "Find out more",
-    linkHref: "/exceptional-consulting",
+    linkHref: "/courses",
   },
 ]
 
