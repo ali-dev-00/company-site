@@ -1,5 +1,5 @@
-
 import Image from "next/image"
+import Link from "next/link";
 
 export default function UpcomingCourses() {
     const upcomingCourses = [
@@ -33,8 +33,8 @@ export default function UpcomingCourses() {
     <section className="w-full py-8 md:py-12 lg:py-16 bg-white">
       <div className="mx-auto max-w-[1366px] px-4 md:px-8 lg:px-16">
         <h2 className="text-3xl font-bold tracking-tight text-center mb-8 md:mb-12">Upcoming Courses</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6 justify-center max-w-6xl mx-auto">
-        {upcomingCourses.map((course) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6 justify-items-center mx-auto">
+          {upcomingCourses.map((course) => (
             <div key={course.id} className="w-full max-w-[300px]">
               <div className="relative rounded-5xl">
                 <Image
@@ -50,8 +50,8 @@ export default function UpcomingCourses() {
                   </div>
                 )}
               </div>
-              <div className="py-4 ">
-                <h3 className="text-md font-semibold mb-2">{course.title}</h3>
+              <div className="py-4">
+                <Link href="/course-detail" className="text-md font-semibold mb-2 hover:text-red-600">{course.title}</Link>
               </div>
             </div>
           ))}

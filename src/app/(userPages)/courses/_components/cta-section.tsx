@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function CtaSection() {
   return (
@@ -14,9 +15,12 @@ export default function CtaSection() {
             With our responsive themes and mobile and desktop apps, enjoy a seamless experience on any device so will
             your blog the best visitors
           </p>
-          <Button className="bg-[#FF2424] hover:bg-[#FF2424]/90 text-white  py-5 px-8 rounded-md text-lg">
+          <Link href='/join-us'>
+          <Button className="bg-[#FF2424] cursor-pointer hover:bg-[#FF2424]/90 text-white  py-5 px-8 rounded-md text-lg">
             Join now
           </Button>
+          </Link>
+         
         </div>
 
         {/* Abstract Image */}

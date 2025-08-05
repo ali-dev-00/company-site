@@ -4,39 +4,39 @@ import Image from "next/image"
 
 const links = [
     {
-        id: "board",
-        label: "Our Board",
-        href: "/board",
+        id: "about-us",
+        label: "About Us",
+        href: "/about-us",
     },
     {
-        id: "management",
-        label: "Our Senior Management Team",
-        href: "/management",
+        id: "what-we-do",
+        label: "What We do",
+        href: "/what-we-do",
     },
     {
-        id: "credentials",
-        label: "Our Credentials",
-        href: "/credentials",
+        id: "courses",
+        label: "Courses",
+        href: "/courses",
     },
     {
-        id: "edi",
-        label: "Our EDI commitment",
-        href: "/edi",
+        id: "join-us",
+        label: "Join Us",
+        href: "/join-us",
     },
     {
-        id: "carbon-reduction",
-        label: "Carbon Reduction Plan",
-        href: "/carbon-reduction",
-    },
-    {
-        id: "policies",
-        label: "Company Policies",
-        href: "/policies",
+        id: "terms-conditions",
+        label: "Terms and Conditions",
+        href: "/terms-and-conditions",
     },
     {
         id: "privacy",
         label: "Privacy Policy",
-        href: "/privacy",
+        href: "/privacy-policy",
+    },
+    {
+        id: "contact-us",
+        label: "Contact Us",
+        href: "/contact-us",
     },
 ];
 
@@ -82,7 +82,7 @@ export default function Footer() {
                         {/* Left Section - Logo and Description */}
                         <div className="space-y-4 float-end">
                             <div className="flex items-center gap-2">
-                                <Link href="#" className="flex items-center">
+                                <Link href="/home" className="flex items-center">
                                     <Image
                                         src="/footer-logo.svg"
                                         height={40}

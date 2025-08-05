@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Star, StarHalf } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function BestSellerCourses() {
   const categories = [
@@ -91,7 +92,7 @@ export default function BestSellerCourses() {
                 )}
               </div>
               <div className="py-4 px-2">
-                <h3 className="text-lg font-semibold mb-2">{course.title}</h3>
+                <Link href='/course-detail' className="text-lg font-semibold mb-2 hover:text-red-600">{course.title}</Link>
                 <div className="flex items-center gap-1 text-sm text-gray-600">
                 {Array.from({ length: 5 }).map((_, i) => {
                     const rating = course.rating

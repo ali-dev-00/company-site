@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { Star } from "lucide-react"
+import Link from "next/link"
 
 export default function TrendingCourses() {
   const courses = [
@@ -70,9 +71,11 @@ export default function TrendingCourses() {
         {/* Smaller Course Cards Grid - Now using plain div elements */}
         <div className="lg:col-span-1 grid grid-cols-1 md:grid-cols-2 pt-8 gap-6">
           {courses.map((course, index) => (
-            <div
+          
+            <Link
               key={index}
-              className="w-full rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-white"
+               href="/course-detail"
+              className="w-full rounded-2xl overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-300 bg-white"
             >
               <div className="relative w-full h-40">
                 <Image
@@ -80,12 +83,12 @@ export default function TrendingCourses() {
                   alt={course.title}
                   layout="fill"
                   objectFit="cover"
-                  className="rounded-t-xl"
+                  className="rounded-2xl"
                 />
                 {(course.isBestSeller || course.discount) && (
                   <div className="absolute top-2 left-2 flex gap-2">
                     {course.isBestSeller && (
-                      <span className="bg-v0-red text-white text-xs font-semibold px-2 py-1 rounded-full">
+                      <span className="bg-red-600 text-white text-xs font-semibold px-2 py-1 rounded-full">
                         Best Seller
                       </span>
                     )}
@@ -97,7 +100,7 @@ export default function TrendingCourses() {
                   </div>
                 )}
               </div>
-              <div className="p-4">
+              <div className="py-4 px-2">
                 <h3 className="text-base font-semibold text-gray-800 mb-2 line-clamp-2">{course.title}</h3>
                 <div className="flex items-center text-sm text-gray-600">
                   <div className="flex mr-1">
@@ -111,7 +114,8 @@ export default function TrendingCourses() {
                   <span>{course.reviews}</span>
                 </div>
               </div>
-            </div>
+            </Link>
+         
           ))}
         </div>
       </div>

@@ -30,35 +30,35 @@ const jobOpenings: JobOpening[] = [
         title: "Wordpress Developer",
         experience: "2 Years",
         deadline: "2021-05-08",
-        linkHref: "/careers/wordpress-developer",
+        linkHref: "/job-detail",
     },
     {
         id: "javascript-developer",
         title: "Javascript",
         experience: "1 Years",
         deadline: "2021-05-08",
-        linkHref: "/careers/javascript-developer",
+        linkHref: "/job-detail",
     },
     {
         id: "apps-developer",
         title: "Apps Developer",
         experience: "3 Years",
         deadline: "2021-05-08",
-        linkHref: "/careers/apps-developer",
+        linkHref: "/job-detail",
     },
     {
         id: "ios-developer",
         title: "IOS Developer",
         experience: "2 Years",
         deadline: "2021-05-08",
-        linkHref: "/careers/ios-developer",
+        linkHref: "/job-detail",
     },
     {
         id: "node-js-developer",
         title: "Node JS Developer",
         experience: "3 Years",
         deadline: "2021-05-08",
-        linkHref: "/careers/node-js-developer",
+        linkHref: "/job-detail",
     },
 ]
 
@@ -83,7 +83,7 @@ const CareerOpenings = () => {
               <Link
                 key={category.id}
                 href={`/careers?category=${category.id}`}
-                className={`text-lg font-medium ${
+                className={`text-lg font-medium group ${
                   category.isActive ? "text-[#ff2424]" : "text-gray-700 hover:text-gray-900"
                 } transition-colors`}
               >
@@ -97,7 +97,7 @@ const CareerOpenings = () => {
             {jobOpenings.map((job) => (
               <Link
                 key={job.id}
-                href={`/careers/${job.id}`}
+                href={`/job-detail`}
                 className="flex  flex-col sm:flex-row items-start sm:items-center justify-between bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-300 group"
               >
                 <div className="md:flex  flex-1 md:justify-between md:max-w-[80%] items-center  mb-4 sm:mb-0">
@@ -113,7 +113,7 @@ const CareerOpenings = () => {
                     </div>
                   </div>
                 </div>
-                <ArrowRight className="w-6 h-6 text-gray-500 group-hover:translate-x-1 transition-transform duration-300 sm:ml-auto" />
+                <ArrowRight className="w-6 h-6 text-gray-500 group-hover:translate-x-1 group-hover:-rotate-45 group-hover:text-red-600 transition-all duration-300 sm:ml-auto" />
               </Link>
             ))}
           </div>
