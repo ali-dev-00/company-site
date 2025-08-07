@@ -2,10 +2,11 @@ import { ChevronRight } from "lucide-react"
 import Link from "next/link"
 
 interface PageHeadingProps {
-  currentPage: string
+  currentPage: string,
+  mainPage?: React.ReactNode | null;
 }
 
-export default function PageHeading({ currentPage }: PageHeadingProps) {
+export default function PageHeading({ currentPage , mainPage  }: PageHeadingProps) {
   return (
     <section className="py-3 bg-white">
       <div className="max-w-[1366px] mx-auto px-4 md:px-8 lg:px-16">
@@ -13,7 +14,7 @@ export default function PageHeading({ currentPage }: PageHeadingProps) {
           <ol className="flex items-center space-x-1">
             <li>
               <Link href="/home" className="text-gray-600 hover:text-gray-900 transition-colors">
-                Home
+               {mainPage ?? 'Home' }
               </Link>
             </li>
             <li>

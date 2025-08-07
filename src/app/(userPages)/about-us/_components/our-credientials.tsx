@@ -35,7 +35,7 @@ export default function OurCredentials() {
             <h3 className="text-xl font-semibold text-gray-900 mb-2">Accreditations and certifications</h3>
             <p className="text-gray-600 text-sm mb-6">View the full list of our accreditations and certifications.</p>
             <Link
-              href="/accreditations"
+              href="/our-credientials"
               className="inline-flex  hover:underline items-center text-[#ff2424] hover:text-red-600 font-medium text-sm transition-all duration-300 group"
             >
               Find out more
