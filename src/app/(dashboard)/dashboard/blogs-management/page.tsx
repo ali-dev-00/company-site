@@ -178,7 +178,7 @@ export default function BlogsManagement() {
     setSelectedBlogId(null);
   };
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-6  min-h-screen">
       {/* First Section: Header with border and rounded corners */}
       <div className="rounded-lg border border-gray-200 p-6 mb-6 bg-white">
         <div className="flex flex-col md:flex-row    items-center justify-between">

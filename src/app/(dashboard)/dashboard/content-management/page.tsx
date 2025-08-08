@@ -1,9 +1,5 @@
-import React from 'react'
+import { redirect } from 'next/navigation';
 
-const ContentManagement = () => {
-  return (
-    <div>Content</div>
-  )
+export default function DashboardRootPage() {
+  redirect('/dashboard/content-management/home'); 
 }
-
-export default ContentManagement
