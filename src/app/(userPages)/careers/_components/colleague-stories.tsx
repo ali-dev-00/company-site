@@ -40,7 +40,7 @@ const storyItems: StoryCard[] = [
 
 export default function ColleagueStories() {
     return (
-        <section className="py-16 bg-[#F4F2F2]">
+        <section className="py-16 ">
             <div className="max-w-[1366px] mx-auto px-4 md:px-8 lg:px-16">
                 {/* Section Header */}
                 <div className="mb-12">
@@ -53,7 +53,6 @@ export default function ColleagueStories() {
                     </p>
                 </div>
 
-                {/* Story Cards Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {storyItems.map((story) => (
                         <Link

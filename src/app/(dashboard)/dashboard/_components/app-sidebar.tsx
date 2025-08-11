@@ -19,7 +19,8 @@ const menuItems = [
   { title: "Job Management", icon: Briefcase , href: "/dashboard/job-management" },
   { title: "Blogs Management", icon: ShoppingBag , href: "/dashboard/blogs-management" },
   { title: "Messages", icon: MessageCircleMore , href: "/dashboard/messages" },
-
+  { title: "Content Management", icon: ShoppingBag , href: "/dashboard/content-management/home" },
+ 
 ]
 
 

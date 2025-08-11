@@ -5,6 +5,7 @@ import ColleagueStories from "./_components/colleague-stories";
 import ContactUsBanner from "../components/common/contact-us-banner";
 import ParagraphSection from "../components/common/paragraph-section";
 import CareerHero from "./_components/careers-hero";
+import { CareerAwards } from "./_components/career-awards";
 
 const CareersPage = () => {
   return (
@@ -19,6 +20,7 @@ const CareersPage = () => {
               achieve more, both professionally and personally."
       />
       <CompanyPurpose />
+      <CareerAwards />
       <ColleagueStories />
       <ContactUsBanner />
     </>
