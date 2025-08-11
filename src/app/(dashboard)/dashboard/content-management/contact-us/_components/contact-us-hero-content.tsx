@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { CloudUpload } from 'lucide-react'
 
-export default function AboutUsHeroContent() {
+export default function ContactUsHeroContent() {
   const [isDragging, setIsDragging] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
 

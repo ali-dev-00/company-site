@@ -1,40 +1,31 @@
-"use client"
-
 import React from "react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Flag, Star, Heart, Bell } from "lucide-react"
-
-const iconOptions = [
-  { value: "Flag", icon: <Flag className="w-6 h-6" /> },
-  { value: "Star", icon: <Star className="w-6 h-6" /> },
-  { value: "Heart", icon: <Heart className="w-6 h-6" /> },
-  { value: "Bell", icon: <Bell className="w-6 h-6" /> },
-]
+import { Label } from "@/components/ui/label"
 
 interface IconSelectProps {
   id: string
-  defaultValue: string
+  value: string
   onChange: (value: string) => void
+  options: string[]
 }
 
-const IconSelect: React.FC<IconSelectProps> = ({ id, defaultValue, onChange }) => {
+const IconSelect: React.FC<IconSelectProps> = ({ id, value, onChange, options }) => {
   return (
     <div>
-      <Select defaultValue={defaultValue} onValueChange={onChange}>
-        <SelectTrigger id={id} className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600">
-          <SelectValue placeholder="Select an icon" />
-        </SelectTrigger>
-        <SelectContent className="bg-white border-gray-300">
-          {iconOptions.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              <div className="flex items-center space-x-2">
-                {option.icon}
-                <span>{option.value}</span>
-              </div>
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <Label htmlFor={id} className="text-base font-medium text-gray-800 mb-2 block">
+        Icon
+      </Label>
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-12 rounded-md border border-gray-300 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600"
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
     </div>
   )
 }

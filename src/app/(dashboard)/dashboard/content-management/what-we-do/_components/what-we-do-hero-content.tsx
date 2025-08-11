@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useCallback } from "react"
+import React, { useState, useRef, useCallback } from "react"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
@@ -11,6 +11,15 @@ export default function WhatWeDoHeroContent() {
   const [isDragging, setIsDragging] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
+  const [formData, setFormData] = useState({
+    title: "",
+    subtitle: "",
+  })
+
+  // Reference for the file input element
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+  // Handle drag over and leave for the image upload area
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault()
     e.stopPropagation()
@@ -32,20 +41,32 @@ export default function WhatWeDoHeroContent() {
     }
   }, [])
 
+  // Handle file change (when user selects a file)
   const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setSelectedFile(e.target.files[0])
     }
   }, [])
 
+  // Handle form field changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [id]: value,
+    }))
+  }
+
+  // Handle form save logic
   const handleSave = () => {
-    // Implement save logic here, e.g., send data to an API
-    console.log("Saving form data:", {
-      title: (document.getElementById("title") as HTMLInputElement)?.value,
-      subtitle: (document.getElementById("subtitle") as HTMLTextAreaElement)?.value,
-      image: selectedFile,
-    })
+    console.log("Saving form data:", formData)
+    console.log("Selected file:", selectedFile)
     alert("Form data saved! (Check console for details)")
+  }
+
+  // Open file input when the user clicks on the upload area
+  const handleUploadClick = () => {
+    fileInputRef.current?.click()
   }
 
   return (
@@ -59,7 +80,13 @@ export default function WhatWeDoHeroContent() {
             <Label htmlFor="title" className="text-base font-medium text-gray-800 mb-2 block">
               Title
             </Label>
-            <Input id="title" placeholder="Welcome" className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600" />
+            <Input
+              id="title"
+              value={formData.title}
+              onChange={handleInputChange}
+              placeholder="Welcome"
+              className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600"
+            />
           </div>
 
           {/* Subtitle Textarea */}
@@ -69,6 +96,8 @@ export default function WhatWeDoHeroContent() {
             </Label>
             <Textarea
               id="subtitle"
+              value={formData.subtitle}
+              onChange={handleInputChange}
               placeholder="Write here"
               className="w-full h-28 resize-none border-gray-300 focus:border-red-600 focus:ring-red-600"
             />
@@ -80,13 +109,11 @@ export default function WhatWeDoHeroContent() {
               Upload Image
             </Label>
             <div
-              className={`flex flex-col items-center justify-center p-8 border-2 ${
-                isDragging ? "border-red-600" : "border-gray-300"
-              } border-dashed rounded-lg cursor-pointer transition-colors duration-200`}
+              className={`flex flex-col items-center justify-center p-8 border-2 ${isDragging ? "border-red-600" : "border-gray-300"} border-dashed rounded-lg cursor-pointer transition-colors duration-200`}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
-              onClick={() => document.getElementById("file-input")?.click()}
+              onClick={handleUploadClick}
             >
               <CloudUpload className="w-10 h-10 text-gray-400 mb-3" />
               <p className="text-gray-600 text-sm text-center">
@@ -94,9 +121,9 @@ export default function WhatWeDoHeroContent() {
               </p>
               <p className="text-gray-500 text-xs text-center mt-1">SVG, PNG, JPG or GIF (max. 800x400px)</p>
               <input
-                id="file-input"
                 type="file"
                 className="hidden"
+                ref={fileInputRef}
                 onChange={handleFileChange}
                 accept=".svg,.png,.jpg,.jpeg,.gif"
               />
@@ -114,7 +141,6 @@ export default function WhatWeDoHeroContent() {
           </div>
         </div>
       </div>
-     
     </section>
   )
 }

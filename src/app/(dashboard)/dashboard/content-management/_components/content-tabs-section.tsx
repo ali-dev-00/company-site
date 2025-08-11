@@ -14,7 +14,8 @@ const tabs: TabItem[] = [
     { id: "home", label: "Home", link: "/dashboard/content-management/home" },
     { id: "about-us", label: "About Us", link: "/dashboard/content-management/about-us" },
     { id: "what-we-do", label: "What We Do", link: "/dashboard/content-management/what-we-do" },
-   
+    { id: "work-with-us", label: "Work With Us", link: "/dashboard/content-management/work-with-us" },
+    { id: "contact-us", label: "Contact Us", link: "/dashboard/content-management/contact-us" },
 ]
 
 export default function ContentTabsSection() {
