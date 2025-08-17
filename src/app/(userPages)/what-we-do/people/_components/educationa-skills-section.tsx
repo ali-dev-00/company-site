@@ -98,8 +98,8 @@ export default function EducationSkillsSection() {
   const currentContent = activeTab === "education-skills" ? educationSkillsContent : otherTabContent[activeTab as keyof typeof otherTabContent]
 
   return (
-    <section className="py-12 px-4 md:px-6 lg:px-8 bg-white">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-12  bg-white">
+      <div className="max-w-[1366px] mx-auto px-4 md:px-8 lg:px-16">
 
         {/* Tabs Navigation */}
         <div className="flex flex-wrap gap-x-1 gap-y-2 mb-8 border-b border-gray-200">

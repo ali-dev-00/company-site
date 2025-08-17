@@ -5,9 +5,10 @@ import Image from "next/image"
 import type { CarouselApi } from "@/components/ui/carousel"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { cn } from "@/lib/utils"
-import TitleWithUnderline from "../../components/common/Title-with-underline"
+import TitleWithUnderline from "../../../components/common/Title-with-underline"
+import { ArrowRight } from "lucide-react"
 
-export function CareerAwards() {
+export function WhoWeAreLooking() {
     const [api, setApi] = React.useState<CarouselApi>()
     const [current, setCurrent] = React.useState(0)
     const [count, setCount] = React.useState(0)
@@ -54,13 +55,27 @@ export function CareerAwards() {
 
     return (
         <section className="w-full py-12  bg-white">
-            <div className="max-w-[1336px] mx-auto px-4 md:px-8 lg:px-16 text-center">
+            <div className="max-w-[1336px] mx-auto px-4 md:px-8 lg:px-16 ">
                 {/* Section Header */}
                 <div className="mb-12">
-                    <div className=" max-w-[580px] mb-5">
-                        <TitleWithUnderline title="Employer awards and accreditations" />
+                    <div className="max-w-[580px] mb-5">
+                        <TitleWithUnderline title="Who we&apos;re looking for" />
                     </div>
-                    <p className="text-gray-600 text-lg">
+                    <p className="text-gray-600 text-base ">
+                        We continuously strive to be a good employer and we&apos;re proud to have received the following employer awards and accreditations.
+                    </p>
+                    <p className="text-gray-600 text-base flex  gap-2"> Find out more about our
+                        <div className="flex justify-between items-center">
+                            <span className="inline-flex group cursor-pointer items-center hover:underline text-[#ff2424] hover:text-red-600 font-medium text-base transition-colors duration-200">
+                                values
+                                <ArrowRight className="ml-2 h-4 w-4  group-hover:rotate-[-45deg] transition-transform duration-300" />
+                            </span>
+                        </div>
+                    </p>
+                    <p className="mx-auto text-center max-w-2xl mt-5  text-gray-600 text-base">
+                        Employer awards and accreditations.
+                    </p>
+                    <p className="mx-auto text-center max-w-2xl  text-gray-600 text-base">
                         We continuously strive to be a good employer and we&apos;re proud to have received the following employer awards and accreditations.
                     </p>
                 </div>

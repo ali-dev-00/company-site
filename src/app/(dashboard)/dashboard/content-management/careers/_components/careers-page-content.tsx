@@ -14,8 +14,7 @@ type FeatureItem = {
   image: File | null
 }
 
-export default function WhatWeDoSection01() {
-  // State to store form data for multiple features
+export default function CareerPageContent() {
   const [formData, setFormData] = useState<FeatureItem[]>([
     {
       title: "",
@@ -38,13 +37,7 @@ export default function WhatWeDoSection01() {
       buttonLink: "",
       image: null,
     },
-    {
-      title: "",
-      subtitle: "",
-      buttonText: "",
-      buttonLink: "",
-      image: null,
-    },
+   
   ])
 
   // Handle input change for all fields
@@ -77,7 +70,6 @@ export default function WhatWeDoSection01() {
         <form className="space-y-8">
           {/* Title and Subtitle */}
           <div>
-
             <div className="space-y-4">
               <div>
                 <Label htmlFor="title" className="text-base font-medium text-gray-800 mb-2 block">
@@ -109,7 +101,7 @@ export default function WhatWeDoSection01() {
           {/* Features Sections */}
           {formData.map((feature, index) => (
             <div key={index}>
-              <h2 className="text-xl font-bold text-gray-900 mb-6">Feature {index + 1}</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-6">Features</h2>
               <div className="space-y-4">
                 <div>
                   <Label htmlFor={`feature-title-${index}`} className="text-base font-medium text-gray-800 mb-2 block">

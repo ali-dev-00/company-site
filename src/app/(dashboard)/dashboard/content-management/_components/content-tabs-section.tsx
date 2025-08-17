@@ -16,7 +16,16 @@ const tabs: TabItem[] = [
     { id: "what-we-do", label: "What We Do", link: "/dashboard/content-management/what-we-do" },
     { id: "work-with-us", label: "Work With Us", link: "/dashboard/content-management/work-with-us" },
     { id: "contact-us", label: "Contact Us", link: "/dashboard/content-management/contact-us" },
-]
+    { id: "course", label: "Course", link: "/dashboard/content-management/course" },
+    { id: "footer", label: "Footer", link: "/dashboard/content-management/footer" },
+    { id: "header", label: "Header", link: "/dashboard/content-management/header" },
+    { id: "careers", label: "Careers", link: "/dashboard/content-management/careers" },
+    { id: "board", label: "Our Board", link: "/dashboard/content-management/our-board" },
+    { id: "credientials", label: "Our Credientials", link: "/dashboard/content-management/our-credientials" },
+    { id: "story", label: "Our Story", link: "/dashboard/content-management/our-story" },
+    { id: "career-stories", label: "Career Stories", link: "/dashboard/content-management/career-stories" },
+    { id: "our-values", label: "Our Values", link: "/dashboard/content-management/our-values" },
+]   
 
 export default function ContentTabsSection() {
     const pathname = usePathname()

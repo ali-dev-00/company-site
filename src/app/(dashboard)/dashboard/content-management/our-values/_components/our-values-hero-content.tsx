@@ -7,14 +7,13 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { CloudUpload } from 'lucide-react'
 
-export default function CourseHeroContent() {
+export default function OurValuesHeroContent() {
   const [isDragging, setIsDragging] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
   const [formData, setFormData] = useState({
     title: "",
-    subtitle1: "",
-    subtitle2: "",
+    subtitle: "",
   })
 
   // Reference for the file input element
@@ -92,12 +91,12 @@ export default function CourseHeroContent() {
 
           {/* Subtitle Textarea */}
           <div>
-            <Label htmlFor="subtitle1" className="text-base font-medium text-gray-800 mb-2 block">
+            <Label htmlFor="subtitle" className="text-base font-medium text-gray-800 mb-2 block">
               Subtitle
             </Label>
             <Textarea
-              id="subtitle1"
-              value={formData.subtitle1}
+              id="subtitle"
+              value={formData.subtitle}
               onChange={handleInputChange}
               placeholder="Write here"
               className="w-full h-28 resize-none border-gray-300 focus:border-red-600 focus:ring-red-600"
@@ -132,19 +131,6 @@ export default function CourseHeroContent() {
                 <p className="mt-2 text-sm text-gray-700">Selected file: {selectedFile.name}</p>
               )}
             </div>
-          </div>
-            {/* Subtitle Textarea */}
-            <div>
-            <Label htmlFor="subtitle2" className="text-base font-medium text-gray-800 mb-2 block">
-              Subtitle
-            </Label>
-            <Textarea
-              id="subtitle2"
-              value={formData.subtitle2}
-              onChange={handleInputChange}
-              placeholder="Write here"
-              className="w-full h-28 resize-none border-gray-300 focus:border-red-600 focus:ring-red-600"
-            />
           </div>
 
           {/* Save Button */}

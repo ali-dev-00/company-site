@@ -1,12 +1,12 @@
 import Image from "next/image"
 
-export default function AboutUsHeroSection() {
+export default function ConsultingHeroSection() {
   return (
     <section className="relative bg-[#F4F2F2] mx-auto h-screen max-h-[600px] w-full mb-40 lg:mb-48 xl:mb-50">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/about/about-us-hero.svg"
+          src="/what-we-do/consulting-hero.jpg"
           alt="Team collaboration in office environment"
           fill
           className="object-cover object-center sm:object-center md:object-center"
@@ -21,7 +21,7 @@ export default function AboutUsHeroSection() {
           <div className="relative maax-w-full sm:max-w-4xl lg:max-w-5xl">
          
             <h1 className="text-2xl font-bold z-50 text-white mb-4 sm:text-3xl sm:mb-5 md:text-4xl md:mb-6  lg:mb-6">
-             Who we are
+            Consulting
             </h1>
 
             {/* Decorative Line */}
@@ -32,12 +32,8 @@ export default function AboutUsHeroSection() {
 
             {/* Subtitle */}
             <p className="text-sm text-white mb-4 font-medium sm:text-base sm:mb-5 md:mb-6 ">
-            At the Growth Company, we don’t just respond to change; we shape it.
-            </p>
-
-            {/* Description */}
-            <p className="text-sm text-white leading-relaxed max-w-full sm:text-base  md:text-base md:max-w-3xl lg:max-w-4xl">
-            As a pioneering social enterprise founded on the principles of inclusive growth, we’ve spent the last 35 years driving innovation in the delivery of insight, business, employment and skills support.
+              Delivering economic development programmes to achieve growth ambitions, our consulting service, GC Insight,
+               builds on the capabilities of the Growth Company, ekosgen and Winning Moves.
             </p>
           </div>
           <div className="bg-black/6 top-[-150px] -left-[-94.7px] bottom-[-350px] rotate-45 w-[180px] h-[600px] absolute "/>
