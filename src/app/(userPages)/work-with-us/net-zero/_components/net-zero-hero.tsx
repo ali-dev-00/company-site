@@ -31,7 +31,7 @@ export default function NetZeroHero() {
 
                             {/* Subtitle */}
                             <p className="text-sm text-white mb-4 font-medium sm:text-base sm:mb-5 md:mb-6 ">
-                                At the Growth Company, we're committed to a future where addressing the climate crisis goes hand in hand with reducing inequalities, sparking innovation across sectors, and supporting the creation of green jobs.
+                                At the Growth Company, we&apos;re committed to a future where addressing the climate crisis goes hand in hand with reducing inequalities, sparking innovation across sectors, and supporting the creation of green jobs.
                             </p>
                         </div>
                         <div className="bg-black/6 top-[-150px] -left-[-94.7px] bottom-[-350px] rotate-45 w-[180px] h-[600px] absolute " />

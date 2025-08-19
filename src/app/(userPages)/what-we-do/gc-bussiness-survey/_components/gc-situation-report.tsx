@@ -50,7 +50,7 @@ export default function GCSituationReportSection() {
   
               <p>
                 GC Business Confidence Index (GC-BCI): GC-BCI fell for June 2025 stands at 7.2 out of 10, showing an
-                increase from the previous quarter's figure of 7.1. Confidence levels are above average for Business
+                increase from the previous quarter&apos;s figure of 7.1. Confidence levels are above average for Business
                 Financial & Professional Services, Manufacturing and Engineering, ICTs, Construction, Hospitality, and
                 Retail and fell lower than average confidence was reported in Green Tech, Health & Social Care, Life
                 Sciences, Education and Logistics.

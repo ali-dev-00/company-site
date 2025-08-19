@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Plus, Minus, Play, ArrowRight } from "lucide-react"
+import { Plus, Minus, Play } from "lucide-react"
 import TitleWithUnderline from "@/app/(userPages)/components/common/Title-with-underline"
 
 interface ExpandableItemProps {

@@ -24,7 +24,13 @@ const tabs: TabItem[] = [
     { id: "credientials", label: "Our Credientials", link: "/dashboard/content-management/our-credientials" },
     { id: "story", label: "Our Story", link: "/dashboard/content-management/our-story" },
     { id: "career-stories", label: "Career Stories", link: "/dashboard/content-management/career-stories" },
-    { id: "our-values", label: "Our Values", link: "/dashboard/content-management/our-values" },
+    { id: "bussiness", label: "Bussiness", link: "/dashboard/content-management/bussiness" },
+    { id: "People", label: "People", link: "/dashboard/content-management/people" },
+    { id: "International", label: "International", link: "/dashboard/content-management/international" },
+    { id: "Consulting", label: "Consulting", link: "/dashboard/content-management/consulting" },
+    { id: "lifeatgc", label: "Life at GC", link: "/dashboard/content-management/life-at-gc" },
+    { id: "gcbussinesssurvery", label: "GC Bussiness Survery", link: "/dashboard/content-management/gc-bussiness-survey" },
+    { id: "becomeAsupplier", label: "Become a Supplier", link: "/dashboard/content-management/become-a-supplier" },
 ]   
 
 export default function ContentTabsSection() {
@@ -32,7 +38,6 @@ export default function ContentTabsSection() {
     const [activeTab, setActiveTab] = useState<string>("home")
     const scrollContainerRef = useRef<HTMLDivElement>(null)
 
-    // Determine active tab from pathname and hash
     useEffect(() => {
         const getHash = () => (typeof window !== "undefined" ? window.location.hash : "")
 

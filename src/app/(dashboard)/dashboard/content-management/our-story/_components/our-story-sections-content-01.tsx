@@ -41,7 +41,7 @@ export default function OurStorySectionsContent01() {
         <section className="p-6 space-y-6">
 
             {formData.map((item, index) => (
-                <div className="mx-auto bg-white p-6 border border-gray-200 rounded-xl shadow-sm space-y-8">
+                <div key={index} className="mx-auto bg-white p-6 border border-gray-200 rounded-xl shadow-sm space-y-8">
                     <form className="space-y-6">
                         <div key={index} className="space-y-4">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

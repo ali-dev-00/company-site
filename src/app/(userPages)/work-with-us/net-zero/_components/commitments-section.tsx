@@ -29,7 +29,7 @@ export default function SustainabilityCommitmentsSection() {
       title: "Carbon Literacy",
       description: (
         <>
-          Accredited as a <span className="text-red-600 font-medium">Carbon Literate 'Bronze' Organisation</span>
+          Accredited as a <span className="text-red-600 font-medium">Carbon Literate &apos;Bronze&apos; Organisation</span>
         </>
       ),
     },
@@ -42,9 +42,9 @@ export default function SustainabilityCommitmentsSection() {
           {/* Introduction Text */}
           <div className="space-y-4 text-gray-700 text-base md:text-lg leading-relaxed">
             <p>
-              As an award-winning social enterprise, we've championed sustainability across Greater Manchester and
+              As an award-winning social enterprise, we&apos;ve championed sustainability across Greater Manchester and
               beyond for nearly two decades, recognising that protecting our planet aligns with sustainable economic
-              growth. We know that tackling climate change requires collective effort, and we're well-positioned to
+              growth. We know that tackling climate change requires collective effort, and we&apos;re well-positioned to
               drive positive change.
             </p>
             <p>

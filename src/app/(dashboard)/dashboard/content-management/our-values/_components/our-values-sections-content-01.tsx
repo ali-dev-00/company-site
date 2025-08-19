@@ -31,7 +31,7 @@ export default function OurValuesSectionsContent01() {
         <section className="px-6 py-2 space-y-6">
 
             {formData.map((section, index) => (
-                <div className="border-gray-200 border mx-auto bg-white p-8 rounded-xl shadow-sm">
+                <div key={index} className="border-gray-200 border mx-auto bg-white p-8 rounded-xl shadow-sm">
                     <div className="space-y-8">
                         <div key={index} className="space-y-6">
                             <h2 className="text-xl font-bold text-gray-900">Features</h2>

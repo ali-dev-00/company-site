@@ -96,7 +96,7 @@ export default function SustainabilityServicesSection() {
               <span className="absolute bottom-0 left-0 w-16 h-1 bg-red-600 rounded-full" />
             </div>
             <p className="text-gray-700 text-base md:text-lg leading-relaxed max-w-4xl">
-              At the Growth Company, we offer a range of services that support the nation's ambition to achieve net-zero
+              At the Growth Company, we offer a range of services that support the nation&apos;s ambition to achieve net-zero
               by 2050, while improving lives and businesses in the communities we serve.
             </p>
           </div>

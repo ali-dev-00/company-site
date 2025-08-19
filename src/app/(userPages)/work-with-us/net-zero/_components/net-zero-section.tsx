@@ -102,14 +102,14 @@ export default function NetZeroSection() {
                             <div className="grid grid-cols-1 lg:grid-cols-4 space" >
                                 <div className="lg:col-span-3 space-y-4" >
                                     <p>
-                                        We're proud to pledge our support for the UN's Race to Net Zero through Business Declares, a
+                                        We&apos;re proud to pledge our support for the UN&apos;s Race to Net Zero through Business Declares, a
                                         fast-growing network of businesses who acknowledge the Climate and Ecological Emergency. Our aim is to
                                         continue to reduce our emissions and impact on biodiversity year-on-year, off-setting the remaining
                                         carbon through a recognised carbon off-setting scheme, to the point of becoming Net Zero by 2035.
                                     </p>
 
                                     <p>
-                                        Concern for both people and the planet are not new to us. We're an award-winning provider of
+                                        Concern for both people and the planet are not new to us. We&apos;re an award-winning provider of
                                         environmental services, having helped Greater Manchester small-medium enterprises save 2 million tonnes
                                         of carbon.
                                     </p>
@@ -135,12 +135,12 @@ export default function NetZeroSection() {
                             <p>
                                 We look forward to continuing to share our journey and ensuring our voice is part of the collective,
                                 resounding call for change. We are certainly not claiming to be perfect, neither are we judging others -
-                                instead we're part of a coalition of the willing, looking to collaborate and accelerate action while
+                                instead we&apos;re part of a coalition of the willing, looking to collaborate and accelerate action while
                                 continuing to highlight the challenges and uncomfortable truths.
                             </p>
 
                             <p>
-                                To meet this goal, we've launched a 5-year programme focused on reducing energy and fuel consumption,
+                                To meet this goal, we&apos;ve launched a 5-year programme focused on reducing energy and fuel consumption,
                                 making sustainable purchasing decisions, and improving waste management. This initiative is designed to
                                 continually enhance the quality of our operations as we work towards a more sustainable future.
                             </p>

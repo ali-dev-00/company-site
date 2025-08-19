@@ -16,7 +16,7 @@ export default function LifeatGCHero() {
                             <div className="absolute left-0 top-0 h-1 w-10 sm:w-12 md:w-14 lg:w-16 bg-black"></div>
                         </div>
                         <p className="text-md">
-                        At the Growth Company we know that our success is down to the collective abilities of our colleagues, so we recognise each individual's contribution.
+                        At the Growth Company we know that our success is down to the collective abilities of our colleagues, so we recognise each individual&apos;s contribution.
                         </p>
                     </div>
                     <div className="bg-black/6 top-[-350px] -left-[-20.7px] bottom-[-350px] rotate-45 w-[180px] h-[950px] absolute " />
