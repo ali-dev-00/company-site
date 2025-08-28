@@ -1,5 +1,9 @@
-import { redirect } from 'next/navigation';
+import React from 'react'
 
-export default function DashboardRootPage() {
-  redirect('/dashboard/courses-management'); 
+const DashboardPage = () => {
+  return (
+    <div>DashboardPage</div>
+  )
 }
+
+export default DashboardPage

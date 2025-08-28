@@ -5,13 +5,13 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Search, ChevronLeft, ChevronRight, Trash, Pencil } from "lucide-react"
+import { Search, ChevronLeft, ChevronRight, Trash, Pencil, Menu } from "lucide-react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
 import DeleteModal from "./_components/delete-course"
 import AddCourseModal from "./_components/add-course-modal"
-
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 interface Course {
   _id: string
   name: string
@@ -307,117 +307,85 @@ export default function CoursesManagement() {
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   return (
-    <div className=" m-5 border border-gray-300 rounded-lg ">
-      <div className="mb-6 p-6 flex flex-col md:flex-row items-center justify-between">
+    <div className="m-5 border border-gray-300 rounded-lg ">
+      <div className=" p-6 flex flex-col md:flex-row items-center justify-between  border-b border-gray-200">
 
-        <div className="flex items-baseline gap-2">
+        <div className="flex items-baseline gap-2 ">
           <h1 className="text-xl font-bold">All Courses</h1>
           <Badge variant="secondary" className="bg-red-100 text-[#FF2424] text-sm font-medium px-2 py-1 rounded-full">
             {DUMMY_COURSES.length} courses
           </Badge>
         </div>
-        <div className=" flex flex-col md:flex-row pt-2 md:pt-0 items-center gap-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
-            <Input
-              placeholder="Search"
-              className="pl-9 w-[250px] border-gray-200 focus:ring-2 focus:ring-[#FF2424]"
-              value={globalSearchQuery}
-              onChange={handleGlobalSearchChange}
-            />
-          </div>
-          <Button className="bg-[#FF2424]  mt-2 md:mt-0 hover:bg-[#FF2424]/90 text-white"  onClick={() => setIsAddModalOpen(true)}>Add New Course</Button>
-        </div>
+
+        <Button className="bg-[#FF2424]  mt-2 md:mt-0 hover:bg-[#FF2424]/90 text-white" onClick={() => setIsAddModalOpen(true)}>Add New Course</Button>
       </div>
 
       {/* Filter Section */}
-      <Card className="mb-6 rounded-none shadow-none border-none bg-gray-100">
-        <CardContent className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
-          {/* Course Name */}
-          <div className="space-y-1 ">
-            <label htmlFor="course-name-filter" className="text-sm font-bold text-gray-700">
-              Course Name
-            </label>
-            <Input
-              id="course-name-filter"
-              placeholder="Search"
-              value={courseNameFilter}
-              onChange={(e) => setCourseNameFilter(e.target.value)}
-              className="border-gray-300 mt-2"
-            />
+      <Card className=" py-2 rounded-none shadow-none border-none border-t-gray-200">
+        <CardContent className="p-4 flex flex-col md:flex-row items-center justify-between ">
+          <div className=" flex flex-col md:flex-row  items-center gap-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
+              <Input
+                placeholder="Search"
+                className="pl-9 w-[250px] border-gray-200 focus:ring-2 focus:ring-[#FF2424]"
+                value={globalSearchQuery}
+                onChange={handleGlobalSearchChange}
+              />
+            </div>
+          
           </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 border-gray-300 bg-white px-4 py-2 rounded-lg"
+              >
+                <Menu className="h-4 w-4" />
+                Filters
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-32 p-0 bg-white border border-gray-200 rounded-lg shadow-lg">
+              <div className="py-2">
+                <button
+                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                  onClick={() => setStatusFilter(statusFilter === "Active" ? "" : "Active")}
+                >
+                  Active
+                </button>
+                <button
+                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                  onClick={() => setStatusFilter(statusFilter === "Not Active" ? "" : "Not Active")}
+                >
+                  Not Active
+                </button>
+                <button
+                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                  onClick={() => {
+                    // Toggle category filter - you can customize this logic
+                    setCategoryFilter(categoryFilter ? "" : "Design")
+                  }}
+                >
+                  Category
+                </button>
+                <button
+                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                  onClick={() => {
+                    // Toggle name filter - you can customize this logic
+                    setCourseNameFilter(courseNameFilter ? "" : "Design")
+                  }}
+                >
+                  Name
+                </button>
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-          {/* Category Name */}
-          <div className="space-y-1">
-            <label htmlFor="category-filter" className="text-sm font-bold text-gray-700 mt-2">
-              Category Name
-            </label>
-            <Select value={categoryFilter} onValueChange={setCategoryFilter} >
-              <SelectTrigger className="w-full text-gray-500 mt-2">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent className="text-gray-500">
-                <SelectItem value="all">All Categories</SelectItem>
-                {allCategories.map((category) => (
-                  <SelectItem key={category} value={category}>
-                    {category}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Location */}
-          <div className="space-y-1">
-            <label htmlFor="location-filter" className="text-sm font-bold text-gray-700 ">
-              Location
-            </label>
-            <Input
-              id="location-filter"
-              placeholder="Search"
-              value={locationFilter}
-              onChange={(e) => setLocationFilter(e.target.value)}
-              className="border-gray-300 mt-2"
-            />
-          </div>
-
-          {/* Status */}
-          <div className="space-y-1">
-            <label htmlFor="status-filter" className="text-sm font-bold text-gray-700">
-              Status
-            </label>
-            <Select value={statusFilter} onValueChange={setStatusFilter} >
-              <SelectTrigger className="w-full text-gray-500 mt-2  ">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent className="text-gray-500">
-                <SelectItem value="all">All Statuses</SelectItem>
-                {allStatuses.map((status) => (
-                  <SelectItem key={status} value={status}>
-                    {status}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Buttons */}
-          <div className="flex flex-col gap-1">
-            <Button className="bg-[#FF2424] hover:bg-[#FF2424]/90 text-white w-full" onClick={handleFilterSearch}>
-              Search
-            </Button>
-            <span
-              className="text-black  cursor-pointer hover:underline text-sm font-semibold text-center border-gray-200 bg-transparent"
-              onClick={handleClearFilters}
-            >
-              Clear Filters
-            </span>
-          </div>
         </CardContent>
       </Card>
 
       {/* Table */}
-      <Card className="border-none shadow-none">
+      <Card className="py-2 border-none shadow-none">
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <table className="w-full table-auto">
@@ -532,7 +500,7 @@ export default function CoursesManagement() {
         onClose={cancelDelete}
         onDelete={confirmDelete}
       />
-        <AddCourseModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} />
+      <AddCourseModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} />
       {/* Pagination */}
       <div className="flex overflow-x-auto items-center justify-between  p-6">
         <Button
