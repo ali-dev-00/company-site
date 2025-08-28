@@ -57,14 +57,14 @@ export default function RoleManagement() {
       if (res?.status && Array.isArray(res.data)) {
         const transformed: Role[] = res.data.map((item) => ({
           _id: item._id,
-          role: item.name,  
+          role: item.name,
           permission: Array.isArray(item.permissions)
             ? item.permissions.join(", ")
             : "",
           status: item.status ? "Active" : "Inactive",
           isToggled: item.status ?? false,
         }))
-  
+
         const start = (page - 1) * limit
         const end = start + limit
         setRoles(transformed.slice(start, end))
@@ -237,90 +237,90 @@ export default function RoleManagement() {
 
       <Card className="py-2 border-none shadow-none">
         <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full table-auto">
-              <thead className="bg-gray-100 border-b border-gray-300">
+
+          <table className="w-full table-auto">
+            <thead className="bg-gray-100 border-b border-gray-300">
+              <tr>
+                <th className="text-left p-4 text-sm font-bold text-gray-700">
+                  <Checkbox checked={selectAll} onCheckedChange={toggleAll} className="border-gray-300" />
+                </th>
+                <th className="text-left p-4 text-sm font-medium text-gray-700">Role</th>
+                <th className="text-left p-4 text-sm font-medium text-gray-700">Permission</th>
+                <th className="text-left p-4 text-sm font-medium text-gray-700">Status</th>
+                <th className="text-left p-4 text-sm font-medium text-gray-700">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {loading ? (
                 <tr>
-                  <th className="text-left p-4 text-sm font-bold text-gray-700">
-                    <Checkbox checked={selectAll} onCheckedChange={toggleAll} className="border-gray-300" />
-                  </th>
-                  <th className="text-left p-4 text-sm font-medium text-gray-700">Role</th>
-                  <th className="text-left p-4 text-sm font-medium text-gray-700">Permission</th>
-                  <th className="text-left p-4 text-sm font-medium text-gray-700">Status</th>
-                  <th className="text-left p-4 text-sm font-medium text-gray-700">Actions</th>
+                  <td colSpan={5} className="text-center py-6 text-gray-500">
+                    Loading roles...
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {loading ? (
-                  <tr>
-                    <td colSpan={5} className="text-center py-6 text-gray-500">
-                      Loading roles...
+              ) : paginatedRoles.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="text-center py-6 text-gray-500">
+                    No roles found.
+                  </td>
+                </tr>
+              ) : (
+                paginatedRoles.map((role) => (
+                  <tr key={role._id} className="border-b border-gray-200 hover:bg-gray-50">
+                    <td className="p-4 text-sm font-medium text-gray-600">
+                      <Checkbox
+                        checked={selectedRows.includes(role._id)}
+                        onCheckedChange={() => toggleRow(role._id)}
+                        className="border-gray-300"
+                      />
+                    </td>
+                    <td className="p-4 text-sm font-semibold text-gray-600">{role.role}</td>
+                    <td className="p-4 text-sm max-w-xs font-medium text-gray-600">
+                      <div className="flex flex-wrap gap-2">
+                        {Array.isArray(role.permission) ? (
+                          role.permission.map((perm: string, idx: number) => (
+                            <Badge key={idx} className="bg-white border border-gray-200 text-gray-700 rounded-md px-2 py-1 text-xs font-medium">
+                              {perm}
+                            </Badge>
+                          ))
+                        ) : (
+                          role.permission.split(",").map((perm: string, idx: number) => (
+                            <Badge key={idx} className="bg-white border border-gray-200 text-gray-700 rounded-md px-2 py-1 text-xs font-medium">
+                              {perm.trim()}
+                            </Badge>
+                          ))
+                        )}
+                      </div>
+                    </td>
+
+                    <td className="p-4 text-sm font-medium text-gray-600">
+                      <div className="flex items-center gap-3">
+                        <Badge className={cn("px-2 py-1 rounded-full text-xs font-medium", role.status === "Active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700")}>
+                          <span className={cn("inline-block w-2 h-2 rounded-full mr-1", role.status === "Active" ? "bg-green-500" : "bg-red-500")} />
+                          {role.status}
+                        </Badge>
+                      </div>
+                    </td>
+                    <td className="p-4 text-sm font-medium text-gray-600">
+
+                      <div className="flex items-center gap-2">
+                        {roleDeletePerm && (
+                          <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-500 hover:text-gray-700 cursor-pointer" onClick={() => handleDelete(role._id)}>
+                            <Trash className="h-4 w-4" />
+                          </Button>
+                        )}
+                        {roleEditPerm && (
+                          <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-500 hover:text-gray-700 cursor-pointer" onClick={() => handleEditClick(role._id)}>
+                            <Pencil className="h-4 w-4" />
+                          </Button>
+                        )}
+                      </div>
                     </td>
                   </tr>
-                ) : paginatedRoles.length === 0 ? (
-                  <tr>
-                    <td colSpan={5} className="text-center py-6 text-gray-500">
-                      No roles found.
-                    </td>
-                  </tr>
-                ) : (
-                  paginatedRoles.map((role) => (
-                    <tr key={role._id} className="border-b border-gray-200 hover:bg-gray-50">
-                      <td className="p-4 text-sm font-medium text-gray-600">
-                        <Checkbox
-                          checked={selectedRows.includes(role._id)}
-                          onCheckedChange={() => toggleRow(role._id)}
-                          className="border-gray-300"
-                        />
-                      </td>
-                      <td className="p-4 text-sm font-semibold text-gray-600">{role.role}</td>
-                      <td className="p-4 text-sm max-w-xs font-medium text-gray-600">
-  <div className="flex flex-wrap gap-2">
-    {Array.isArray(role.permission) ? (
-      role.permission.map((perm: string, idx: number) => (
-        <Badge key={idx} className="bg-white border border-gray-200 text-gray-700 rounded-md px-2 py-1 text-xs font-medium">
-          {perm}
-        </Badge>
-      ))
-    ) : (
-      role.permission.split(",").map((perm: string, idx: number) => (
-        <Badge key={idx} className="bg-white border border-gray-200 text-gray-700 rounded-md px-2 py-1 text-xs font-medium">
-          {perm.trim()}
-        </Badge>
-      ))
-    )}
-  </div>
-</td>
+                ))
+              )}
+            </tbody>
+          </table>
 
-                      <td className="p-4 text-sm font-medium text-gray-600">
-                        <div className="flex items-center gap-3">
-                          <Badge className={cn("px-2 py-1 rounded-full text-xs font-medium", role.status === "Active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700")}>
-                            <span className={cn("inline-block w-2 h-2 rounded-full mr-1", role.status === "Active" ? "bg-green-500" : "bg-red-500")} />
-                            {role.status}
-                          </Badge>
-                        </div>
-                      </td>
-                      <td className="p-4 text-sm font-medium text-gray-600">
-
-                        <div className="flex items-center gap-2">
-                          {roleDeletePerm && (
-                            <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-500 hover:text-gray-700 cursor-pointer" onClick={() => handleDelete(role._id)}>
-                              <Trash className="h-4 w-4" />
-                            </Button>
-                          )}
-                          {roleEditPerm && (
-                            <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-500 hover:text-gray-700 cursor-pointer" onClick={() => handleEditClick(role._id)}>
-                              <Pencil className="h-4 w-4" />
-                            </Button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
         </CardContent>
       </Card>
 

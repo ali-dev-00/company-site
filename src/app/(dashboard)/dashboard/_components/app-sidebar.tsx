@@ -15,6 +15,7 @@ import {
 import Image from "next/image"
 
 const menuItems = [
+  { title: "Category Management", icon: Book , href: "/dashboard/category-managemet" },
   { title: "Course Management", icon: Book , href: "/dashboard/courses-management" },
   { title: "Job Management", icon: Briefcase , href: "/dashboard/job-management" },
   { title: "Blogs Management", icon: ShoppingBag , href: "/dashboard/blogs-management" },
