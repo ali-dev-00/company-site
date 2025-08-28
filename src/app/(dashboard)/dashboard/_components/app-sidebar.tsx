@@ -2,28 +2,36 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Settings, Book, MessageCircleMore, Briefcase, ShoppingBag } from "lucide-react"
+import { FolderPlus, Book, MessageCircleMore, Briefcase, ShoppingBag, Users, ChevronDown, ChevronUp } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import Image from "next/image"
+import { useState } from "react"
 
 const menuItems = [
-  { title: "Category Management", icon: Book , href: "/dashboard/category-managemet" },
-  { title: "Course Management", icon: Book , href: "/dashboard/courses-management" },
-  { title: "Job Management", icon: Briefcase , href: "/dashboard/job-management" },
-  { title: "Blogs Management", icon: ShoppingBag , href: "/dashboard/blogs-management" },
-  { title: "Messages", icon: MessageCircleMore , href: "/dashboard/messages" },
-  { title: "Content Management", icon: ShoppingBag , href: "/dashboard/content-management/home" },
- 
+  { title: "Category Management", icon: FolderPlus, href: "/dashboard/category-management" },
+  { title: "Course Management", icon: Book, href: "/dashboard/courses-management" },
+  { title: "Job Management", icon: Briefcase, href: "/dashboard/job-management" },
+  { title: "Blogs Management", icon: ShoppingBag, href: "/dashboard/blogs-management" },
+  { title: "Messages", icon: MessageCircleMore, href: "/dashboard/messages" },
+  { title: "Content Management", icon: ShoppingBag, href: "/dashboard/content-management/home" },
+  { 
+    title: "User Management", 
+    icon: Users, 
+    href: "/dashboard/user-management", 
+    isDropdown: true,
+    subItems: [
+      { title: "Roles", href: "/dashboard/role-management/" },
+      { title: "Users", href: "/dashboard/user-management/" },
+    ]
+  },
 ]
-
 
 interface AppSidebarProps {
   className?: string
@@ -32,54 +40,83 @@ interface AppSidebarProps {
 
 export function AppSidebar({ ...props }: AppSidebarProps) {
   const pathname = usePathname()
+  const [isUserManagementOpen, setIsUserManagementOpen] = useState(false)  
+
+  const toggleUserManagement = () => {
+    setIsUserManagementOpen(prev => !prev)
+  }
 
   return (
-    <Sidebar className="bg-white border-gray-300  border-r-1 h-screen" {...props}>
+    <Sidebar className="bg-white border-gray-300 border-r-1 h-screen" {...props}>
       <SidebarHeader className="bg-white p-6 border-b border-white/10 shrink-0">
-      <Link href="/home" className="flex items-center gap-1">
+        <Link href="/home" className="flex items-center gap-1">
           <Image src="/logo.svg" height={100} width={120} alt="logo" />
           <span className="text-[#ff2424] text-md ml-2">DADKA</span>
         </Link>
-
       </SidebarHeader>
 
-      <SidebarContent className="bg-white px-4 py-4 flex-1  text-gray-700">
+      <SidebarContent className="bg-white px-4 py-4 flex-1 text-gray-700">
         <SidebarMenu className="space-y-1">
           {menuItems.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton
-                asChild
-                isActive={pathname === item.href}
-                className="text-gray-700 hover:bg-[#FF2424] hover:text-white data-[active=true]:bg-[#FF2424] data-[active=true]:text-white rounded-md"
-              >
-                <Link href={item.href} className="flex items-center gap-3 px-3 py-3 text-gray-700">
-                  <item.icon className="h-4 w-4 shrink-0" />
-                  <span className="text-sm">{item.title}</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
+            item.isDropdown ? (
+            
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname.startsWith(item.href)}
+                  className="text-gray-700 group hover:bg-[#FF2424] hover:text-white data-[active=true]:bg-[#FF2424] data-[active=true]:text-white rounded-md"
+                  onClick={toggleUserManagement}  // Toggle on click
+                >
+                  <div className="flex items-center gap-3   px-3 py-3 text-gray-700">
+                    <item.icon className="h-4  w-4 shrink-0" />
+                    <span className="text-sm">{item.title}</span>
+                    {isUserManagementOpen ? (
+                      <ChevronUp className="h-4 group-hover:text-white w-4 ml-auto text-gray-700" />
+                    ) : (
+                      <ChevronDown className="h-4 group-hover:text-white w-4 ml-auto text-gray-700" />
+                    )}
+                  </div>
+                </SidebarMenuButton>
+
+                {isUserManagementOpen && ( 
+                  <SidebarMenu className="pl-8">
+                    {item.subItems.map((subItem) => (
+                      <SidebarMenuItem key={subItem.title}>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={pathname === subItem.href}
+                          className="text-gray-700 text-center hover:bg-[#FF2424] hover:text-white data-[active=true]:bg-[#FF2424] data-[active=true]:text-white rounded-md"
+                        >
+                          <Link href={subItem.href} className="flex items-center gap-3 px-3 py-3 text-gray-700">
+                            <span className="text-sm">{subItem.title}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                )}
+              </SidebarMenuItem>
+            ) : (
+           
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname === item.href}
+                  className="text-gray-700 hover:bg-[#FF2424] hover:text-white data-[active=true]:bg-[#FF2424] data-[active=true]:text-white rounded-md"
+                >
+                  <Link href={item.href} className="flex items-center gap-3 px-3 py-3 text-gray-700">
+                    <item.icon className="h-4 w-4 shrink-0" />
+                    <span className="text-sm">{item.title}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )
           ))}
         </SidebarMenu>
-
         <div className="flex-1" />
-
-        
       </SidebarContent>
 
-      <SidebarFooter className="bg-white p-4 border-t border-white/10 shrink-0">
-      <SidebarMenu className="bg-whitespace-y-1 mt-4">
-         
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild className="text-gray-700 hover:bg-[#FF2424] hover:text-white rounded-md">
-                <Link href="/dashboard/settings" className="flex items-center gap-3 px-3 py-2.5">
-                  <Settings className="h-5 w-5 shrink-0" />
-                  <span className="text-sm">Settings</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-         
-        </SidebarMenu>
-      </SidebarFooter>
+   
     </Sidebar>
   )
 }
