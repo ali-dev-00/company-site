@@ -5,20 +5,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { ChevronRight, ChevronLeft, Trash, Pencil, Search } from "lucide-react";
 
-import AddOrUpdateCategoryModal from "./_components/add-or-update-category-modal";
-import DeleteCategoryModal from "./_components/delete-category";
+import AddOrUpdateUserModal from "./add-or-update-user-modal";
+import DeleteUserModal from "./delete-user-modal";
 
-
+import { getUsers, deleteUser } from  "@/services/user.service";
+import { getRoles } from "@/services/roles.service";
 import { cn } from "@/lib/utils";
 import { hasPermission } from "@/services/auth.service";
-import { Category } from "@/types/category-types";
-import { deleteCategory, getCategories } from "@/services/category.service";
+import { User } from "@/types/user-types";
+import { Role } from "@/types/role-types";
 
-export default function CategoryManagement() {
-  const [categories, setCategories] = useState<Category[]>([]);
+export default function UserManagement() {
+  const [users, setUsers] = useState<User[]>([]);
+  const [roles, setRoles] = useState<Role[]>([]);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [selectAll, setSelectAll] = useState(false);
   const [page, setPage] = useState(1);
@@ -27,50 +28,55 @@ export default function CategoryManagement() {
   const [loading, setLoading] = useState(false);
   const [globalSearchQuery, setGlobalSearchQuery] = useState("");
 
-  const [categoryIdToDelete, setCategoryIdToDelete] = useState<string | null>(null);
+  const [userIdToDelete, setUserIdToDelete] = useState<string | null>(null);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [categoryIdToEdit, setCategoryIdToEdit] = useState<string | null>(null);
+  const [userIdToEdit, setUserIdToEdit] = useState<string | null>(null);
 
   // permissions
-  const [categoryCreatePerm, setCategoryCreatePerm] = useState(false);
-  const [categoryEditPerm, setCategoryEditPerm] = useState(false);
-  const [categoryDeletePerm, setCategoryDeletePerm] = useState(false);
+  const [userCreatePerm, setUserCreatePerm] = useState(false);
+  const [userEditPerm, setUserEditPerm] = useState(false);
+  const [userDeletePerm, setUserDeletePerm] = useState(false);
 
-  const fetchCategories = async () => {
+  const fetchUsers = async () => {
     setLoading(true);
     try {
-      const res = await getCategories();
+      const res = await getUsers();
       if (res?.status && Array.isArray(res.data)) {
-        const transformed: Category[] = res.data.map((item) => ({
-          _id: item._id,
-          name: item.name,
-          status: item.status,
-          createdAt: item.createdAt,
-          updatedAt: item.updatedAt,
-        }));
-
+        const transformed = res.data;
         const start = (page - 1) * limit;
         const end = start + limit;
-        setCategories(transformed.slice(start, end));
+        setUsers(transformed.slice(start, end));
         setTotalPages(Math.ceil(transformed.length / limit));
       } else {
-        setCategories([]);
+        setUsers([]);
       }
     } catch (err) {
-      console.error("Error fetching categories:", err);
+      console.error("Error fetching users:", err);
     } finally {
       setLoading(false);
     }
   };
 
+  const fetchRoles = async () => {
+    try {
+      const res = await getRoles();
+      if (res?.status && Array.isArray(res.data)) {
+        setRoles(res.data);
+      }
+    } catch (err) {
+      console.error("Error fetching roles:", err);
+    }
+  };
+
   useEffect(() => {
-    fetchCategories();
+    fetchUsers();
+    fetchRoles();
     const checkPermissions = async () => {
-      setCategoryCreatePerm(await hasPermission("category:create"));
-      setCategoryEditPerm(await hasPermission("category:update"));
-      setCategoryDeletePerm(await hasPermission("category:delete"));
+      setUserCreatePerm(await hasPermission("user:create"));
+      setUserEditPerm(await hasPermission("user:update"));
+      setUserDeletePerm(await hasPermission("user:delete"));
     };
     checkPermissions();
   }, [page]);
@@ -79,7 +85,7 @@ export default function CategoryManagement() {
     if (selectAll) {
       setSelectedRows([]);
     } else {
-      setSelectedRows(categories.map((v) => v._id));
+      setSelectedRows(users.map((v) => v._id));
     }
     setSelectAll(!selectAll);
   };
@@ -91,24 +97,24 @@ export default function CategoryManagement() {
   };
 
   const handleEditClick = (id: string) => {
-    setCategoryIdToEdit(id);
+    setUserIdToEdit(id);
     setIsAddModalOpen(true);
   };
 
   const handleDeleteClick = (id: string) => {
-    setCategoryIdToDelete(id);
+    setUserIdToDelete(id);
     setDeleteModalOpen(true);
   };
 
   const confirmDelete = async () => {
-    if (categoryIdToDelete) {
+    if (userIdToDelete) {
       try {
-        await deleteCategory(categoryIdToDelete);
-        await fetchCategories();
+        await deleteUser(userIdToDelete);
+        await fetchUsers();
       } catch (error) {
         console.error("Delete failed", error);
       } finally {
-        setCategoryIdToDelete(null);
+        setUserIdToDelete(null);
         setDeleteModalOpen(false);
       }
     }
@@ -116,7 +122,7 @@ export default function CategoryManagement() {
 
   const cancelDelete = () => {
     setDeleteModalOpen(false);
-    setCategoryIdToDelete(null);
+    setUserIdToDelete(null);
   };
 
   const handlePrev = () => {
@@ -131,31 +137,33 @@ export default function CategoryManagement() {
     setGlobalSearchQuery(event.target.value);
   };
 
-  const filteredCategories = useMemo(() => {
-    return categories.filter((cat) =>
-      cat.name.toLowerCase().includes(globalSearchQuery.toLowerCase())
+  const filteredUsers = useMemo(() => {
+    return users.filter(
+      (user) =>
+        user.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
+        user.email.toLowerCase().includes(globalSearchQuery.toLowerCase())
     );
-  }, [categories, globalSearchQuery]);
+  }, [users, globalSearchQuery]);
 
-  const paginatedCategories = useMemo(() => {
+  const paginatedUsers = useMemo(() => {
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
-    return filteredCategories.slice(startIndex, endIndex);
-  }, [filteredCategories, page, limit]);
+    return filteredUsers.slice(startIndex, endIndex);
+  }, [filteredUsers, page, limit]);
 
   return (
     <div className="m-5 border border-gray-300 rounded-lg">
       <div className="p-6 flex flex-col md:flex-row items-center justify-between border-b border-gray-200">
-        <h1 className="text-xl font-bold">Category Management</h1>
-        {categoryCreatePerm && (
+        <h1 className="text-xl font-bold">User Management</h1>
+        {userCreatePerm && (
           <Button
-            className="bg-[#FF2424] cursor-pointer mt-2 md:mt-0 hover:bg-[#FF2424]/90 text-white"
+            className="bg-[#FF2424] mt-2 md:mt-0 hover:bg-[#FF2424]/90 text-white"
             onClick={() => {
-              setCategoryIdToEdit(null);
+              setUserIdToEdit(null);
               setIsAddModalOpen(true);
             }}
           >
-            Add Category
+            Add User
           </Button>
         )}
       </div>
@@ -166,7 +174,7 @@ export default function CategoryManagement() {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
             <Input
-              placeholder="Search categories..."
+              placeholder="Search users..."
               className="pl-9 w-[250px] border-gray-200 focus:ring-2 focus:ring-[#FF2424]"
               value={globalSearchQuery}
               onChange={handleGlobalSearchChange}
@@ -175,77 +183,72 @@ export default function CategoryManagement() {
         </CardContent>
       </Card>
 
+      {/* Table */}
       <Card className="py-2 border-none shadow-none">
         <CardContent className="p-0">
-         
-            <table className="w-full table-auto">
-              <thead className="bg-gray-100 border-b border-gray-300">
-                <tr>
-                  <th className="text-left p-4 text-sm font-bold text-gray-700">
-                    <Checkbox checked={selectAll} onCheckedChange={toggleAll} className="border-gray-300" />
-                  </th>
-                  <th className="text-left p-4 text-sm font-medium text-gray-700">Role</th>
-                  <th className="text-left p-4 text-sm font-medium text-gray-700">Status</th>
-                  <th className="text-left p-4 text-sm font-medium text-gray-700">Actions</th>
-                </tr>
-              </thead>
+          <table className="w-full table-auto">
+          <thead className="bg-gray-100 border-b border-gray-300">
+              <tr>
+                <th className="text-left p-4 text-sm font-bold text-gray-700">
+                  <Checkbox checked={selectAll} onCheckedChange={toggleAll} className="border-gray-300" />
+                </th>
+                <th className="text-left p-4 text-sm font-medium text-gray-700">Name</th>
+                <th className="text-left p-4 text-sm font-medium text-gray-700">Email</th>
+                <th className="text-left p-4 text-sm font-medium text-gray-700">Role</th>
+                <th className="text-left p-4 text-sm font-medium text-gray-700">Actions</th>
+              </tr>
+            </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={4} className="text-center py-6 text-gray-500">
-                    Loading categories...
+                  <td colSpan={5} className="text-center py-6 text-gray-500">
+                    Loading users...
                   </td>
                 </tr>
-              ) : paginatedCategories.length === 0 ? (
+              ) : paginatedUsers.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="text-center py-6 text-gray-500">
-                    No categories found.
+                  <td colSpan={5} className="text-center py-6 text-gray-500">
+                    No users found.
                   </td>
                 </tr>
               ) : (
-                paginatedCategories.map((cat) => (
+                paginatedUsers.map((user) => (
                   <tr
-                    key={cat._id}
+                    key={user._id}
                     className="border-b border-gray-200 hover:bg-gray-50"
                   >
                     <td className="p-4">
                       <Checkbox
-                        checked={selectedRows.includes(cat._id)}
-                        onCheckedChange={() => toggleRow(cat._id)}
+                        checked={selectedRows.includes(user._id)}
+                        onCheckedChange={() => toggleRow(user._id)}
                         className="border-gray-300"
                       />
                     </td>
-                    <td className="p-4 font-semibold">{cat.name}</td>
+                    <td className="p-4 text-sm font-semibold text-gray-600">{user.name}</td>
+                    <td className="p-4">{user.email}</td>
                     <td className="p-4">
-                      <Badge
-                        className={cn(
-                          "px-2 py-1 rounded-full text-xs font-medium",
-                          cat.status
-                            ? "bg-green-100 text-green-700"
-                            : "bg-red-100 text-red-700"
-                        )}
-                      >
-                        {cat.status ? "Active" : "Inactive"}
-                      </Badge>
+                      {typeof user.roleId === "string"
+                        ? user.roleId
+                        : user.roleId?.name}
                     </td>
                     <td className="p-4">
                       <div className="flex items-center gap-2">
-                        {categoryEditPerm && (
+                        {userEditPerm && (
                           <Button
                             variant="ghost"
                             size="icon"
+                            onClick={() => handleEditClick(user._id)}
                             className="h-8 w-8 text-gray-500 hover:text-gray-700 cursor-pointer"
-                            onClick={() => handleEditClick(cat._id)}
                           >
                             <Pencil className="h-4 w-4" />
                           </Button>
                         )}
-                        {categoryDeletePerm && (
+                        {userDeletePerm && (
                           <Button
                             variant="ghost"
                             size="icon"
-                             className="h-8 w-8 text-gray-500 hover:text-gray-700 cursor-pointer"
-                            onClick={() => handleDeleteClick(cat._id)}
+                            className="h-8 w-8 text-gray-500 hover:text-gray-700 cursor-pointer"
+                            onClick={() => handleDeleteClick(user._id)}
                           >
                             <Trash className="h-4 w-4" />
                           </Button>
@@ -286,16 +289,17 @@ export default function CategoryManagement() {
       </div>
 
       {/* Modals */}
-      <AddOrUpdateCategoryModal
+      <AddOrUpdateUserModal
         isOpen={isAddModalOpen}
         onClose={() => {
           setIsAddModalOpen(false);
-          setCategoryIdToEdit(null);
+          setUserIdToEdit(null);
         }}
-        categoryIdToEdit={categoryIdToEdit}
-        onRefresh={fetchCategories}
+        userIdToEdit={userIdToEdit}
+        roles={roles}
+        onRefresh={fetchUsers}
       />
-      <DeleteCategoryModal
+      <DeleteUserModal
         isOpen={isDeleteModalOpen}
         onClose={cancelDelete}
         onDelete={confirmDelete}

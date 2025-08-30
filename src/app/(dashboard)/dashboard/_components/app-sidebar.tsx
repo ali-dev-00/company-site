@@ -21,10 +21,10 @@ const menuItems = [
   { title: "Blogs Management", icon: ShoppingBag, href: "/dashboard/blogs-management" },
   { title: "Messages", icon: MessageCircleMore, href: "/dashboard/messages" },
   { title: "Content Management", icon: ShoppingBag, href: "/dashboard/content-management/home" },
-  { 
-    title: "User Management", 
-    icon: Users, 
-    href: "/dashboard/user-management", 
+  {
+    title: "User Management",
+    icon: Users,
+    href: "/dashboard/user-management",
     isDropdown: true,
     subItems: [
       { title: "Roles", href: "/dashboard/role-management/" },
@@ -40,7 +40,7 @@ interface AppSidebarProps {
 
 export function AppSidebar({ ...props }: AppSidebarProps) {
   const pathname = usePathname()
-  const [isUserManagementOpen, setIsUserManagementOpen] = useState(false)  
+  const [isUserManagementOpen, setIsUserManagementOpen] = useState(false)
 
   const toggleUserManagement = () => {
     setIsUserManagementOpen(prev => !prev)
@@ -59,26 +59,29 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
         <SidebarMenu className="space-y-1">
           {menuItems.map((item) => (
             item.isDropdown ? (
-            
+
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton
                   asChild
-                  isActive={pathname.startsWith(item.href)}
-                  className="text-gray-700 group hover:bg-[#FF2424] hover:text-white data-[active=true]:bg-[#FF2424] data-[active=true]:text-white rounded-md"
-                  onClick={toggleUserManagement}  // Toggle on click
+                  isActive={pathname.startsWith(item.href) || isUserManagementOpen} // Ensures both parent and subdropdown are active
+                  className="text-gray-700 group hover:bg-[#FF2424] mb-2 hover:text-white data-[active=true]:bg-[#FF2424] data-[active=true]:text-white rounded-md"
+                  onClick={toggleUserManagement}
                 >
-                  <div className="flex items-center gap-3   px-3 py-3 text-gray-700">
-                    <item.icon className="h-4  w-4 shrink-0" />
+                  <div className="flex items-center gap-3 px-3 py-3 text-gray-700">
+                    <item.icon className="h-4 w-4 shrink-0" />
                     <span className="text-sm">{item.title}</span>
                     {isUserManagementOpen ? (
-                      <ChevronUp className="h-4 group-hover:text-white w-4 ml-auto text-gray-700" />
+                      <ChevronUp
+                        className={`h-4 w-4 ml-auto ${isUserManagementOpen ? 'text-white' : 'text-gray-700'} group-hover:text-white`} // Apply white color to ChevronUp when active
+                      />
                     ) : (
-                      <ChevronDown className="h-4 group-hover:text-white w-4 ml-auto text-gray-700" />
+                      <ChevronDown
+                        className={`h-4 w-4 ml-auto ${isUserManagementOpen ? 'text-white' : 'text-gray-700'} group-hover:text-white`} // Apply white color to ChevronDown when active
+                      />
                     )}
                   </div>
                 </SidebarMenuButton>
-
-                {isUserManagementOpen && ( 
+                {isUserManagementOpen && (
                   <SidebarMenu className="pl-8">
                     {item.subItems.map((subItem) => (
                       <SidebarMenuItem key={subItem.title}>
@@ -97,7 +100,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
                 )}
               </SidebarMenuItem>
             ) : (
-           
+
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton
                   asChild
@@ -116,7 +119,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
         <div className="flex-1" />
       </SidebarContent>
 
-   
+
     </Sidebar>
   )
 }

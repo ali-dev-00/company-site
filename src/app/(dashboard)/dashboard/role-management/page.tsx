@@ -28,7 +28,7 @@ export default function RoleManagement() {
   const [selectedRows, setSelectedRows] = useState<string[]>([])
   const [selectAll, setSelectAll] = useState(false)
   const [page, setPage] = useState(1)
-  const [limit] = useState(7)
+  const [limit] = useState(10)
   const [totalPages, setTotalPages] = useState(1)
   const [loading, setLoading] = useState(false)
   const [globalSearchQuery, setGlobalSearchQuery] = useState("")
