@@ -6,13 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronRight, ChevronLeft, Trash, Pencil, Search } from "lucide-react";
-
 import AddOrUpdateUserModal from "./add-or-update-user-modal";
 import DeleteUserModal from "./delete-user-modal";
-
 import { getUsers, deleteUser } from  "@/services/user.service";
 import { getRoles } from "@/services/roles.service";
-import { cn } from "@/lib/utils";
 import { hasPermission } from "@/services/auth.service";
 import { User } from "@/types/user-types";
 import { Role } from "@/types/role-types";

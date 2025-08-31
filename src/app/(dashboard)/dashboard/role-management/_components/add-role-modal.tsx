@@ -65,7 +65,7 @@ export default function AddRoleModal({
     setName('');
     setStatus(true);
     setSelectedPermissions([]);
-    setFormError(null); // reset error
+    setFormError(null);
   };
 
   const loadRoleToEdit = async (id: string) => {

@@ -6,3 +6,15 @@ export interface Role {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface CreateRoleDto {
+  name: string;
+  permissions: string[];
+  status?: boolean;
+}
+
+export interface UpdateRoleDto {
+  name?: string;
+  permissions?: string[];
+  status?: boolean;
+}

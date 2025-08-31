@@ -1,39 +1,26 @@
+export type Permission = string;
 
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  role?: string; 
+  isAdmin?: boolean; 
+  permissions: Permission[];
+}
 
+export interface LoginResponse {
+  access_token: string;
+  user: AuthUser;
+}
 export interface LoginDto {
-    email: string;
-    password: string;
-  }
-  
-  export interface RegisterDto {
-    name: string;
-    email: string;
-    password: string;
-    roleId?: string;
-  }
-  
-  export interface User {
-    id?: string; 
-    name: string;
-    email: string;
-    role: string;
-    permissions: string[];
-    isAdmin?: boolean;
-  }
-  
-  export interface AuthResponse {
-    data: {
-      access_token: string;
-      user: User;
-    };
-  }
-  
-  export interface LogoutRequest {
-    userId: string;
-  }
-  
-  export interface LogoutResponse {
-    message: string;
-  }
-  
-  
+  email: string;
+  password: string;
+}
+
+export interface RegisterUserDto {
+  name: string;
+  email: string;
+  password: string;
+  roleId: string;
+}

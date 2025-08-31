@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -16,6 +15,8 @@ import Toast from "@/components/ui/toast";
 
 import { Role } from "@/types/role-types";
 import { createUser, getUserById, updateUser } from "@/services/user.service";
+import { CreateUserDto, UpdateUserDto } from "@/types/user-types";
+
 
 type AddOrUpdateUserModalProps = {
   isOpen: boolean;
@@ -50,25 +51,7 @@ export default function AddOrUpdateUserModal({
 
   const isEditMode = !!userIdToEdit;
 
-  useEffect(() => {
-    if (isOpen) {
-      if (isEditMode && userIdToEdit) {
-        loadUser(userIdToEdit);
-      } else {
-        resetForm();
-      }
-    }
-  }, [isOpen, userIdToEdit]);
-
-  const resetForm = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
-    setRoleId("");
-    setFormError(null);
-  };
-
-  const loadUser = async (id: string) => {
+  const loadUser = useCallback(async (id: string) => {
     setFormLoading(true);
     try {
       const res = await getUserById(id);
@@ -82,11 +65,29 @@ export default function AddOrUpdateUserModal({
     } finally {
       setFormLoading(false);
     }
-  };
+  }, []); // Empty dependency array ensures that loadUser is not redefined
 
+  useEffect(() => {
+    if (isOpen) {
+      if (isEditMode && userIdToEdit) {
+        loadUser(userIdToEdit);
+      } else {
+        resetForm();
+      }
+    }
+  }, [isOpen, isEditMode, userIdToEdit, loadUser]);
+
+  const resetForm = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setRoleId("");
+    setFormError(null);
+  };
   const handleSave = async () => {
     setFormError(null);
 
+    // Ensure all required fields are filled
     if (!name.trim() || !email.trim() || (!isEditMode && !password.trim()) || !roleId) {
       setFormError("All fields are required.");
       return;
@@ -94,16 +95,17 @@ export default function AddOrUpdateUserModal({
 
     setLoading(true);
     try {
-      const payload: any = { name, email, roleId };
-      if (!isEditMode) {
-        payload.password = password;
-      } else if (password) {
-        payload.password = password;
-      }
+
+      const payload: CreateUserDto | UpdateUserDto = {
+        name,
+        email,
+        roleId,
+        password: isEditMode ? undefined : password,
+      };
 
       const res = isEditMode && userIdToEdit
-        ? await updateUser(userIdToEdit, payload)
-        : await createUser(payload);
+        ? await updateUser(userIdToEdit, payload as UpdateUserDto)
+        : await createUser(payload as CreateUserDto);
 
       if (res && res.status) {
         showToast("success", res.message || "User saved successfully");
@@ -112,12 +114,13 @@ export default function AddOrUpdateUserModal({
       } else {
         setFormError(res?.message || "Error saving user");
       }
-    } catch (err) {
+    } catch {
       setFormError("Error saving user.");
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

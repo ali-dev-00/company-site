@@ -39,13 +39,10 @@ export default function RoleManagement() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [roleIdToEdit, setRoleIdToEdit] = useState<string | null>(null)
 
-  const [filterColumn, setFilterColumn] = useState("all") // Default to "all"
-  const [roleFilter, setRoleFilter] = useState<string>("")
-  const [permissionFilter, setPermissionFilter] = useState<string>("")
+  const [filterColumn, setFilterColumn] = useState("all") 
+
   const [statusFilter, setStatusFilter] = useState<string>("") // Active or Inactive
 
-
-  //permissions
   const [roleCreatePerm, setRoleCreatePerm] = useState<boolean>(false);
   const [roleEditPerm, setRoleEditPerm] = useState<boolean>(false);
   const [roleDeletePerm, setRoleDeletePerm] = useState<boolean>(false);
@@ -91,10 +88,10 @@ export default function RoleManagement() {
     };
 
     checkPermissions();
-  }, [page, filterColumn, roleFilter, permissionFilter, statusFilter])
+  }, [page, filterColumn, statusFilter , fetchRoles])
 
   const toggleAll = () => {
-    if (selectAll) {
+    if (selectAll) {  
       setSelectedRows([])
     } else {
       setSelectedRows(roles.map((v) => v._id))
@@ -153,16 +150,12 @@ export default function RoleManagement() {
   const filteredRoles = useMemo(() => {
     let filtered = roles.filter((role) => role.role.toLowerCase().includes(globalSearchQuery.toLowerCase()))
 
-    if (filterColumn === "role") {
-      filtered = filtered.filter((role) => role.role.toLowerCase().includes(roleFilter.toLowerCase()))
-    } else if (filterColumn === "permission") {
-      filtered = filtered.filter((role) => role.permission.toLowerCase().includes(permissionFilter.toLowerCase()))
-    } else if (filterColumn === "status" && statusFilter) {
+    if (filterColumn === "status" && statusFilter) {
       filtered = filtered.filter((role) => role.status.toLowerCase() === statusFilter.toLowerCase())
-    }
+    } 
 
     return filtered
-  }, [roles, globalSearchQuery, roleFilter, permissionFilter, statusFilter, filterColumn])
+  }, [roles, globalSearchQuery, statusFilter, filterColumn])
 
   const paginatedRoles = useMemo(() => {
     const startIndex = (page - 1) * limit

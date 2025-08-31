@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { registerUser } from "@/services/auth.service"
 import { useRouter } from "next/navigation"  
-import Toast from "@/components/ui/toast"  // Import Toast component
+import Toast from "@/components/ui/toast"  
 
 export default function SignUpForm() {
   const [email, setEmail] = useState('')
@@ -52,7 +52,7 @@ export default function SignUpForm() {
       } else {
         setError(response.message || "Registration failed.")
       }
-    } catch (err) {
+    } catch{
       setError('An error occurred while registering.')
     }
   }
