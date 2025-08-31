@@ -86,27 +86,28 @@ export default function AddOrUpdateUserModal({
   };
   const handleSave = async () => {
     setFormError(null);
-
-    // Ensure all required fields are filled
+  
     if (!name.trim() || !email.trim() || (!isEditMode && !password.trim()) || !roleId) {
       setFormError("All fields are required.");
       return;
     }
-
+  
     setLoading(true);
     try {
-
-      const payload: CreateUserDto | UpdateUserDto = {
-        name,
-        email,
+      let payload: any = {
+        name: name.trim(),
+        email: email.trim(),
         roleId,
-        password: isEditMode ? undefined : password,
       };
-
+  
+      if (!isEditMode) {
+        payload.password = password.trim();
+      }
+  
       const res = isEditMode && userIdToEdit
-        ? await updateUser(userIdToEdit, payload as UpdateUserDto)
-        : await createUser(payload as CreateUserDto);
-
+        ? await updateUser(userIdToEdit, payload)
+        : await createUser(payload);
+  
       if (res && res.status) {
         showToast("success", res.message || "User saved successfully");
         onRefresh();
@@ -114,13 +115,13 @@ export default function AddOrUpdateUserModal({
       } else {
         setFormError(res?.message || "Error saving user");
       }
-    } catch {
+    } catch (error) {
       setFormError("Error saving user.");
     } finally {
       setLoading(false);
     }
   };
-
+  
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
