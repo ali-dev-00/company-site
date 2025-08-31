@@ -88,7 +88,7 @@ export default function RoleManagement() {
     };
 
     checkPermissions();
-  }, [page, filterColumn, statusFilter , fetchRoles])
+  }, [page, filterColumn, statusFilter])
 
   const toggleAll = () => {
     if (selectAll) {  
