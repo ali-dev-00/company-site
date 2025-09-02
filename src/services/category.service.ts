@@ -1,5 +1,3 @@
-// services/categories.service.ts
-
 import {
   getFromServer,
   postToServer,
