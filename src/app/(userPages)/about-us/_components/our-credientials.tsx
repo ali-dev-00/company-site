@@ -20,12 +20,12 @@ export default function OurCredentials() {
           </p>
           <p>
             Each year, our programs collaborate with hundreds of individuals and
-            organisations, and we're proud of the positive impact we have on our
+            organisations, and we&apos;re proud of the positive impact we have on our
             customers and communities.
           </p>
           <p>
             We are committed to delivering quality training services and adhere
-            strictly to our core values.'". Our certification credentials and
+            strictly to our core values. Our certification credentials and
             focus on practical, impact-driven learning demonstrate this.
           </p>
         </div>

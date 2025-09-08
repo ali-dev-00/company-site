@@ -14,34 +14,34 @@ const serviceGridCards: ServiceGridCard[] = [
   {
     id: "people-1",
     image: "/images/our-services-01.svg",
-    title: "People",
+    title: "For Individuals",
     description:
-      "As a leading provider of education, skills, employment support, youth services and offender rehabilitation support, we help people achieve their personal goals.",
-    linkHref: "/people-services",
+      "Empower your future. We provide accredited, short-term training courses that offer practical skills and certification to help you advance your career, increase your employability, and achieve your professional goals.",
+    linkHref: "/what-we-do/people",
   },
   {
     id: "business-1",
     image: "/images/our-services-02.svg",
-    title: "Business",
+    title: "For Businesses and NGOs",
     description:
-      "We provide business support and finance services designed to drive productivity, improve innovation and create high quality and inclusive jobs.",
-    linkHref: "/business-services",
+      "Strengthen your workforce. We provide customised organisational training to improve productivity, service standards, and create a skilled, inclusive, high-performing team that can tackle real-world challenges.",
+    linkHref: "/what-we-do/business",
   },
   {
     id: "people-2",
     image: "/images/our-services-03.svg",
-    title: "People",
+    title: "For Communities",
     description:
-      "As a leading provider of education, skills, employment support, youth services and offender rehabilitation support, we help people achieve their personal goals.",
-    linkHref: "/people-services",
+      "Drive inclusive growth. We collaborate with government bodies and community groups to provide targeted training programs that address local needs, promote economic development, and create opportunities where they are most needed.",
+    linkHref: "/what-we-do/consulting",
   },
   {
     id: "business-2",
     image: "/images/our-services-04.svg",
-    title: "Business",
+    title: "For Sectors",
     description:
-      "We provide business support and finance services designed to drive productivity, improve innovation and create high quality and inclusive jobs.",
-    linkHref: "/business-services",
+      "Meet industry demands. Ensure compliance and build professional capacity through sector-specific, certified training in security, health & safety, cleaning, and conflict management.",
+    linkHref: "/what-we-do/net-zero",
   },
 ]
 

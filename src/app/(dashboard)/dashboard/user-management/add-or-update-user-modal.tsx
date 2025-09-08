@@ -15,7 +15,7 @@ import Toast from "@/components/ui/toast";
 
 import { Role } from "@/types/role-types";
 import { createUser, getUserById, updateUser } from "@/services/user.service";
-import { CreateUserDto, UpdateUserDto } from "@/types/user-types";
+import type { CreateUserDto, UpdateUserDto } from "@/types/user-types";
 
 
 type AddOrUpdateUserModalProps = {
@@ -94,19 +94,31 @@ export default function AddOrUpdateUserModal({
   
     setLoading(true);
     try {
-      let payload: any = {
-        name: name.trim(),
-        email: email.trim(),
-        roleId,
-      };
-  
-      if (!isEditMode) {
-        payload.password = password.trim();
+      let res;
+      if (isEditMode && userIdToEdit) {
+        const updatePayload: UpdateUserDto = {
+          name: name.trim(),
+          email: email.trim(),
+          roleId,
+        };
+        res = await updateUser(userIdToEdit, updatePayload);
+      } else {
+        const createPayload: CreateUserDto = {
+          name: name.trim(),
+          email: email.trim(),
+          roleId,
+          password: password.trim(),
+        };
+        res = await createUser(createPayload);
       }
-  
-      const res = isEditMode && userIdToEdit
-        ? await updateUser(userIdToEdit, payload)
-        : await createUser(payload);
+
+      if (res && res.status) {
+        showToast("success", res.message || "User saved successfully");
+        onRefresh();
+        onClose();
+      } else {
+        setFormError(res?.message || "Error saving user");
+      }
   
       if (res && res.status) {
         showToast("success", res.message || "User saved successfully");

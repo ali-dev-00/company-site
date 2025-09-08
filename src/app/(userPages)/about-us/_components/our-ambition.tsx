@@ -19,7 +19,7 @@ export default function OurAmbition() {
                We want a society where every person, every community, is growing up, and the economic growth is sustainable. The foundation of our vision is centred on providing practical skills to individuals, which will enable them to thrive and establish more prosperous communities.
               </p>
               <p>
-               Helping people, businesses and places is not limited to ambition alone. We can help with more than that.". Through training, we work towards constructing stronger futures.
+               Helping people, businesses and places is not limited to ambition alone. We can help with more than that. Through training, we work towards constructing stronger futures.
               </p>
             </div>
           </div>
