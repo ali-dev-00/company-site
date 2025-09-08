@@ -70,7 +70,7 @@ export default function LatestNews() {
                                 </div>
 
                                 {/* Title */}
-                                <h3 className=" mb-10 text-xl font-semibold text-gray-900 group-hover:text-[#ff2424] transition-colors duration-300 line-clamp-2 min-h-[56px]">
+                                <h3 className=" mb-10 text-md font-semibold text-gray-900 group-hover:text-[#ff2424] transition-colors duration-300 line-clamp-2 min-h-[56px]">
                                     {news.title}
                                 </h3>
 

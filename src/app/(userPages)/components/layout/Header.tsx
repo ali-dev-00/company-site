@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import type React from "react"
 import Link from "next/link"
 import { AlignRight, X } from "lucide-react"
@@ -8,51 +8,166 @@ import Image from "next/image"
 import { usePathname } from "next/navigation"
 
 const LINKS = [
-  { href: "/about-us", label: "About Us" },
-  { href: "/what-we-do", label: "What We Do" },
-  { href: "/work-with-us", label: "Work With Us" },
-  { href: "/careers", label: "Careers" },
+  {
+    href: "/about-us",
+    label: "About Us",
+    submenu: [
+      { href: "/about-us/our-story", label: "Our Story" },
+      { href: "/about-us/our-board", label: "Our Board" },
+      { href: "/about-us/senior-management", label: "Our Senior Management Team" },
+      { href: "/about-us/credentials", label: "Our Credentials" },
+      { href: "/about-us/where-we-work", label: "Where We Work" },
+    ],
+  },
+  {
+    href: "/what-we-do",
+    label: "What We Do",
+    submenu: [
+      { href: "/what-we-do/business", label: "Business" },
+      { href: "/what-we-do/people", label: "People" },
+      { href: "/what-we-do/international", label: "International" },
+      { href: "/what-we-do/consulting", label: "Consulting" },
+      { href: "/what-we-do/net-zero", label: "Net Zero" },
+      { href: "/what-we-do/gc-business-survey", label: "GC Business Survey" },
+    ],
+  },
+  {
+    href: "/work-with-us",
+    label: "Work With Us",
+    submenu: [
+      { href: "/work-with-us/become-supplier", label: "Become a Supplier" },
+    ],
+  },
+  {
+    href: "/careers",
+    label: "Careers",
+    submenu: [
+      { href: "/careers/life-at-gc", label: "Life at GC" },
+      { href: "/careers/our-values", label: "Our Values" },
+      { href: "/careers/current-vacancies", label: "Current Vacancies" },
+      { href: "/careers/career-stories", label: "Career Stories" },
+    ],
+  },
   { href: "/news", label: "News" },
   { href: "/contact-us", label: "Contact Us" },
 ]
 
-const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
+const NavLink = ({ href, children, submenu }: { href: string; children: React.ReactNode; submenu?: { href: string; label: string }[] }) => {
   const pathname = usePathname()
   const isHashLink = href.startsWith("#")
   const currentHash = typeof window !== "undefined" ? window.location.hash : ""
   const isActive = isHashLink ? currentHash === href : pathname === href
+  const [isHovered, setIsHovered] = useState(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const linkRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+    setIsHovered(true)
+  }
+
+  const handleMouseLeave = (e: React.MouseEvent) => {
+    const linkElement = linkRef.current
+    const relatedTarget = e.relatedTarget as HTMLElement
+
+    // Check if we're moving to the submenu
+    if (linkElement && relatedTarget && linkElement.contains(relatedTarget)) {
+      return
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      setIsHovered(false)
+    }, 150) // Small delay before closing
+  }
 
   return (
-    <Link
-      href={href}
-      className={`relative text-sm font-medium transition-colors duration-300 
-        ${isActive ? "text-[#ff2424]" : "text-white hover:text-[#ff2424]"}
-        after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 
-        after:w-0 after:h-[2px] after:bg-[#FF2424] after:transition-all after:duration-300 
-        ${isActive ? "border-b-2" : "hover:after:w-full hover:after:left-0 hover:after:translate-x-0"}`}
+    <div 
+      ref={linkRef}
+      className="relative group"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      {children}
-    </Link>
+      <div className="relative py-2 px-1 cursor-pointer">
+        <Link
+          href={href}
+          className={`relative text-sm font-medium transition-colors duration-300 
+            ${isActive ? "text-[#ff2424]" : "text-white hover:text-[#ff2424]"}
+            after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 
+            after:w-0 after:h-[2px] after:bg-[#FF2424] after:transition-all after:duration-300 
+            ${isActive ? "border-b-2" : "hover:after:w-full hover:after:left-0 hover:after:translate-x-0"}`}
+        >
+          {children}
+        </Link>
+      </div>
+      
+      {submenu && submenu.length > 0 && (
+        <div 
+          className={`absolute left-0 top-[130%] w-64 bg-[#1E1E1E] border border-gray-700 rounded-md shadow-lg py-2 z-50
+            transition-all duration-300 transform
+            ${isHovered 
+              ? "opacity-100 translate-y-0 visible" 
+              : "opacity-0 translate-y-1 invisible pointer-events-none"}
+          `}
+        >
+          <div className="absolute -top-6 left-0 right-0 h-6 bg-transparent" /> {/* Gap bridge */}
+          {submenu.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="block px-4 py-2 text-sm text-white hover:bg-gray-800 hover:text-[#ff2424] transition-colors duration-150"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 
-const MobileNavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
+const MobileNavLink = ({ href, children, submenu }: { href: string; children: React.ReactNode; submenu?: { href: string; label: string }[] }) => {
   const pathname = usePathname()
   const isHashLink = href.startsWith("#")
   const currentHash = typeof window !== "undefined" ? window.location.hash : ""
   const isActive = isHashLink ? currentHash === href : pathname === href
+  const [isSubmenuOpen, setIsSubmenuOpen] = useState(false)
 
   return (
-    <Link
-      href={href}
-      className={`relative flex w-full items-center py-2 text-lg transition-colors duration-300 
-        ${isActive ? "text-[#ff2424]" : "text-white hover:text-[#ff2424]"}
-        after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 
-        after:w-0 after:h-[2px] after:bg-[#FF2424] after:transition-all after:duration-300 
-         ${isActive ? "border-b-2" : "hover:after:w-full hover:after:left-0 hover:after:translate-x-0"}`}
-    >
-      {children}
-    </Link>
+    <div className="w-full">
+      <div className="flex items-center justify-between">
+        <Link
+          href={href}
+          className={`relative flex items-center py-2 text-lg transition-colors duration-300 
+            ${isActive ? "text-[#ff2424]" : "text-white hover:text-[#ff2424]"}`}
+        >
+          {children}
+        </Link>
+        {submenu && submenu.length > 0 && (
+          <button
+            onClick={() => setIsSubmenuOpen(!isSubmenuOpen)}
+            className="p-2 text-white hover:text-[#ff2424]"
+          >
+            {isSubmenuOpen ? "-" : "+"}
+          </button>
+        )}
+      </div>
+      
+      {submenu && submenu.length > 0 && isSubmenuOpen && (
+        <div className="ml-4 mt-2 border-l border-gray-700">
+          {submenu.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="block py-2 pl-4 text-sm text-white hover:text-[#ff2424]"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -88,7 +203,7 @@ export default function Header() {
         {/* Desktop Nav */}
         <nav className="hidden lg:flex gap-6 mx-auto">
           {LINKS.map((link) => (
-            <NavLink key={link.href} href={link.href}>
+            <NavLink key={link.href} href={link.href} submenu={link.submenu}>
               {link.label}
             </NavLink>
           ))}
@@ -130,7 +245,7 @@ export default function Header() {
 
           <div className="grid gap-4 py-6">
             {LINKS.map((link) => (
-              <MobileNavLink key={link.href} href={link.href}>
+              <MobileNavLink key={link.href} href={link.href} submenu={link.submenu}>
                 {link.label}
               </MobileNavLink>
             ))}

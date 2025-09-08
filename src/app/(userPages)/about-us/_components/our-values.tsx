@@ -14,21 +14,21 @@ const valueProps: ValueProp[] = [
     image: "/about/our-values-01.svg", 
     title: "Unrivalled Reach",
     description:
-      "We work with thousands of businesses and individuals every day and will expand our reach to engage even more.",
+      "We work in partnership with a variety of partners, including government ministries and local groups, and aim to broaden our scope to include more students and institutions.",
   },
   {
     id: "outstanding-talent",
     image: "/about/our-values-02.svg", 
     title: "Outstanding talent",
     description:
-      "We will continue to be recognised and accredited as a leading employer, attracting and retaining a diverse and highly skilled workforce.",
+      "Our training programs are recognized and accredited as leading trainers, offering certified courses that are tailored to the real-world industry demands and challenges.",
   },
   {
     id: "trusted-partner",
     image: "/about/our-values-03.svg", 
     title: "Trusted partner",
     description:
-      "We will deliver meaningful outcomes by continuing to bring together insight, strategy, and action across our network of partners.",
+      "We achieve these results by combining expert insight, practical strategy, and active collaboration with our diverse group of collaborators.",
   },
 ]
 

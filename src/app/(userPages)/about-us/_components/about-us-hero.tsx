@@ -14,9 +14,9 @@ export default function AboutUsHeroSection() {
         />
       </div>
 
-     <div className="max-w-[1366px]  bottom-0 mx-auto ">
+     <div className=" bottom-0 mx-auto ">
          {/* Red Overlay Content */}
-      <div className="absolute z-10 -bottom-43 px-4 md:px-8 lg:px-16 inset-0 flex items-end mx-auto ">
+      <div className="absolute max-w-[1366px]  z-10 -bottom-43 px-4 md:px-8 lg:px-16 inset-0 flex items-end mx-auto ">
         <div className="w-full relative overflow-hidden border-t-4  bg-red-600/80 bg-opacity-95 px-4 py-8 sm:px-6 sm:py-10 md:px-12 md:py-14 lg:px-24 lg:py-16 xl:px-28 xl:py-16">
           <div className="relative maax-w-full sm:max-w-4xl lg:max-w-5xl">
          
@@ -32,12 +32,12 @@ export default function AboutUsHeroSection() {
 
             {/* Subtitle */}
             <p className="text-sm text-white mb-4 font-medium sm:text-base sm:mb-5 md:mb-6 ">
-            At the Growth Company, we don’t just respond to change; we shape it.
+            The progress we make at Horumarka Dadka is not just tracked but also produced by us.
             </p>
 
             {/* Description */}
             <p className="text-sm text-white leading-relaxed max-w-full sm:text-base  md:text-base md:max-w-3xl lg:max-w-4xl">
-            As a pioneering social enterprise founded on the principles of inclusive growth, we’ve spent the last 35 years driving innovation in the delivery of insight, business, employment and skills support.
+           Our mission as a reliable training provider, founded on "People&apos;s Progress," is to make sweeping changes in East Africa by offering practical skills, employment opportunities, and growth support. We are committed to this mission.
             </p>
           </div>
           <div className="bg-black/6 top-[-150px] -left-[-94.7px] bottom-[-350px] rotate-45 w-[180px] h-[600px] absolute "/>

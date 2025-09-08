@@ -11,8 +11,7 @@ const Home = () => {
     <>
       <Hero />
       <ParagraphSection
-        para1="Each service we provide helps us on our continuing mission to enable growth, create jobs and improve lives whilst
-               minimising the impact we have on the planet."
+        para1="All our efforts drive growth, generate employment, improve quality of life, and protect the environment."
       />
       <WhatWeDo />
       <LatestNews />

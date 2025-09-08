@@ -16,14 +16,10 @@ export default function OurAmbition() {
             {/* Descriptive Paragraphs */}
             <div className="space-y-6 text-gray-600 text-base leading-relaxed">
               <p>
-                Our ambition is for a society where economic growth and prosperity is inclusive, sustainable and leaves
-                no person or community behind. The future will help to create will be founded on promoting
-                environmentally sustainable growth - with thriving businesses, creating well-paid jobs for empowered
-                individuals across our diverse communities.
+               We want a society where every person, every community, is growing up, and the economic growth is sustainable. The foundation of our vision is centred on providing practical skills to individuals, which will enable them to thrive and establish more prosperous communities.
               </p>
               <p>
-                We understand that helping people, businesses, and places to thrive requires more than ambition alone.
-                Together, we shape stronger futures.
+               Helping people, businesses and places is not limited to ambition alone. We can help with more than that.". Through training, we work towards constructing stronger futures.
               </p>
             </div>
           </div>

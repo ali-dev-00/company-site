@@ -1,5 +1,5 @@
-import { ArrowRight } from "lucide-react"
-import TitleWithUnderline from "../../components/common/Title-with-underline"
+import { ArrowRight } from "lucide-react";
+import TitleWithUnderline from "../../components/common/Title-with-underline";
 
 export default function JoinWorkWithUs() {
   return (
@@ -14,8 +14,9 @@ export default function JoinWorkWithUs() {
 
             <div className="mb-8 min-h-[100px]">
               <p className="text-gray-600 text-base leading-relaxed max-h-[120px] overflow-hidden">
-                Believe in our purpose? Are you passionate, innovative, enterprising and inclusive? We&apos;d love you to
-                come and work for the Growth Company.
+                Passionate about making a difference? If you&apos;re an innovative,
+                enterprising, and inclusive person who believes in our mission,
+                come join Horumarka Dadka
               </p>
             </div>
 
@@ -30,14 +31,13 @@ export default function JoinWorkWithUs() {
 
           {/* Work with us Card */}
           <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 p-8 hover:scale-101 transform group">
-          <div className="mb-6 max-w-[250px]">
+            <div className="mb-6 max-w-[250px]">
               <TitleWithUnderline title="Work With Us" />
             </div>
 
             <div className="mb-8 min-h-[100px]">
               <p className="text-gray-600 text-base leading-relaxed max-h-[120px] overflow-hidden">
-                We work collaboratively with our extensive network of private, public and third sector partners, across
-                a range of sectors, regionally and nationally. Connect with us and help us to be stronger together.
+               We collaborate with a wide network of partners in the private, public, and third sectors, from our local region to international levels. Join us and let&apos;s work together to make a greater impact.
               </p>
             </div>
 
@@ -52,5 +52,5 @@ export default function JoinWorkWithUs() {
         </div>
       </div>
     </section>
-  )
+  );
 }

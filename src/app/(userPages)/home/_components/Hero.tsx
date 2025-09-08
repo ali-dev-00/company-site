@@ -14,14 +14,13 @@ export default function HeroSection() {
         />
       </div>
 
-     <div className="w-full max-w-[1366px] bottom-0 mx-auto ">
-         {/* Red Overlay Content */}
-      <div className="absolute z-10 -bottom-43 px-4 md:px-8 lg:px-16 inset-0 flex items-end mx-auto ">
-        <div className="w-full relative overflow-hidden border-t-4  bg-red-600/80 bg-opacity-95 px-4 py-8 sm:px-6 sm:py-10 md:px-12 md:py-14 lg:px-24 lg:py-16 xl:px-28 xl:py-16">
+     <div className="w-full  bottom-0 mx-auto ">
+      <div className="absolute z-10 max-w-[1366px] -bottom-43 px-4 md:px-8 lg:px-16 inset-0 flex items-end mx-auto ">
+        <div className="w-full max-w-[1366px] mx-auto relative overflow-hidden border-t-4  bg-red-600/80 bg-opacity-95 px-4 py-8 sm:px-6 sm:py-10 md:px-12 md:py-14 lg:px-24 lg:py-16 xl:px-28 xl:py-16">
           <div className="relative max-w-full sm:max-w-4xl lg:max-w-5xl">
          
             <h1 className="text-2xl font-bold z-50 text-white mb-4 sm:text-3xl sm:mb-5 md:text-4xl md:mb-6  lg:mb-6">
-              We are the Growth Company
+              We are Horumarka Dadka
             </h1>
 
             {/* Decorative Line */}
@@ -32,13 +31,12 @@ export default function HeroSection() {
 
             {/* Subtitle */}
             <p className="text-sm text-white mb-4 font-medium sm:text-base sm:mb-5 md:mb-6 ">
-              We are a leading social enterprise delivering insight, business, employment and skills support.
+              We are a trusted leader in providing expertise, business solutions, employment opportunities, and skills development. 
             </p>
 
             {/* Description */}
             <p className="text-sm text-white leading-relaxed max-w-full sm:text-base  md:text-base md:max-w-3xl lg:max-w-4xl">
-              Working with our partners, customers and colleagues, we are proud to be a national exemplar for inclusive
-              growth driving economic, social and environmental change.
+            In collaboration with our partners, clients, and teams, we take pride in setting the standard for inclusive growth driving positive economic, social, and environmental impact in East Africa.
             </p>
           </div>
           <div className="bg-black/6 top-[-150px] -left-[-94.7px] bottom-[-350px] rotate-45 w-[180px] h-[600px] absolute "/>
