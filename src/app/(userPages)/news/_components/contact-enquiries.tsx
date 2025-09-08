@@ -13,14 +13,14 @@ const enquiryCards: EnquiryCard[] = [
     id: "general-enquiries",
     title: "General enquiries",
     description: "To find out more about our services, please contact our enquiries team:",
-    email: "info@growthco.uk",
-    phone: "0161 2281111",
+    email: "info@horumarkadadka.com",
+    phone: "+252 638972482  ",
   },
   {
-    id: "media-enquiries",
-    title: "Media enquiries",
-    description: "For media enquiries, please email:",
-    email: "communications@growthco.uk",
+    id: "partnership-enquiries",
+    title: "Partnership enquiries",
+    description: "For partnership opportunities and organizational training, please email:",
+    email: "info@horumarkadadka.com",
   },
 ]
 

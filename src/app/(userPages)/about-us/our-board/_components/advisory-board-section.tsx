@@ -1,7 +1,7 @@
 "use client"
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import TitleWithUnderline from "../../components/common/Title-with-underline"
+import TitleWithUnderline from "../../../components/common/Title-with-underline"
 
 export default function AdvisoryBoardSection() {
     const advisoryBoardData = [

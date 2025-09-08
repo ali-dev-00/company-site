@@ -16,7 +16,7 @@ export default function CareerHero() {
             <div className="absolute left-0 top-0 h-1 w-10 sm:w-12 md:w-14 lg:w-16 bg-black"></div>
           </div>
           <p className="text-md">
-          If you want a rewarding career where you’ll have the opportunity to make a real difference, you’ve come to the right place.
+          You&apos;ve found the perfect job, where you can make a meaningful impact on society and create positive change.
           </p>
         </div>
         <div className="bg-black/6 top-[-350px] -left-[-20.7px] bottom-[-350px] rotate-45 w-[180px] h-[950px] absolute " />

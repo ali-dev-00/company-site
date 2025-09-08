@@ -14,9 +14,7 @@ const LINKS = [
     submenu: [
       { href: "/about-us/our-story", label: "Our Story" },
       { href: "/about-us/our-board", label: "Our Board" },
-      { href: "/about-us/senior-management", label: "Our Senior Management Team" },
-      { href: "/about-us/credentials", label: "Our Credentials" },
-      { href: "/about-us/where-we-work", label: "Where We Work" },
+      { href: "/about-us/our-credentials", label: "Our Credentials" },
     ],
   },
   {
@@ -28,23 +26,23 @@ const LINKS = [
       { href: "/what-we-do/international", label: "International" },
       { href: "/what-we-do/consulting", label: "Consulting" },
       { href: "/what-we-do/net-zero", label: "Net Zero" },
-      { href: "/what-we-do/gc-business-survey", label: "GC Business Survey" },
+      { href: "/what-we-do/business-survey", label: "Business Survey" },
     ],
   },
   {
     href: "/work-with-us",
     label: "Work With Us",
     submenu: [
-      { href: "/work-with-us/become-supplier", label: "Become a Supplier" },
+      { href: "/work-with-us/become-a-supplier", label: "Become a Supplier" },
     ],
   },
   {
     href: "/careers",
     label: "Careers",
     submenu: [
-      { href: "/careers/life-at-gc", label: "Life at GC" },
+      { href: "/careers/life-at-horumarka-dadka", label: "Life at Horumarka Dadka" },
       { href: "/careers/our-values", label: "Our Values" },
-      { href: "/careers/current-vacancies", label: "Current Vacancies" },
+      { href: "/careers/join-us", label: "Join Us" },
       { href: "/careers/career-stories", label: "Career Stories" },
     ],
   },
@@ -79,7 +77,7 @@ const NavLink = ({ href, children, submenu }: { href: string; children: React.Re
 
     timeoutRef.current = setTimeout(() => {
       setIsHovered(false)
-    }, 150) // Small delay before closing
+    }, 100) // Small delay before closing
   }
 
   return (

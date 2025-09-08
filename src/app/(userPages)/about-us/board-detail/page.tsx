@@ -1,5 +1,6 @@
 import React from 'react'
-import PageHeading from '../components/common/page-heading'
+
+import PageHeading from '../../components/common/page-heading'
 import OurBoardSection from './_components/our-board-detail'
 import { ChevronRight } from "lucide-react"
 import AdvisoryBoardSection from '../our-board/_components/advisory-board-section'

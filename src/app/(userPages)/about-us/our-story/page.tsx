@@ -1,10 +1,10 @@
 import React from 'react'
 import OurStoryHero from './_components/our-story-hero'
-import ContactUsBanner from '../components/common/contact-us-banner'
-import PageHeading from '../components/common/page-heading'
-import ParagraphSection from '../components/common/paragraph-section'
+import ParagraphSection from '../../components/common/paragraph-section'
 import TimelineSection from './_components/timeline-section'
-import JoinWorkWithUs from '../home/_components/join-work-with-us'
+import ContactUsBanner from '../../components/common/contact-us-banner'
+import PageHeading from '../../components/common/page-heading'
+import JoinWorkWithUs from '../../home/_components/join-work-with-us'
 import { ChevronRight } from 'lucide-react'
 
 const OurStoryPage = () => {

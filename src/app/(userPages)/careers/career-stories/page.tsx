@@ -2,7 +2,7 @@ import React from 'react'
 import CareerStoriesHero from './_components/career-stories-hero'
 import CareerCards from './_components/career-cards'
 import { ChevronRight } from 'lucide-react'
-import PageHeading from '../components/common/page-heading'
+import PageHeading from '../../components/common/page-heading'
 
 const CareerStories = () => {
   return (

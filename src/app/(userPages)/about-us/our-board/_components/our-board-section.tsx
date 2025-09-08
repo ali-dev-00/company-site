@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
-import TitleWithUnderline from "../../components/common/Title-with-underline"
+import TitleWithUnderline from "../../../components/common/Title-with-underline"
 import Link from "next/link"
 
 export default function OurBoardSection() {

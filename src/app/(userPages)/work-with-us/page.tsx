@@ -12,10 +12,8 @@ const WorkWithUsPage = () => {
             <WorkWithUsHero />
             <ParagraphSection
                 question='Why work with us?'
-                para1="We have a strong track record of working collaboratively and sharing our expertise to deliver inclusive support and sustainable growth that
-delivers real impact."
-                para2='We work with organisations who share our values and commitment to making a difference, delivering the very best services and support.'
-            />
+                para1="Our history is built on working together and utilising our expertise to deliver impact-driven training that promotes sustainable growth. We work alongside organisations that share our values and mission of making a difference, providing the best training services and support to build human capacity in East Africa."
+                />
             <WhyWorkWithUs />
             <ContactUsBanner />
         </>

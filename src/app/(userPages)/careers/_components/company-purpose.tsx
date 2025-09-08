@@ -13,26 +13,26 @@ interface PurposeCard {
 
 const purposeCards: PurposeCard[] = [
     {
-        id: "what-we-do",
+        id: "our-mission",
         image: "/careers/careers-01.svg",
-        title: "What we do",
+        title: "Our Mission",
         description:
-            "The Growth Company is an award-winning social enterprise with a mission to enable growth, create jobs and improve lives.",
+            "A reliable training provider, Horumarka Dadka strives to promote growth through job creation, improve lives through practical experience.",
         linkHref: "/what-we-do",
     },
     {
         id: "our-values",
         image: "/careers/careers-02.svg",
         title: "Our values",
-        description: "We're driven by values which were shaped by our colleagues and underpin everything we do.",
-        linkHref: "/our-values",
+        description: "We're committed to a consistent culture of empowerment, practicality, and impact.",
+        linkHref: "/careers/our-values",
     },
     {
         id: "rewards-benefits",
         image: "/careers/careers-03.svg",
         title: "Rewards and benefits",
-        description: "Without the great colleagues we employ, we wouldn't see the levels of success that we do.",
-        linkHref: "/rewards-benefits",
+        description: "The people we employ are a valuable part of our team, and we strive to maintain empathetic relationships.",
+        linkHref: "/careers/life-at-horumarka-dadka",
     },
 ]
 
@@ -42,13 +42,11 @@ export default function CompanyPurpose() {
             <div className="max-w-[1366px] mx-auto px-4 md:px-8 lg:px-16">
                 {/* Section Header and Introductory Text */}
                 <div className="mb-12 max-w-4xl lg:max-w-full">
-                    <div className="mb-8 max-w-[650px]">
-                        <TitleWithUnderline title="Be part of a company with purpose" />
+                    <div className="mb-8 max-w-[600px]">
+                        <TitleWithUnderline title="Join a purpose-driven enterprise." />
                     </div>
                     <p className="text-gray-600 text-base leading-relaxed">
-                        We&apos;re proud to be driven by values. Our values define who we are now and where we want to be in the future.
-                        Our colleagues have shaped our values and these shared behaviours enable us to succeed without compromising
-                        on our principles, making the Growth Company a great place to work.
+                       We&apos;re honoured to be motivated by our mission. What is our identity and what we want to achieve? Horumarka Dadka is a great place to build if you&apos;re committed to peoples progress, and we don&apos;t see this as compromising our values.
                     </p>
                 </div>
 
@@ -68,7 +66,7 @@ export default function CompanyPurpose() {
                                     className="object-cover"
                                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                 />
-                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#FFD900]"></div>
+                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#ff2424]"></div>
                             </div>
                             <div className="p-6">
                                 <h3 className="text-xl font-bold text-gray-900 mb-3">{card.title}</h3>
@@ -77,7 +75,7 @@ export default function CompanyPurpose() {
                                 </p>
                                 <Link
                                     href={card.linkHref}
-                                    className="inline-flex items-center text-[#ff2424] hover:text-[#FFD900] hover:underline font-medium text-sm transition-all duration-300 group"
+                                    className="inline-flex items-center text-[#ff2424] hover:text-[#ff2424] hover:underline font-medium text-sm transition-all duration-300 group"
                                 >
                                     Find out more
                                     <ArrowRight className="ml-2 h-4 w-4 group-hover:rotate-[-45deg] transition-transform duration-300" />

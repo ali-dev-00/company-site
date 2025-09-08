@@ -127,7 +127,7 @@ export default function AddOrUpdateUserModal({
       } else {
         setFormError(res?.message || "Error saving user");
       }
-    } catch (error) {
+    } catch{
       setFormError("Error saving user.");
     } finally {
       setLoading(false);

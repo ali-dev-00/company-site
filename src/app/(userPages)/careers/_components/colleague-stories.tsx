@@ -18,7 +18,7 @@ const storyItems: StoryCard[] = [
         image: "/careers/career-stories-01.svg",
         date: "Tuesday, July 15, 2025",
         category: "Career Stories",
-        linkHref: "/career-stories/jodie-richardson",
+        linkHref: "/careers/career-stories-detail/",
     },
     {
         id: "sharon-mehta",
@@ -26,7 +26,7 @@ const storyItems: StoryCard[] = [
         image: "/careers/career-stories-02.svg",
         date: "Wednesday, February 12, 2025",
         category: "Career Stories",
-        linkHref: "/career-stories/sharon-mehta",
+        linkHref: "/careers/career-stories-detail/",
     },
     {
         id: "renee-bell",
@@ -34,7 +34,7 @@ const storyItems: StoryCard[] = [
         image: "/careers/career-stories-03.svg",
         date: "Thursday, January 30, 2025",
         category: "Career Stories",
-        linkHref: "/career-stories/renee-bell",
+        linkHref: "/careers/career-stories-detail/",
     },
 ]
 
@@ -48,8 +48,7 @@ export default function ColleagueStories() {
                         <TitleWithUnderline title="What our colleagues say" />
                     </div>
                     <p className="text-gray-600 text-lg">
-                        Read some inspiring stories from our colleagues as they share their career journeys and why they love being
-                        part of GC.
+                        Our team members share their stories of career progression and why they are passionate about working at Horumarka Dadka. Read on to find out more..
                     </p>
                 </div>
 

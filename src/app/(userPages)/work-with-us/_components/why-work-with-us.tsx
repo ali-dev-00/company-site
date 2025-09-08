@@ -16,21 +16,21 @@ const commitmentProps: CommitmentProp[] = [
     imageSrc: "/images/why-work-with-us-01.svg", 
     title: "Our impact",
     description:
-      "Since 2020, we've created over 42,000 new jobs, supported over 48,000 clients into work and seen over 2,000 new apprenticeship starts. We work with cities and regions on policy, service development and delivery; based on a high level of research and our collective expertise.",
+      "Practical training programs have equipped thousands of people with accredited skills, helped organisations strengthen their workforce and pushed for higher service standards as well as improved safety measures in key sectors. Our job involves comprehending real-world issues and providing relevant, efficient solutions.",
   },
   {
     id: "trusted-partner",
     imageSrc: "/images/why-work-with-us-02.svg", 
     title: "Trusted partner",
     description:
-      "We have an established 35-year track record as a partner of choice at an international, national and local level, supporting economic development and inward investment.",
+      "Our reputation as a preferred partner in Somaliland and the surrounding region has been built on our ability to support economic development and institutional growth through accredited skills training.",
   },
   {
     id: "agile-diverse",
     imageSrc: "/images/why-work-with-us-03.svg" ,
     title: "Agile and diverse",
     description:
-      "The breadth of our integrated offer enables us to think innovatively and to mobilise at speed to address emerging challenges and opportunities. As a Group we encompass a wide range of skills and backgrounds that reflect the diversity of our client base and the communities in which we work.",
+      "We take an integrated, practical approach and think creatively while also being quick to respond to emerging challenges and opportunities. The diversity of skills and specialties we possess allows us to cater to the unique needs of our clients and communities.",
   },
 ];
 

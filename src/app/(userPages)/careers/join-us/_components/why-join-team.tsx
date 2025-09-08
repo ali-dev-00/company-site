@@ -12,33 +12,33 @@ const benefits: BenefitCard[] = [
   {
     id: "team-work",
     url: "/images/why-join-us-01.svg", 
-    title: "Team work",
+    title: "Purpose-Driven Work.",
     description:
-      "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.",
+      "Join a team where your work has an impact.? Every day, you'll be involved in helping advance our cause through practical experience training..",
     iconBgColor: "bg-blue-50", 
   },
   {
     id: "secured-future",
     url: "/images/why-join-us-02.svg", 
-    title: "Secured Future",
+    title: "Continuous Learning.",
     description:
-      "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.",
+      "We practice what we preach. We provide free accredited training courses to help you improve your abilities, obtain certifications, and advance your professional development.",
     iconBgColor: "bg-green-50",
   },
   {
     id: "learning-opportunity",
     url: "/images/why-join-us-03.svg", 
-    title: "Learning Opportunity",
+    title: "Collaborative Environment.",
     description:
-      "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.",
+      "Join the diverse and supportive family. In our view, the most effective ideas are those that result from a collaborative team effort and shared experiences.",
     iconBgColor: "bg-blue-50", 
   },
   {
     id: "upgrade-skills",
     url: "/images/why-join-us-04.svg",
-    title: "Upgrade Skills",
+    title: "Secure Your Future.",
     description:
-      "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.",
+      "We aim to establish a stable and expanding organization.? Engage with us to construct a prosperous career path at our firm that prioritizes the well-being of its workforce and populace.",
     iconBgColor: "bg-pink-50", 
   },
 ]
@@ -52,11 +52,10 @@ export default function WhyJoinTeam() {
           <div className="flex flex-col justify-center">
             <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">BENEFITS</p>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-              Why you Should Join Our Awesome Team
+              Reasons to join our mission driven team? Read more about.
             </h2>
             <p className="text-gray-600 text-base leading-relaxed max-w-md">
-              we want to feel like home when you are working at JMC[Japan Marketing & Consultancy Limited] & for that we
-              have curated a great set of benefits for you.It all starts with the free lunch!
+             We prioritize your well-being and career advancement. We&apos;ve designed a supportive environment and prestigious benefits because we believe that to empower others, we must first empower our own team.
             </p>
           </div>
 

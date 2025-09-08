@@ -30,35 +30,35 @@ const jobOpenings: JobOpening[] = [
         title: "Wordpress Developer",
         experience: "2 Years",
         deadline: "2021-05-08",
-        linkHref: "/job-detail",
+        linkHref: "/join-us/job-detail",
     },
     {
         id: "javascript-developer",
         title: "Javascript",
         experience: "1 Years",
         deadline: "2021-05-08",
-        linkHref: "/job-detail",
+        linkHref: "/join-us/job-detail",
     },
     {
         id: "apps-developer",
         title: "Apps Developer",
         experience: "3 Years",
         deadline: "2021-05-08",
-        linkHref: "/job-detail",
+        linkHref: "/join-us/job-detail",
     },
     {
         id: "ios-developer",
         title: "IOS Developer",
         experience: "2 Years",
         deadline: "2021-05-08",
-        linkHref: "/job-detail",
+        linkHref: "/join-us/job-detail",
     },
     {
         id: "node-js-developer",
         title: "Node JS Developer",
         experience: "3 Years",
         deadline: "2021-05-08",
-        linkHref: "/job-detail",
+        linkHref: "/join-us/job-detail",
     },
 ]
 
@@ -71,8 +71,7 @@ const CareerOpenings = () => {
           <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">COME JOIN US</p>
           <h2 className="text-4xl font-bold text-gray-900 mb-4">Career Openings</h2>
           <p className="text-gray-600 text-base leading-relaxed max-w-2xl mx-auto">
-            We&apos;re always looking for creative, talented self-starters to join the JMC family. Check out our open roles
-            below and fill out an application.
+           Horumarka Dadka is a family business that seeks passionate, talented, and driven individuals. Identify the available positions and apply to begin your journey with us today.
           </p>
         </div>
         {/* Main Content - Sidebar and Job List */}
@@ -97,7 +96,7 @@ const CareerOpenings = () => {
             {jobOpenings.map((job) => (
               <Link
                 key={job.id}
-                href={`/job-detail`}
+                href={`/careers/join-us/job-detail`}
                 className="flex  flex-col sm:flex-row items-start sm:items-center justify-between bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-300 group"
               >
                 <div className="md:flex  flex-1 md:justify-between md:max-w-[80%] items-center  mb-4 sm:mb-0">

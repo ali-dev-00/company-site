@@ -80,7 +80,7 @@ export default function ContactForm() {
                 className="h-4 w-4 text-[#ff2424] focus:ring-[#ff2424] border-gray-300 rounded mt-1"
               />
               <label htmlFor="communications" className="ml-2 block text-sm text-gray-900">
-                Yes, I wish to receive relevant communications from The Growth Company group.
+              Is it possible for me to receive notifications and updates from Horumarka Dadka?
               </label>
             </div>
             <div className="flex items-start">

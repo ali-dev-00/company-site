@@ -14,9 +14,9 @@ export default function WorkWithUsHero() {
                 />
             </div>
 
-            <div className="w-full max-w-[1366px] bottom-0 mx-auto ">
+            <div className="w-full bottom-0 mx-auto ">
                 {/* Red Overlay Content */}
-                <div className="absolute z-10 -bottom-43 px-4 md:px-8 lg:px-16 inset-0 flex items-end mx-auto ">
+                <div className="absolute z-10  max-w-[1366px] -bottom-43 px-4 md:px-8 lg:px-16 inset-0 flex items-end mx-auto ">
                     <div className="w-full relative overflow-hidden border-t-4  bg-red-600/80 bg-opacity-95 px-4 py-8 sm:px-6 sm:py-10 md:px-12 md:py-14 lg:px-24 lg:py-16 xl:px-28 xl:py-16">
                         <div className="relative max-w-full sm:max-w-4xl lg:max-w-5xl">
 
@@ -32,8 +32,7 @@ export default function WorkWithUsHero() {
 
                             {/* Subtitle */}
                             <p className="text-sm text-white mb-4 font-medium sm:text-base sm:mb-5 md:mb-6 ">
-                                We work with a wide range of partners from national government to local institutions, multi-national private partners to specialist providers, and Voluntary, Community, Faith organisations and Social Enterprises (VCFSE).
-                            </p>
+                               We collaborate with a diverse range of partners, including national government ministries, local institutions, private sector companies, and specialist providers, as well as NGOs, community organisations, or social enterprises. </p>
                         </div>
                         <div className="bg-black/6 top-[-150px] -left-[-94.7px] bottom-[-350px] rotate-45 w-[180px] h-[600px] absolute " />
                     </div>

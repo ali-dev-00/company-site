@@ -19,9 +19,7 @@ export default function JoinUsHero() {
       <div className="relative z-20 flex flex-col items-center justify-center text-center px-4 py-12 md:py-24 lg:py-32 max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">JOIN US</h1>
         <p className="text-sm max-w-2xl mb-8 leading-relaxed">
-          In publishing and graphic design, Lorem Ipsum is a placeholder text commonly used to demonstrate the visual
-          form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a
-          placeholder before final copy is available.
+          We&apos;re not just a team, we are essentially bringing people together in East Africa through Horumarka Dadka. If you&apos;re interested in enhancing your skills and training experience, join our team to build your career.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <Link href="#" passHref>

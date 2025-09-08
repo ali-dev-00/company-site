@@ -1,5 +1,5 @@
 import React from 'react'
-import PageHeading from '../components/common/page-heading'
+import PageHeading from '../../../components/common/page-heading'
 import { ChevronRight } from 'lucide-react'
 import CareerStoryDetailSection from './_components/career-stories-detail'
 

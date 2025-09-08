@@ -60,8 +60,8 @@ export function CareerAwards() {
                     <div className=" max-w-[580px] mb-5">
                         <TitleWithUnderline title="Employer awards and accreditations" />
                     </div>
-                    <p className="text-gray-600 text-lg">
-                        We continuously strive to be a good employer and we&apos;re proud to have received the following employer awards and accreditations.
+                    <p className="text-gray-600 text-lg text-left">
+                       Our goal is to remain a great employer and an excellent training provider, always striving to deliver on our commitments of quality and ethics.
                     </p>
                 </div>
                 <div className="relative mt-12 flex items-center justify-center">
