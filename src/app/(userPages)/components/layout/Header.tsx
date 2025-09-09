@@ -46,6 +46,7 @@ const LINKS = [
       { href: "/careers/career-stories", label: "Career Stories" },
     ],
   },
+  { href: "/courses", label: "Courses" },
   { href: "/news", label: "News" },
   { href: "/contact-us", label: "Contact Us" },
 ]

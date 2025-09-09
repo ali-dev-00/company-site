@@ -19,7 +19,7 @@ export default function ContactUsBanner() {
         <div className="lg:w-1/2 text-center lg:text-left mb-8 lg:mb-0">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Contact us</h2>
           <p className="text-gray-600 text-base leading-relaxed mb-6 max-w-lg lg:max-w-none mx-auto lg:mx-0">
-            If you would like more information about any of our services, please get in touch.
+            Feel free to reach out if you'd like more details about any of our services.
           </p>
           <Link
             href="/contact-us"
