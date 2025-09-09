@@ -15,27 +15,27 @@ interface ServiceCard {
 const services: ServiceCard[] = [
   {
     id: "supporting-people",
-    title: "Supporting People",
+    title: "Assisting People to Succeed",
     description:
-      "The Growth Company is a leading provider of education, skills, employment, youth and offender rehabilitation support. Since 2020, to improve lives we&apos;ve created over 42,000 new jobs, supported over 48,000 clients into work and seen over",
+      "Horumarka Dadka is a premier company supporting education, skills development, employment opportunities, and youth empowerment across East Africa.",
     image: "/home/what-we-do-01.svg",
     linkText: "Find out more",
     linkHref: "/what-we-do/people",
   },
   {
     id: "supporting-businesses",
-    title: "Supporting Businesses",
+    title: "Business Growth Support",
     description:
-      "Businesses face ongoing challenges and since 2020, the Growth Company has assisted over 10,000 businesses to innovate, transform their businesses and create new jobs.",
+      "Horumarka Dadka has made a significant impact on the business community. We've empowered more than 500 businesses to not only adapt and innovate but also to drive economic development by creating employment opportunities.",
     image: "/home/what-we-do-02.svg",
     linkText: "Business",
     linkHref: "/what-we-do/business",
   },
   {
     id: "exceptional-consulting",
-    title: "Exceptional Consulting",
+    title: "Investment and Consulting",
     description:
-      "By collaborating with a diverse range of organisations, places and partnerships, we help you understand the potential impact of various scenarios to deliver measurable results and achieve economic growth.",
+      "We connect organisations, places, and partnerships with the investments they need to grow. Our consulting services help you understand potential impacts, ensuring you get measurable results and achieve real economic growth.",
     image: "/home/what-we-do-03.svg",
     linkText: "Find out more",
     linkHref: "/what-we-do/consulting",
