@@ -26,7 +26,7 @@ const services: ServiceCard[] = [
     id: "supporting-businesses",
     title: "Business Growth Support",
     description:
-      "Horumarka Dadka has made a significant impact on the business community. We've empowered more than 500 businesses to not only adapt and innovate but also to drive economic development by creating employment opportunities.",
+      "Horumarka Dadka has made a significant impact on the business community. We&apos;ve empowered more than 500 businesses to not only adapt and innovate but also to drive economic development by creating employment opportunities.",
     image: "/home/what-we-do-02.svg",
     linkText: "Business",
     linkHref: "/what-we-do/business",
