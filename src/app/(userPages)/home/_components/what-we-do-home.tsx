@@ -75,13 +75,7 @@ export default function WhatWeDo() {
                 <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-6 min-h-[135px]">
                   {service.description}
                 </p>
-                <a
-                  href={service.linkHref}
-                  className="inline-flex items-center group-hover:underline text-[#ff2424] hover:text-red-600 font-medium text-sm transition-all duration-300 group"
-                >
-                  {service.linkText}
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:rotate-[-45deg]  transition-transform duration-300" />
-                </a>
+               
               </div>
             </div>
           ))}
