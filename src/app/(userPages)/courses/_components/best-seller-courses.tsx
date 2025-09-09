@@ -24,7 +24,7 @@ export default function BestSellerCourses() {
   const allCourses = [
     {
       id: 1,
-      title: "Level 2 Certificate in Cleaning Principles",
+      title: "Level 2 Award for Security Officers in Private Security Industry",
       image: "/courses/best-seller-course-01.svg",
       rating: 4.5,
       reviews: "1.2K",
@@ -33,8 +33,26 @@ export default function BestSellerCourses() {
     },
     {
       id: 2,
-      title: "Level 2 Certificate in Cleaning and Support Services Skills 1",
+      title: "Level 3 Deliverers of Physical Intervention Training",
       image: "/courses/best-seller-course-02.svg",
+      rating: 4.6,
+      reviews: "1.2K",
+      category: "Cleaning",
+      isBestSeller: true,
+    },
+    {
+      id: 2,
+      title: `Government and NGO's Action Counter Terrorism`,
+      image: "/courses/best-seller-course-03.svg",
+      rating: 4.6,
+      reviews: "1.2K",
+      category: "Cleaning",
+      isBestSeller: true,
+    },
+    {
+      id: 4,
+      title: "Level 2 Award for Security Officers in Private Security Industry",
+      image: "/courses/best-seller-course-04.svg",
       rating: 4.6,
       reviews: "1.2K",
       category: "Cleaning",
@@ -56,13 +74,13 @@ export default function BestSellerCourses() {
         </h2>
 
         {/* Category Filter (Tags) */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8 md:mb-12 overflow-x-auto pb-2">
+        <div className="flex flex-wrap  justify-center gap-2 mb-8 md:mb-12 overflow-x-auto pb-2">
           {categories.map((category) => (
             <Button
               key={category}
               variant="outline"
               onClick={() => setSelectedCategory(category)}
-              className={`rounded-full px-4 py-2 text-sm whitespace-nowrap ${
+              className={`rounded-full px-4 py-2 text-sm whitespace-nowrap capitalize  ${
                 selectedCategory === category
                   ? "border-red-500 text-red-500 hover:bg-red-50 hover:text-red-600"
                   : "border-gray-300 text-gray-700 hover:bg-gray-100"
@@ -74,7 +92,7 @@ export default function BestSellerCourses() {
         </div>
 
         {/* Courses Grid */}
-        <div className="flex justify-center gap-6 max-w-6xl mx-auto">
+        <div className="flex justify-center gap-6 max-w-[1366px] mx-auto">
           {filteredCourses.map((course) => (
             <div key={course.id} className="w-full max-w-[300px]">
               <div className="relative rounded-5xl">

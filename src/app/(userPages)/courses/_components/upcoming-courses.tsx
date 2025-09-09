@@ -5,7 +5,7 @@ export default function UpcomingCourses() {
     const upcomingCourses = [
         {
           id: 1,
-          title: "Level 3 Deliverers of Physical Intervention Training",
+          title: "Level 2 Certificate in Cleaning Principles",
           image: "/courses/upcoming-course-01.svg",
           isBestSeller: true,
         },

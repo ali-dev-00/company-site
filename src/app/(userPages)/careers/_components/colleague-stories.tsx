@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import TitleWithUnderline from "../../components/common/Title-with-underline"
+import { ArrowRight } from "lucide-react"
 
 interface StoryCard {
     id: string
@@ -18,7 +19,7 @@ const storyItems: StoryCard[] = [
         image: "/careers/career-stories-01.svg",
         date: "Tuesday, July 15, 2025",
         category: "Career Stories",
-        linkHref: "/careers/career-stories-detail/",
+        linkHref: "/careers/career-stories/career-stories-detail/",
     },
     {
         id: "sharon-mehta",
@@ -26,7 +27,7 @@ const storyItems: StoryCard[] = [
         image: "/careers/career-stories-02.svg",
         date: "Wednesday, February 12, 2025",
         category: "Career Stories",
-        linkHref: "/careers/career-stories-detail/",
+        linkHref: "/careers/career-stories/career-stories-detail/",
     },
     {
         id: "renee-bell",
@@ -34,7 +35,7 @@ const storyItems: StoryCard[] = [
         image: "/careers/career-stories-03.svg",
         date: "Thursday, January 30, 2025",
         category: "Career Stories",
-        linkHref: "/careers/career-stories-detail/",
+        linkHref: "/careers/career-stories/career-stories-detail/",
     },
 ]
 
@@ -92,6 +93,17 @@ export default function ColleagueStories() {
                     ))}
                 </div>
             </div>
+
+       
+                    <div className="text-center mt-8">
+                      <Link
+                        href="/careers/career-stories"
+                        className="inline-flex items-center hover:underline text-[#ff2424] hover:text-red-600 font-medium text-sm transition-all duration-300 group"
+                      >
+                        View all career stories
+                        <ArrowRight className="ml-2 h-5 w-5 group-hover:rotate-[-45deg] transition-transform duration-300" />
+                      </Link>
+                    </div>
         </section>
     )
 }

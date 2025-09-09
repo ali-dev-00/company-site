@@ -31,12 +31,8 @@ export default function HeroSection() {
 
             {/* Subtitle */}
             <p className="text-sm text-white mb-4 font-medium sm:text-base sm:mb-5 md:mb-6 ">
-              We are a trusted leader in providing expertise, business solutions, employment opportunities, and skills development. 
-            </p>
-
-            {/* Description */}
-            <p className="text-sm text-white leading-relaxed max-w-full sm:text-base  md:text-base md:max-w-3xl lg:max-w-4xl">
-            In collaboration with our partners, clients, and teams, we take pride in setting the standard for inclusive growth driving positive economic, social, and environmental impact in East Africa.
+              We are a trusted leader in providing expertise, business solutions, employment opportunities, and skills development. <br />
+              In collaboration with our partners, clients, and teams, we take pride in setting the standard for inclusive growth driving positive economic, social, and environmental impact in East Africa.
             </p>
           </div>
           <div className="bg-black/6 top-[-150px] -left-[-94.7px] bottom-[-350px] rotate-45 w-[180px] h-[600px] absolute "/>

@@ -2,6 +2,7 @@ import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import OurOfferings from "./our-offering"
 import TitleWithUnderline from "../../components/common/Title-with-underline"
+import Link from "next/link"
 
 interface ServiceCard {
   id: string
@@ -19,7 +20,7 @@ const services: ServiceCard[] = [
     description:
       "Horumarka Dadka is a premier company supporting education, skills development, employment opportunities, and youth empowerment across East Africa.",
     image: "/home/what-we-do-01.svg",
-    linkText: "Find out more",
+    linkText: "More Detail",
     linkHref: "/what-we-do/people",
   },
   {
@@ -28,7 +29,7 @@ const services: ServiceCard[] = [
     description:
       "Horumarka Dadka has made a significant impact on the business community. We&apos;ve empowered more than 500 businesses to not only adapt and innovate but also to drive economic development by creating employment opportunities.",
     image: "/home/what-we-do-02.svg",
-    linkText: "Business",
+    linkText: "More Detail",
     linkHref: "/what-we-do/business",
   },
   {
@@ -37,14 +38,14 @@ const services: ServiceCard[] = [
     description:
       "We connect organisations, places, and partnerships with the investments they need to grow. Our consulting services help you understand potential impacts, ensuring you get measurable results and achieve real economic growth.",
     image: "/home/what-we-do-03.svg",
-    linkText: "Find out more",
+    linkText: "More Detail",
     linkHref: "/what-we-do/consulting",
   },
 ]
 
 export default function WhatWeDo() {
   return (
-    <section className="pt-16 bg-[#F4F2F2]">
+    <section className="pt-16">
       <div className="max-w-[1366px] mx-auto px-4 md:px-8 lg:px-16">
         {/* Section Header */}
         <div className="mb-8 max-w-[230px]">
@@ -75,7 +76,13 @@ export default function WhatWeDo() {
                 <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-6 min-h-[135px]">
                   {service.description}
                 </p>
-               
+                <Link
+                  href={service.linkHref}
+                  className="inline-flex items-center group-hover:underline text-[#ff2424] hover:text-red-600 font-medium text-sm transition-all duration-300 group"
+                >
+                  {service.linkText}
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:rotate-[-45deg]  transition-transform duration-300" />
+                </Link>
               </div>
             </div>
           ))}

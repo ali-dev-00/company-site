@@ -39,7 +39,7 @@ export default function WhyWorkWithUs() {
     <section className="py-16 bg-white">
       <div className="max-w-[1366px] mx-auto px-4 md:px-8 lg:px-16">
         {/* Feature Blocks Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-center mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-center mb-12">
           {commitmentProps.map((prop) => (
             <div key={prop.id} className="flex flex-col items-center p-4">
               {/* Image */}
@@ -61,12 +61,12 @@ export default function WhyWorkWithUs() {
         </div>
 
         {/* Call to Action Link */}
-        <div className="text-center mt-8">
+        <div className="text-left mt-8">
           <Link
             href="contact-us"
             className="inline-flex items-center hover:underline text-[#ff2424] hover:text-red-600 font-medium text-lg transition-all duration-300 group"
           >
-            Find out more about becoming a supplier
+          Obtain additional information on our partnership opportunities.
             <ArrowRight className="ml-2 h-5 w-5 group-hover:rotate-[-45deg] transition-transform duration-300" />
           </Link>
         </div>

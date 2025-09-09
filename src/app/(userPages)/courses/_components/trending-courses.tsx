@@ -6,7 +6,7 @@ export default function TrendingCourses() {
   const courses = [
     {
       imageSrc: "/courses/trending-course-01.svg",
-      title: "Level 2 Award for Security Officers in Private Security Industry",
+      title: "Level 2 Certificate in Cleaning Principles",
       rating: 4,
       reviews: "(1.2K)",
       isBestSeller: true,
@@ -45,9 +45,9 @@ export default function TrendingCourses() {
   }
 
   return (
-    <section className="py-12 px-4 md:px-6 lg:px-8 bg-white">
+    <section className="  bg-white">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-gray-900">Trending Courses</h2>
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="max-w-[1366px] py-12 px-4 md:px-8 lg:px-16 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Featured Course Card - Now using plain div elements */}
         <div className="lg:col-span-1 lg:row-span-2">
           <div className="w-full h-full rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">

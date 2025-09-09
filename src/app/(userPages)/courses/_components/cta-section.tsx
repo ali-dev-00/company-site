@@ -1,10 +1,10 @@
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function CtaSection() {
   return (
-    <section className="py-12  px-4 md:px-6 lg:px-8">
+    <section className="py-12 max-w-[1366px] mx-auto px-4 md:px-8 lg:px-16">
       <div className="relative  bg-[#1B283F] rounded-xl shadow-lg overflow-hidden p-6 md:p-10 lg:p-12 flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
         {/* Text Content */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left z-10 md:w-2/3 lg:w-3/4">
@@ -12,28 +12,28 @@ export default function CtaSection() {
             Join HORUMARKA Dadka Now
           </h2>
           <p className="text-gray-300 text-base md:text-lg lg:text-xl mb-6 max-w-2xl">
-            With our responsive themes and mobile and desktop apps, enjoy a seamless experience on any device so will
-            your blog the best visitors
+            We provide accredited courses that are both hands-on and flexible,
+            enabling you to learn needed skills at your convenience. Ready for
+            the world to ask.
           </p>
-          <Link href='/join-us'>
-          <Button className="bg-[#FF2424] cursor-pointer hover:bg-[#FF2424]/90 text-white  py-5 px-8 rounded-md text-lg">
-            Join now
-          </Button>
+          <Link href="/careers/join-us">
+            <Button className="bg-[#FF2424] cursor-pointer hover:bg-[#FF2424]/90 text-white  py-5 px-8 rounded-md text-lg">
+              Join now
+            </Button>
           </Link>
-         
         </div>
 
         {/* Abstract Image */}
         <div className="hidden md:absolute w-full h-48 md:w-1/3 md:h-auto  md:bottom-0 right-0 md:flex justify-center items-center md:justify-end ">
           <Image
-            src="/courses/cta-section.png" 
+            src="/courses/cta-section.png"
             alt="Abstract geometric pattern"
-            width={250} 
-            height={250} 
+            width={250}
+            height={250}
             className="object-contain"
           />
         </div>
       </div>
     </section>
-  )
+  );
 }

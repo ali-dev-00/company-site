@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import TitleWithUnderline from "../../components/common/Title-with-underline";
+import Link from "next/link";
 
 export default function JoinWorkWithUs() {
   return (
@@ -20,19 +21,19 @@ export default function JoinWorkWithUs() {
               </p>
             </div>
 
-            <a
-              href="/join-us"
+            <Link
+              href="/careers/join-us"
               className="hover:underline   inline-flex items-center text-[#ff2424] hover:text-red-600 font-medium text-base transition-all duration-300 group"
             >
               See our current opportunities
               <ArrowRight className="ml-2 h-5 w-5 group-hover:rotate-[-45deg] transition-transform duration-300" />
-            </a>
+            </Link>
           </div>
 
           {/* Work with us Card */}
           <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 p-8 hover:scale-101 transform group">
             <div className="mb-6 max-w-[250px]">
-              <TitleWithUnderline title="Work With Us" />
+              <TitleWithUnderline title="Partner with us" />
             </div>
 
             <div className="mb-8 min-h-[100px]">
@@ -41,13 +42,13 @@ export default function JoinWorkWithUs() {
               </p>
             </div>
 
-            <a
+            <Link
               href="/work-with-us"
               className="inline-flex items-center hover:underline text-[#ff2424] hover:text-red-600 font-medium text-base transition-all duration-300 group"
             >
               Talk to our team
               <ArrowRight className="ml-2 h-5 w-5 group-hover:rotate-[-45deg] transition-transform duration-300" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
