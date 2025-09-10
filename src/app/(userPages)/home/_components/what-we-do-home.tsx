@@ -59,7 +59,8 @@ export default function WhatWeDo() {
               className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden hover:scale-105 transform group"
             >
               {/* Card Image */}
-              <div className="relative h-48 w-full">
+              <div  className="relative h-48 w-full">
+                <Link href={service.linkHref} className="absolute inset-0 z-10" >
                 <Image
                   src={service.image || "/placeholder.svg"}
                   alt={service.title}
@@ -67,6 +68,7 @@ export default function WhatWeDo() {
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
+                </Link>
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#ff2424]"></div>
               </div>
               <div className="p-6 relative">

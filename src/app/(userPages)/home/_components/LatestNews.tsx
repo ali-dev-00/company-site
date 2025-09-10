@@ -28,14 +28,7 @@ const newsItems: NewsCard[] = [
     id: "tehseen-ali-joins",
     title: "Level 2 Certificate in Cleaning Principles",
     image: "/home/latest-news-01.svg",
-    description: `The Growth Company is a leading
-provider of education, skills,
-employment, youth and offender
-rehabilitation support. Since 2020,
-we have created over 42,000 new jobs,
-supported over 48,000 clients into work
-and seen over 102,000 businesses
-innovate and transform.`,
+    description: `This accredited certification provides the essential knowledge and practical skills needed to pursue a professional career in the cleaning and support services industry. `,
     link: "/news/",
   },
   {
@@ -65,10 +58,11 @@ export default function LatestNews() {
           {newsItems.map((news) => (
             <div
               key={news.id}
-              className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden hover:scale-105 transform group cursor-pointer"
+              className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden hover:scale-105 transform group "
             >
               {/* Card Image */}
-              <div className="relative h-48 w-full">
+              <div className="relative h-48 w-full cursor-pointer">
+                <Link href={news.link} className="absolute inset-0 z-10" >
                 <Image
                   src={news.image || "/placeholder.svg"}
                   alt={news.title}
@@ -76,18 +70,19 @@ export default function LatestNews() {
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
+                </Link>
               </div>
 
               <div className="p-5 relative">
-                <h3 className="mb-6 text-lg font-semibold text-gray-900 group-hover:text-[#ff2424] transition-colors duration-300 line-clamp-2 min-h-[56px]">
+                <Link href={news.link} className="cursor-pointer mb-6 text-lg font-semibold text-gray-900 group-hover:text-[#ff2424] transition-colors duration-300 line-clamp-2 min-h-[56px]">
                   {news.title}
-                </h3>
+                </Link>
                 <p className="text-sm text-gray-600 leading-relaxed mb-6 min-h-[120px]">
                   {news.description}
                 </p>
                  <Link
                   href={news.link}
-                  className="inline-flex items-center group-hover:underline text-[#ff2424] hover:text-red-600 font-medium text-sm transition-all duration-300 group"
+                  className="inline-flex cursor-pointer items-center group-hover:underline text-[#ff2424] hover:text-red-600 font-medium text-sm transition-all duration-300 group"
                 >
                   More Info
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:rotate-[-45deg]  transition-transform duration-300" />

@@ -1,38 +1,40 @@
-import { ArrowRight } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"
+import Link from "next/link"
 
 interface OfferCard {
-  id: string;
-  image: string; // Background image for the card
-  linkHref: string;
+  id: string
+  image: string // Background image for the card
+  linkHref: string
   // Properties for the overlay content - now consistent for all
-  overlayTitle: string;
-  overlaySubtitle?: string;
-  overlayDescription?: string;
+  overlayTitle: string
+  overlaySubtitle?: string
+  overlayDescription?: string
+  showRedUnderline?: boolean // Specific to Adult Courses
 }
 
 const offerings: OfferCard[] = [
   {
     id: "adult-courses",
-    image: "/home/our-offer-01.svg",
+    image: "/home/our-offer-01.png",
     linkHref: "/courses",
-    overlayTitle:
-      "Level 2 Award for Security Officers in Private Security Industry",
+    overlayTitle: "Adult Courses",
+    overlayDescription: "Explore our range of accredited training programs designed for skill development and career advancement.",
   },
   {
-    id: "insight",
-    image: "/home/our-offer-02.svg",
+    id: "business-setup",
+    image: "/home/our-offer-02.png",
     linkHref: "/courses",
-    overlayTitle: "Level 4 Award in Internal Quality Assurance",
+    overlayTitle: "Business Setup",
+    overlayDescription: "Training and support for entrepreneurs and SMEs to start, sustain, and scale their businesses.",
   },
   {
-    id: "growth-flag",
-    image: "/home/our-offer-03.svg",
+    id: "events-networking",
+    image: "/home/our-offer-03.png",
     linkHref: "/courses",
-    overlayTitle: "Level 2 Award in Fire Safety",
+    overlayTitle: "Events & Networking",
+    overlayDescription: "Join workshops, seminars, and networking sessions to connect with professionals and grow your opportunities.",
   },
-];
+]
 
 export default function OurOfferings() {
   return (
@@ -52,16 +54,22 @@ export default function OurOfferings() {
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
 
-            {/* Overlay that appears on hover for all cards with consistent text structure */}
-            <div className="absolute inset-0 bg-black/50 bg-opacity-70 flex flex-col justify-end p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <h3 className="text-lg font-bold mb-2 ">{offer.overlayTitle}</h3>
-              <span className="flex items-center align-baseline text-sm gap-1">
-                More Detail <ArrowRight className="h-4" />
-              </span>
+            {/* Overlay that appears on hover for all cards */}
+            <div className="absolute inset-0 bg-black/90 bg-opacity-70 flex flex-col  p-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+             <div className="max-w-[150px]">
+               <h3 className="text-3xl font-bold mb-2">
+                {offer.overlayTitle}
+              </h3>
+              <div className="flex items-center w-full">
+                <div className="h-[4px] bg-[#ff2424] w-16"></div>
+                <div className="h-[2px] bg-gray-200 flex-grow"></div>
+              </div>
+             </div>
+              <p className="text-sm mt-2">{offer.overlayDescription}</p>
             </div>
           </div>
         </Link>
       ))}
     </div>
-  );
+  )
 }
