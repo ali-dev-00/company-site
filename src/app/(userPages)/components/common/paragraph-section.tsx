@@ -12,11 +12,11 @@ interface ParagraphSectionProps {
         )}
   
         {para1 && (
-          <p className="text-md text-gray-600 mb-4">{para1}</p>
+          <p className="text-lg text-gray-600 mb-4">{para1}</p>
         )}
 
         {para2 && (
-          <p className="text-md text-gray-600">{para2}</p>
+          <p className="text-lg text-gray-600">{para2}</p>
         )}
       </section>
     );
