@@ -16,7 +16,7 @@ const newsItems: NewsCard[] = [
   {
     id: "growth-company-shortlisted",
     title: "Level 2 Award for Security Officers in Private Security Industry",
-    image: "/home/latest-news-01.svg",
+    image: "/home/latest-news-02.svg",
     description: `By collaborating with a diverse range of organisations, places and partnerships,
                 we help you understand the potential
                 impact of various scenarios to deliver
@@ -27,14 +27,15 @@ const newsItems: NewsCard[] = [
   {
     id: "tehseen-ali-joins",
     title: "Level 2 Certificate in Cleaning Principles",
-    image: "/home/latest-news-02.svg",
+    image: "/home/latest-news-01.svg",
     description: `The Growth Company is a leading
 provider of education, skills,
 employment, youth and offender
-rehabilitation support. Since 2020, to
-improve lives we&apos;reve created over
-42,000 new jobs, supported over
-48,000 clients into work and seen over `,
+rehabilitation support. Since 2020,
+we have created over 42,000 new jobs,
+supported over 48,000 clients into work
+and seen over 102,000 businesses
+innovate and transform.`,
     link: "/news/",
   },
   {

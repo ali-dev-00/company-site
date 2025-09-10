@@ -16,52 +16,76 @@ interface NewsArticle {
 
 const newsArticles: NewsArticle[] = [
   {
-    id: "gc-shortlisted",
+    id: "case-study-1",
     image: "/images/news-01.svg",
-    category: "Case Studies", // Changed to Case Studies based on image
-    title: "The Growth Company shortlisted for THREE commsHERO Awards",
-    description: "The Growth Company and Marketing Manchester have been shortlisted for THREE commsHERO Awards.",
-    date: "Tuesday, July 22, 2025",
-    linkHref: "/news/gc-shortlisted",
+    category: "Case Studies",
+    title: "GC Career Story: Jodie Richardson",
+    description: "Jodie shares her journey from joining as an Employment Advisor to being promoted to Service Manager in just 2.5 years, and how she uses her lived experience to improve awareness of neurodiversity across GC.",
+    date: "Tuesday, July 15, 2025",
+    linkHref: "/careers/career-stories/career-stories-detail",
   },
   {
-    id: "tehseen-ali-board",
+    id: "case-study-2",
     image: "/images/news-02.svg",
-    category: "Case Studies", // Changed to Case Studies based on image
-    title: "Tehseen Ali Joins the Growth Company Board",
-    description: "The Growth Company is pleased to announce the appointment of Tehseen Ali to its Board of Directors.",
-    date: "Wednesday, July 19, 2025",
-    linkHref: "/news/tehseen-ali-board",
+    category: "Case Studies",
+    title: "GC Career Story: Sharon Mehta",
+    description: "Sharon Mehta, Teaching and Learning Manager in our Education & Skills team, explains how she was bitten by the travel bug and embraced different cultures, before settling into her 23-year career with GC.",
+    date: "Wednesday, February 12, 2025",
+    linkHref: "/careers/career-stories/career-stories-detail",
   },
   {
-    id: "businesses-impacted",
+    id: "case-study-3",
     image: "/images/news-03.svg",
-    category: "Case Studies", // Changed to Case Studies based on image
-    title: "Supporting businesses impacted by US Trade Tariffs",
-    description:
-      "The Growth Company is working with partners to help businesses navigate the impact of US tariff announcements.",
-    date: "Wednesday, April 9, 2025",
-    linkHref: "/news/businesses-impacted",
+    category: "Case Studies",
+    title: "GC Career Story: Renée Bell",
+    description: "Renée Bell started as an apprentice and is now a Digital Marketing Specialist. She shares how she charted her course to where she wants to get to.",
+    date: "Thursday, January 30, 2025",
+    linkHref: "/careers/career-stories/career-stories-detail",
   },
   {
-    id: "greater-manchester-apprentices",
+    id: "case-study-4",
     image: "/images/news-04.svg",
-    category: "Case Studies", // Changed to Case Studies based on image
-    title: "Your Business, Their Talent - GC backs call for Greater Manchester employers to pledge T Level placements",
-    description:
-      "The Growth Company has joined leading employers across Greater Manchester to offer T Level placements - and is urging other businesses to follow their lead.",
-    date: "Wednesday, April 2, 2025",
-    linkHref: "/news/greater-manchester-apprentices",
+    category: "Case Studies",
+    title: "GC Career Story: Nick Shepherd",
+    description: "Nick Shepherd's ambition was to work in marketing, and work is what he did to get there. He shares how giving him the opportunity to progress from a Trainee Manager to a Partnership Manager within our GM Business Growth Hub.",
+    date: "Thursday, December 19, 2024",
+    linkHref: "/careers/career-stories/career-stories-detail",
   },
   {
-    id: "national-apprenticeship-week",
+    id: "case-study-5",
     image: "/images/news-05.svg",
-    category: "Case Studies", // Changed to Case Studies based on image
-    title: "Celebrating our GC Apprentices",
-    description:
-      "We have 19 colleagues who are completing apprenticeship programmes alongside their roles here at the Growth Company to enhance their skills and professional development. National Apprenticeship Week we're sharing some of their experiences.",
-    date: "Monday, February 10, 2025",
-    linkHref: "/news/national-apprenticeship-week",
+    category: "Case Studies",
+    title: "GC Career Story: Frank Kinkade",
+    description: "Frank Kinkade, Business Development Manager at GC, discusses how he made the alternative route of GC his own, shares his wealth of experience and progress into new roles.",
+    date: "Thursday, November 14, 2024",
+    linkHref: "/careers/career-stories/career-stories-detail",
+  },
+  {
+    id: "case-study-6",
+    image: "/images/news-06.svg",
+    category: "Case Studies",
+    title: "GC Career Story: Dawn Duggan",
+    description: "Dawn Duggan, Head of Programmes and Initiatives at the GM Business Growth Hub, tells us what drives her, what keeps her at GC, and what keeps her going.",
+    date: "Tuesday, October 22, 2024",
+    linkHref: "/careers/career-stories/career-stories-detail",
+  },
+  {
+    id: "case-study-7",
+    image: "/images/news-07.svg",
+    category: "Case Studies",
+    title: "GC Career Story: Jamie Meredith",
+    description: "Jamie Meredith joined GC as a Credit Controller, and over 10 years she has worked in five of our business areas and now leads a Skills team at GC Education & Skills.",
+    date: "Tuesday, October 1, 2024",
+    linkHref: "/careers/career-stories/career-stories-detail",
+  },
+  {
+    id: "case-study-8",
+    image: "/images/news-08.svg",
+    category: "Case Studies",
+    title: "GC Career Story: Jo Li",
+    description: "Jo Li relocated to the UK from Hong Kong in 2021 and since then has worked in two business areas and is now Head of Marketing at GM Business Growth Hub.",
+    date: "Monday, September 23, 2024",
+    linkHref: "/careers/career-stories/career-stories-detail",
   },
 ]
 
@@ -134,12 +158,13 @@ export default function CareerCards() {
               <div className="p-6">
                 {/* Category Badge */}
                 <div className="mb-4">
-                  <span className="inline-block px-3 py-1 text-xs font-medium text-[#ff2424] bg-red-50 rounded-full">
+                  <span className="inline-block mb-2 px-3 py-1 text-xs font-medium text-[#ff2424] bg-red-50 rounded-full">
                     {article.category}
                   </span>
+                  <p className="text-gray-500 text-xs">{article.date}</p>
                 </div>
                 {/* Title */}
-                <h3 className="text-xl font-semibold text-gray-900 group-hover:text-[#ff2424] mb-4 transition-colors duration-300 line-clamp-2 min-h-[56px]">
+                <h3 className="text-xl font-semibold text-gray-900 group-hover:text-[#ff2424]  transition-colors duration-300 line-clamp-2 min-h-[50px]">
                   {article.title}
                 </h3>
                 {/* Description */}
@@ -152,7 +177,7 @@ export default function CareerCards() {
                     Read more
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:rotate-[-45deg] transition-transform duration-300" />
                   </span>
-                  <p className="text-gray-500 text-xs">{article.date}</p>
+                  
                 </div>
               </div>
             </Link>
@@ -180,12 +205,13 @@ export default function CareerCards() {
               <div className="p-6">
                 {/* Category Badge */}
                 <div className="mb-4">
-                  <span className="inline-block px-3 py-1 text-xs font-medium text-[#ff2424] bg-red-50 rounded-full">
+                  <span className="inline-block mb-2 px-3 py-1 text-xs font-medium text-[#ff2424] bg-red-50 rounded-full">
                     {article.category}
                   </span>
+                   <p className="text-gray-500 text-xs">{article.date}</p>
                 </div>
                 {/* Title */}
-                <h3 className="text-xl font-semibold text-gray-900 group-hover:text-[#ff2424] mb-4 transition-colors duration-300 line-clamp-2 min-h-[56px]">
+                <h3 className="text-xl font-semibold text-gray-900 group-hover:text-[#ff2424] transition-colors duration-300 line-clamp-2 min-h-[50px]">
                   {article.title}
                 </h3>
                 {/* Description */}
@@ -198,7 +224,7 @@ export default function CareerCards() {
                     Read more
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:rotate-[-45deg] transition-transform duration-300" />
                   </span>
-                  <p className="text-gray-500 text-xs">{article.date}</p>
+                 
                 </div>
               </div>
             </Link>

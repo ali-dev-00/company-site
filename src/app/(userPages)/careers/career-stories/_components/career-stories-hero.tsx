@@ -26,7 +26,7 @@ export default function CareerStoriesHero() {
 
                     </div>
                     <Image
-                        src="/images/career-stories-hero.svg"
+                        src="/careers/career-stories-hero.jpg"
                         alt="Smiling boy in a classroom"
                         width={600}
                         height={400}
