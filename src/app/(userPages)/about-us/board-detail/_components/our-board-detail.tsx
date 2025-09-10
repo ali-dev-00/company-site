@@ -1,5 +1,5 @@
-import Image from "next/image"
-import { Facebook, Twitter, Linkedin } from 'lucide-react'
+import Image from "next/image";
+import { Facebook, Twitter, Linkedin } from "lucide-react";
 
 export default function OurBoardSection() {
   return (
@@ -37,13 +37,25 @@ export default function OurBoardSection() {
             </div>
           </div>
 
-          <h3 className="text-xl font-medium text-gray-800 mb-4">Early career and motivation</h3>
+          <h3 className="text-xl font-medium text-gray-800 mb-4">
+            Early career and motivation
+          </h3>
           <p className="text-gray-700 text-base md:text-lg leading-relaxed">
-            I studied Law initially at university, before going on to study Creative Writing. Following university, I
-            worked in bars and in retail roles, eventually becoming Assistant Manager and then Store Manager for
-            Barnardo&apos;s. I found working for a charity extremely rewarding but I needed to move on for career progression
-            and financial reasons, and so became Store Manager for Toolstation – setting up a brand-new store in
-            Bredbury.
+            I have been committed to enhancing my personal empowerment through
+            practical experience. My initial education was in [relevant field,
+            such as business administration, education, or social sciences],
+            which paved the way for my interest in community development.
+            Following my graduation, I gained extensive experience in a specific
+            field like project management, project training, or the security
+            industry, where I witnessed the crucial necessity for accredited
+            vocational education.
+            <br />
+            Despite my enjoyment of working alongside people and communities, I
+            realized that there was a significant difference between the skills
+            I possess and the demand for them in the market. I was motivated by
+            the need to close the gap and offer practical, impact-driven
+            training that leads to real job opportunities and growth. This is
+            why I started Horumarka Dadka.
           </p>
         </div>
 
@@ -51,7 +63,7 @@ export default function OurBoardSection() {
         <div className="flex-shrink-0 w-full md:w-1/4 relative">
           <div className="relative w-full h-0 pb-[100%] md:pb-[75%] lg:pb-[60%] overflow-hidden min-h-[450px]">
             {" "}
-            {/* Aspect ratio container */}  
+            {/* Aspect ratio container */}
             <Image
               src="/our-board/our-board-01.svg"
               alt="Ali Olad"
@@ -64,5 +76,5 @@ export default function OurBoardSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

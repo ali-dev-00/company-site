@@ -7,25 +7,25 @@ export default function AdvisoryBoardSection() {
     const advisoryBoardData = [
         {
             value: "item-1",
-            title: "Business Support and Business Finance",
+            title: "Vocational Training & Skills Development.",
             content:
                 "Content for Business Support and Business Finance goes here. This section might include details about the members, their roles, and the specific areas they cover.",
         },
         {
             value: "item-2",
-            title: "Internationalisation and Marketing",
+            title: "Quality Assurance and Accreditation",
             content:
                 "Content for Internationalisation and Marketing goes here. This section might include details about the members, their roles, and the specific areas they cover.",
         },
         {
             value: "item-3",
-            title: "Subsidiary Boards",
+            title: "Community Impact and Outreach",
             content:
                 "Content for Subsidiary Boards goes here. This section might include details about the members, their roles, and the specific areas they cover.",
         },
         {
             value: "item-4",
-            title: "Sub-committees",
+            title: "Security , Health & Safety or Sector Specific Expertise",
             content:
                 "Content for Sub-committees goes here. This section might include details about the members, their roles, and the specific areas they cover.",
         },
@@ -38,8 +38,7 @@ export default function AdvisoryBoardSection() {
                     <TitleWithUnderline title="Advisory Board" />
                 </div>
                 <p className="text-gray-700 text-base md:text-lg mb-8">
-                    The Growth Company Board is supported by three Advisory Boards with external membership drawn from or approved
-                    by The Growth Company Board. The Advisory Boards cover the three main business areas of the organisation:
+                   Horumarka Dadka&apos;s leadership is backed by an Advisory Board comprising of outside members. The board&apos;s strategic guidance and oversight are focused on the key areas of our organization&apos;s guiding mission:
                 </p>
 
                 <Accordion type="single" collapsible className="w-full">

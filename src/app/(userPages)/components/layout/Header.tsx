@@ -14,7 +14,7 @@ const LINKS = [
     submenu: [
       { href: "/about-us/our-story", label: "Our Story" },
       { href: "/about-us/our-board", label: "Our Board" },
-      { href: "/about-us/our-credentials", label: "Our Credentials" },
+      { href: "/about-us/our-credientials", label: "Our Credentials" },
     ],
   },
   {

@@ -1,73 +1,74 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import { EyeOff, Eye } from "lucide-react"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { registerUser } from "@/services/auth.service"
-import { useRouter } from "next/navigation"  
-import Toast from "@/components/ui/toast"  
+import { useState } from "react";
+import Image from "next/image";
+import { EyeOff, Eye } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { registerUser } from "@/services/auth.service";
+import { useRouter } from "next/navigation";
+import Toast from "@/components/ui/toast";
+import Link from "next/link";
 
 export default function SignUpForm() {
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
-  const [marketingEmails, setMarketingEmails] = useState(false) // Checkbox state
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
-  const router = useRouter()
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [marketingEmails, setMarketingEmails] = useState(false); // Checkbox state
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const togglePasswordVisibility = () => {
-    setShowPassword(prev => !prev)
-  }
+    setShowPassword((prev) => !prev);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     // Form validation checks
     if (!email || !password || !name) {
-      setError("All fields are required.")
-      return
+      setError("All fields are required.");
+      return;
     }
 
     // Check if the marketing emails checkbox is checked
     if (!marketingEmails) {
-      setError("Please agree to receive marketing emails.")
-      return
+      setError("Please agree to receive marketing emails.");
+      return;
     }
 
-    setLoading(true)
-    const registerData = { email, name, password, marketingEmails }
+    setLoading(true);
+    const registerData = { email, name, password, marketingEmails };
 
     try {
-      const response = await registerUser(registerData)
+      const response = await registerUser(registerData);
 
       if (response.data) {
-        setSuccess("Account created successfully. Please log in.")
-        setTimeout(() => router.push('/signin'), 2000)  // Redirect after success
+        setSuccess("Account created successfully. Please log in.");
+        setTimeout(() => router.push("/signin"), 2000); // Redirect after success
       } else {
-        setError(response.message || "Registration failed.")
+        setError(response.message || "Registration failed.");
       }
-    } catch{
-      setError('An error occurred while registering.')
+    } catch {
+      setError("An error occurred while registering.");
     }
-  }
+  };
 
   return (
     <div className="max-h-[800px] sm:max-h-[700px] my-10 flex items-center justify-center bg-white overflow-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-2 max-w-6xl mx-auto rounded-lg overflow-hidden">
         {/* Left Column: Sign-up Form */}
         <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center">
-          <h1 className="text-3xl font-bold mb-2">Welcome to Design Community</h1>
+          <h1 className="text-3xl font-bold mb-2">
+            Welcome to Horumarka Dadka Training
+          </h1>
           <p className="text-sm text-gray-600 mb-8">
-            Already have an account?{" "}
-            <a href="/signin" className="text-v0-red hover:underline">
-              Log in
-            </a>
+            Create your account to browse our courses, manage your training, and
+            start your journey to a new career.
           </p>
 
           {/* Show Toasts */}
@@ -103,7 +104,9 @@ export default function SignUpForm() {
 
             <div className="relative">
               <div className="flex w-full justify-between items-center">
-                <Label htmlFor="password" className="mr-2">Password</Label>
+                <Label htmlFor="password" className="mr-2">
+                  Password
+                </Label>
                 <Button
                   type="button"
                   variant="ghost"
@@ -122,13 +125,15 @@ export default function SignUpForm() {
                       <span className="text-sm">Hide</span>
                     </>
                   )}
-                  <span className="sr-only">{showPassword ? "Hide password" : "Show password"}</span>
+                  <span className="sr-only">
+                    {showPassword ? "Hide password" : "Show password"}
+                  </span>
                 </Button>
               </div>
 
               <Input
                 id="password"
-                type={showPassword ? 'text' : 'password'}  // Toggle between password and text input
+                type={showPassword ? "text" : "password"} // Toggle between password and text input
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -146,21 +151,47 @@ export default function SignUpForm() {
                 onChange={(e) => setMarketingEmails(e.target.checked)}
                 className="border-gray-400 mt-0.5"
               />
-              <Label htmlFor="marketing-emails" className="text-sm font-normal text-gray-800">
-                I want to receive emails about the product, feature updates, events, and marketing promotions.
+              <Label
+                htmlFor="marketing-emails"
+                className="text-sm font-normal text-gray-800"
+              >
+                Yes, I wish to receive emails about new courses, feature
+                updates, training events, and promotional offers.
               </Label>
+            
             </div>
-
+  <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+                By contacting us, you agree to{" "}
+                <Link href="/privacy-policy" className="text-[#ff2424] hover:underline">
+                  Privacy Policy
+                </Link>{" "}
+                and{" "}
+                <Link href="/terms-conditions" className="text-[#ff2424] hover:underline">
+                  Terms & our Conditions
+                </Link>
+                .
+              </label>
             {/* Error Message Below Fields */}
-            {error && <p className="text-red-500 font-medium text-sm mt-1">{error}</p>}
+            {error && (
+              <p className="text-red-500 font-medium text-sm mt-1">{error}</p>
+            )}
 
             <Button
               className="w-full rounded-md bg-[#ff2424] py-2 text-md cursor-pointer text-white shadow-sm hover:opacity-90"
               onClick={handleSubmit}
-              disabled={loading}  // Disable button during loading
+              disabled={loading} // Disable button during loading
             >
               {loading ? "Creating..." : "Create an account"}
             </Button>
+            <p className="text-sm text-gray-600 mb-8">
+              Already have an account?{" "}
+              <a
+                href="/signin"
+                className="text-[#ff2424] font-semibold hover:underline "
+              >
+                Log in
+              </a>
+            </p>
           </div>
         </div>
 
@@ -177,5 +208,5 @@ export default function SignUpForm() {
         </div>
       </div>
     </div>
-  )
+  );
 }

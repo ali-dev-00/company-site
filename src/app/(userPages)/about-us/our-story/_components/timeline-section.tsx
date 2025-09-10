@@ -1,109 +1,44 @@
 export default function TimelineSection() {
   const timelineData = [
     {
-      year: "1990",
-      title: "Starting life",
-      description: "The Growth Company starts life as The Manchester Training And Enterprise Council.",
-      hasAsterisk: false,
-    },
-    {
-      year: "1990-99",
-      title: "Training and employment initiatives",
-      description:
-        "We develop our own training and employment initiatives becoming the most innovative and entrepreneurial TEC in the country.",
-      hasAsterisk: false,
-    },
-    {
-      year: "2000-04",
-      title: "Continued growth",
-      description:
-        "We continue to grow our offer as all the companies join the organisation's including Chamber Business Enterprises and Cowan Solutions.",
-      hasAsterisk: false,
-    },
-    {
-      year: "2004",
-      title: "New contracts",
-      description:
-        "We are recognised as the economic development organisation for Greater Manchester and expand as we win new contracts across the North West.",
-      hasAsterisk: false,
-    },
-    {
-      year: "2006",
-      title: "Restructure",
-      description:
-        "The organisation is restructured and becomes known as Manchester Solutions with a clear focus on delivery.",
-      hasAsterisk: false,
-    },
-    {
-      year: "2007-09",
-      title: "Commercial offering",
-      description: "We develop our commercial offer as the Centre for Assessment and IDG join our organisation.",
-      hasAsterisk: false,
-    },
-    {
-      year: "2012",
-      title: "Business Growth Hub",
-      description:
-        "The Growth Company's Business Growth Hub is established and quickly becomes the leading business growth hub in the UK.",
-      hasAsterisk: false,
-    },
-    {
-      year: "2015",
-      title: "Marketing Manchester and MIDAS",
-      description: "Marketing Manchester and MIDAS join the Growth Company family.",
-      hasAsterisk: false,
-    },
-    {
-      year: "2017",
-      title: "Rebrand",
-      description:
-        "National Skills Training and The Manufacturing Institute join our organisation. We rebrand as The Growth Company to reflect the growing remit of our services in the UK.",
-      hasAsterisk: false,
-    },
-    {
       year: "2018",
-      title: "London office",
-      description: "We continue to innovate and grow. Our London office is launched.",
-      hasAsterisk: false,
+      title: "Founding Vision.",
+      description: "Horumarka Dadka, which is located in Hargeisa, has a clear mission: to empower people and promote development through practical, skill-based training.",
     },
     {
-      year: "2018",
-      title: "GC Angels",
-      description: "GC Angels is established, working with entrepreneurs to grow and scale their businesses.",
-      hasAsterisk: false,
+      year: "2019",
+      title: "First Accreditations.",
+      description: "We have our first official accreditations, which allow us to offer certified courses on Security and Conflict Management, establishing our credibility as a quality organization.",
+    },
+    {
+      year: "2020",
+      title: "Expanding Our Reach.",
+      description: "Our initial significant agreement to deliver vocational training for a government ministry has significantly increased our visibility and influence in communities.",
     },
     {
       year: "2021",
-      title: "eleven2ten acquisition",
-      description:
-        "The Growth Company announces the successful acquisition of eleven2ten, one of the UK's leading independent companies providing economic and social impact, analysis and consulting advice.",
-      hasAsterisk: false,
+      title: "Building Partnerships.",
+      description: "Our partnership with leading local and global NGOs allows us to initiate targeted skills development programs for young people and those seeking employment.",
     },
     {
       year: "2022",
-      title: "Social Enterprise 'Gold Mark'",
-      description:
-        "We are awarded the 'Social Enterprise Gold Mark', which endorses our reputation and credibility as an organisation which uses commercial best practices to achieve social key objectives.",
-      hasAsterisk: false,
+      title: "New Sectors & Specialisms.",
+      description: "Our course range is broadened to encompass vital new sectors such as Health & Safety (Fire Safety, First Aid, COSHH) and Quality Assurance.",
     },
     {
       year: "2023",
-      title: "Green Skills Academy launches",
-      description: "The academy is a new initiative to provide training and skills for the green economy.",
-      hasAsterisk: false,
+      title: "Digital Learning Platform.",
+      description: "Our courses are now more accessible in Somaliland thanks to a new digital initiative that complements our traditional classroom training.",
     },
     {
-      year: "2023",
-      title: "GrowthFlag",
-      description: "GrowthFlag is a new tool which shows where growth potential exists across the UK.",
-      hasAsterisk: false,
+      year: "2024",
+      title: "Leadership in Vocational Training.",
+      description: "Our outsourced training services for public and private sector clients are renowned for their commitment to ethical and impact-based outcomes.",
     },
     {
-      year: "2023",
-      title: "Winning Moves acquisition and GC Insight launch",
-      description:
-        "The Growth Company announces the acquisition of Winning Moves and the launch of GC Insight, to reflect our expanded consulting offer.",
-      hasAsterisk: true, // This is the one with the asterisk
+      year: "2025",
+      title: "Marketing Manchester and MIDAS.",
+      description: "Marketing Manchester and MIDAS join the Growth Company family.",
     },
   ]
 
@@ -126,7 +61,6 @@ export default function TimelineSection() {
                 </div>
                 {/* Dot on the line */}
                 <div className="absolute right-0 w-3 h-3 border-gray-300 bg-transparent border-2 rounded-full -mr-[5.5px] z-20" />
-               
               </div>
 
               {/* Event Content Column */}

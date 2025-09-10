@@ -17,10 +17,10 @@ const OurStoryPage = () => {
       } />
      <OurStoryHero />
      <ParagraphSection
-        para1="We're proud of our heritage, our extensive footprint and that we are a leading ethical provider of outsourced services."
-        para2="We're also proud to be an accredited social enterprise, which sets us apart. We strive for continuous improvement and our business model
-enables us to drive profits straight back into  developing and delivering high-quality service provision."
-      />
+        para1="Our growing footprint makes us a top provider of ethical and impact-driven training services. Our courses are not solely for educational purposes, but also serve as a conduit for real job opportunities and growth.
+As a mission-driven organisation, we prioritise the success of our staff and volunteers. The surplus is immediately directed back into creating new programs and enhancing our service offerings, guaranteeing that we are always responsive to the changing needs of our clients and communities.
+"
+     />
       <TimelineSection />
       <JoinWorkWithUs />
      <ContactUsBanner />
