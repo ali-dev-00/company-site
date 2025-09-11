@@ -11,38 +11,30 @@ interface NewsCard {
   description: string;
   link: string;
 }
-
 const newsItems: NewsCard[] = [
   {
     id: "growth-company-shortlisted",
     title: "Level 2 Award for Security Officers in Private Security Industry",
     image: "/home/latest-news-02.svg",
-    description: `By collaborating with a diverse range of organisations, places and partnerships,
-                we help you understand the potential
-                impact of various scenarios to deliver
-                measurable results and achieve
-                economic growth.`,
+    description: `This qualification equips individuals with the core knowledge and practical skills required to work as security officers within the private security industry, ensuring safety and compliance with industry standards.`,
     link: "/news/",
   },
   {
     id: "tehseen-ali-joins",
     title: "Level 2 Certificate in Cleaning Principles",
     image: "/home/latest-news-01.svg",
-    description: `This accredited certification provides the essential knowledge and practical skills needed to pursue a professional career in the cleaning and support services industry. `,
+    description: `This certificate covers the essential principles of cleaning, focusing on hygiene, safety, and professional standards needed to build a career in the cleaning industry.`,
     link: "/news/",
   },
   {
     id: "supporting-businesses-trade",
     title: "Level 2 Certificate in Cleaning and Support Services Skills",
     image: "/home/latest-news-03.svg",
-    description: `Businesses face ongoing challenges
-and since 2020, the Horumarka Dadka
-has assisted over 102,000 businesses
-to innovate, transform their businesses
-and create new jobs.`,
+    description: `This qualification develops both cleaning techniques and wider support service skills, preparing learners for roles across facilities management and support service environments.`,
     link: "/news/",
   },
 ];
+
 
 export default function LatestNews() {
   return (
