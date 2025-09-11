@@ -13,7 +13,7 @@ const CareersPage = () => {
       <PageHeading currentPage="Careers" />
       <CareerHero />
       <ParagraphSection
-        para1="Our goal is to empower people, businesses, and places by providing them with skills and training.' Our team is similarly impacted. We recognize the significance of combining diverse ideas and experiences to promote innovation and creativity."
+        para1="Our goal is to empower people, businesses, and places by providing them with skills and training. Our team is similarly impacted. We recognize the significance of combining diverse ideas and experiences to promote innovation and creativity."
         para2="We're committed to developing your talent and assisting you in reaching higher levels, both professionally and personally."
       />
       <CompanyPurpose />

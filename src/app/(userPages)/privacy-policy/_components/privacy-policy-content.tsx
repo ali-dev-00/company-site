@@ -26,14 +26,27 @@ export default function PrivacyPolicyContent() {
         ],
       },
       {
-        id: 4,
+        id: 4,  
         title: "Your Rights",
         content: ["Access and update your data", "Opt-out of communications", "Request deletion of your information"],
       },
       {
         id: 5,
         title: "Contact Us",
-        content: ["Email: info@horumarkadadka.com", "Phone: +252-617873944"],
+        content: [
+          <>
+            Email:{" "}
+            <a href="mailto:info@horumarkadadka.com" className="text-red-600 hover:underline">
+              info@horumarkadadka.com
+            </a>
+          </>,
+          <>
+            Phone:{" "}
+            <a href="tel:+252638972482" className="text-red-600 hover:underline">
+              +252 638972482
+            </a>
+          </>,
+        ],
         isContact: true, // Special flag for contact section formatting
       },
     ]
@@ -70,4 +83,3 @@ export default function PrivacyPolicyContent() {
       </section>
     )
   }
-  

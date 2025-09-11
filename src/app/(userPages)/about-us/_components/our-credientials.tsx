@@ -12,7 +12,7 @@ export default function OurCredentials() {
         </div>
 
         {/* Descriptive Paragraphs */}
-        <div className="space-y-6 mb-12 text-gray-600 text-base leading-relaxed ">
+        <div className="space-y-3 mb-12 text-gray-600 text-base leading-relaxed ">
           <p>
             The objective of Horumarka Dadka is to create innovative approaches
             that can assist people in enhancing their lives, aiding businesses
@@ -55,7 +55,7 @@ export default function OurCredentials() {
               Our story
             </h3>
             <p className="text-gray-600 text-sm mb-6">
-              Discover more about our rich heritage.
+              Discover more about our Horumarka Dadka.
             </p>
             <Link
               href="/our-story"

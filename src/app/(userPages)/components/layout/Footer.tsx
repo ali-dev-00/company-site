@@ -21,7 +21,7 @@ const links = [
     {
         id: "join-us",
         label: "Join Us",
-        href: "/join-us",
+        href: "/careers/join-us",
     },
     {
         id: "terms-conditions",
@@ -43,31 +43,31 @@ const links = [
 const socialMediaLinks = [
     {
         id: "tiktok",
-        icon: "/socials/footer-tiktok.svg", // Add your actual path to the TikTok image
-        link: "#",
+        icon: "/socials/footer-tiktok.svg", 
+        link: "https://www.tiktok.com/@horumarkadadka",
         label: "TikTok",
     },
     {
         id: "facebook",
-        icon: "/socials/footer-facebook.svg", // Add your actual path to the Facebook image
+        icon: "/socials/footer-facebook.svg", 
         link: "#",
         label: "Facebook",
     },
-    {
-        id: "instagram",
-        icon: "/socials/footer-youtube.svg", // Add your actual path to the Instagram image
-        link: "#",
-        label: "Instagram",
-    },
+    // {
+    //     id: "instagram",
+    //     icon: "/socials/footer-youtube.svg", 
+    //     link: "#",
+    //     label: "Instagram",
+    // },
     {
         id: "youtube",
-        icon: "/socials/footer-instagram.svg", // Add your actual path to the YouTube image
+        icon: "/socials/footer-instagram.svg", 
         link: "#",
         label: "YouTube",
     },
     {
         id: "twitter",
-        icon: "/socials/footer-twitter.svg", // Add your actual path to the Twitter image
+        icon: "/socials/footer-twitter.svg", 
         link: "#",
         label: "Twitter",
     },
@@ -182,8 +182,10 @@ export default function Footer() {
                 </div>
             </footer>
             {/* Bottom Section - Copyright */}
-            <div className=" py-6 bg-black">
-                <p className="text-sm text-gray-400 text-center">© 2026 The Growth Company</p>
+            <div className="py-6 bg-black">
+                <p className="text-sm text-gray-400 text-center">
+                    © 2026 Horumarka Dadka. All rights reserved. Empowering individuals, businesses, and institutions.
+                </p>
             </div>
         </>
 

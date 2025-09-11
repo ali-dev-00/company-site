@@ -20,19 +20,19 @@ export default function TopBar() {
 
       {/* Right Section: Social Media Icons */}
       <div className="flex items-center space-x-3">
-        <Link href="#" aria-label="YouTube" className="hover:opacity-80 transition-opacity">
+        <Link href="https://www.youtube.com/@horumarkadadka" aria-label="YouTube" className="hover:opacity-80 transition-opacity">
           <Image src="/socials/youtube.svg" alt="YouTube" width={15} height={15} className="w-4 h-4 md:w-6 md:h-6" />
         </Link>
-        <Link href="#" aria-label="Instagram" className="hover:opacity-80 transition-opacity">
+        {/* <Link href="" aria-label="Instagram" className="hover:opacity-80 transition-opacity">
           <Image src="/socials/instagram.svg" alt="Instagram" width={15} height={15} className="w-4 h-4 md:w-5 md:h-5" />
-        </Link>
-        <Link href="#" aria-label="Facebook" className="hover:opacity-80 transition-opacity">
+        </Link> */}
+        <Link href="https://www.facebook.com/horumarkadadka" aria-label="Facebook" className="hover:opacity-80 transition-opacity">
           <Image src="/socials/facebook.svg" alt="Facebook" width={15} height={15} className="w-4 h-4 md:w-5 md:h-5" />
         </Link>
-        <Link href="#" aria-label="X (Twitter)" className="hover:opacity-80 transition-opacity">
+        <Link href="https://x.com/horumarkadadka" aria-label="X (Twitter)" className="hover:opacity-80 transition-opacity">
           <Image src="/socials/twitter.svg" alt="X (Twitter)" width={15} height={15} className="w-4 h-4 md:w-4 md:h-4" />
         </Link>
-        <Link href="#" aria-label="TikTok" className="hover:opacity-80 transition-opacity">
+        <Link href="https://www.tiktok.com/@horumarkadadka" aria-label="TikTok" className="hover:opacity-80 transition-opacity">
           <Image src="/socials/tiktok.svg" alt="TikTok" width={15} height={15} className="w-4 h-4 md:w-4 md:h-4" />
         </Link>
       </div>

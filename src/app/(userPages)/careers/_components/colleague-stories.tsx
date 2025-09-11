@@ -15,7 +15,7 @@ interface StoryCard {
 const storyItems: StoryCard[] = [
     {
         id: "jodie-richardson",
-        title: "GC Career Story: Jodie Richardson",
+        title: "HD Career Story: Jodie Richardson",
         image: "/careers/career-stories-01.svg",
         date: "Tuesday, July 15, 2025",
         category: "Career Stories",
@@ -23,7 +23,7 @@ const storyItems: StoryCard[] = [
     },
     {
         id: "sharon-mehta",
-        title: "GC Career Story: Sharon Mehta",
+        title: "HD Career Story: Sharon Mehta",
         image: "/careers/career-stories-02.svg",
         date: "Wednesday, February 12, 2025",
         category: "Career Stories",
@@ -31,7 +31,7 @@ const storyItems: StoryCard[] = [
     },
     {
         id: "renee-bell",
-        title: "GC Career Story: Renée Bell",
+        title: "HD Career Story: Renée Bell",
         image: "/careers/career-stories-03.svg",
         date: "Thursday, January 30, 2025",
         category: "Career Stories",

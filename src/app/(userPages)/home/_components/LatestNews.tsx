@@ -36,7 +36,7 @@ const newsItems: NewsCard[] = [
     title: "Level 2 Certificate in Cleaning and Support Services Skills",
     image: "/home/latest-news-03.svg",
     description: `Businesses face ongoing challenges
-and since 2020, the Growth Company
+and since 2020, the Horumarka Dadka
 has assisted over 102,000 businesses
 to innovate, transform their businesses
 and create new jobs.`,
