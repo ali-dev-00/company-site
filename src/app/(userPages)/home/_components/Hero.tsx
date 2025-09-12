@@ -1,12 +1,50 @@
+"use client"
+
 import Image from "next/image"
+import { useState, useEffect } from "react"
+import { safeGetContent } from "@/services/content-management.service"
+
+interface HeroContent {
+  title: string
+  subtitle: string
+  image?: string
+}
 
 export default function HeroSection() {
+  const [heroContent, setHeroContent] = useState<HeroContent>({
+    title: "We are Horumarka Dadka",
+    subtitle: "We are a trusted leader in providing expertise, business solutions, employment opportunities, and skills development. In collaboration with our partners, clients, and teams, we take pride in setting the standard for inclusive growth driving positive economic, social, and environmental impact in East Africa."
+  })
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchHeroContent = async () => {
+      try {
+        const content = await safeGetContent('home-content-section')
+        if (content && content.sectionContent) {
+          const parsed = JSON.parse(content.sectionContent)
+          setHeroContent({
+            title: parsed.title || heroContent.title,
+            subtitle: parsed.subtitle || heroContent.subtitle,
+            image: parsed.image
+          })
+        }
+      } catch (error) {
+        console.error('Error fetching hero content:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchHeroContent()
+  }, [])
+
   return (
     <section className="relative bg-[#F4F2F2] mx-auto h-screen max-h-[600px] w-full mb-40 lg:mb-48 xl:mb-50">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/home/hero.png"
+          src={heroContent.image || "/home/hero.png"}
           alt="Team collaboration in office environment"
           fill
           className="object-cover object-center sm:object-center md:object-center"
@@ -20,7 +58,7 @@ export default function HeroSection() {
           <div className="relative max-w-full sm:max-w-4xl lg:max-w-5xl">
          
             <h1 className="text-2xl font-bold z-50 text-white mb-4 sm:text-3xl sm:mb-5 md:text-4xl md:mb-6  lg:mb-6">
-              We are Horumarka Dadka
+              {loading ? "We are Horumarka Dadka" : heroContent.title}
             </h1>
 
             {/* Decorative Line */}
@@ -31,8 +69,14 @@ export default function HeroSection() {
 
             {/* Subtitle */}
             <p className="text-sm text-white mb-4 font-medium sm:text-base sm:mb-5 md:mb-6 ">
-              We are a trusted leader in providing expertise, business solutions, employment opportunities, and skills development. <br />
-              In collaboration with our partners, clients, and teams, we take pride in setting the standard for inclusive growth driving positive economic, social, and environmental impact in East Africa.
+              {loading ? (
+                <>
+                  We are a trusted leader in providing expertise, business solutions, employment opportunities, and skills development. <br />
+                  In collaboration with our partners, clients, and teams, we take pride in setting the standard for inclusive growth driving positive economic, social, and environmental impact in East Africa.
+                </>
+              ) : (
+                heroContent.subtitle
+              )}
             </p>
           </div>
           <div className="bg-black/6 top-[-150px] -left-[-94.7px] bottom-[-350px] rotate-45 w-[180px] h-[600px] absolute "/>

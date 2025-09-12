@@ -10,27 +10,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { logoutUser } from "@/services/auth.service"  // Import the logout function
-import { useRouter } from "next/navigation"  // For routing
+import { forceLogoutAndRedirect } from "@/services/auth.service"  // Import the enhanced logout function
 
 export function ProfileDropdown() {
-  const router = useRouter()
-
   const handleLogout = async () => {
-    try {
-      // Call logoutUser function from auth service to logout
-      const response = await logoutUser()
-
-      if (response.message) {
-        // Redirect to login page after successful logout
-        router.push("/signin")
-      } else {
-        // Handle logout failure (optional)
-        console.error("Logout failed: ", response)
-      }
-    } catch (error) {
-      console.error("An error occurred while logging out", error)
-    }
+    await forceLogoutAndRedirect()
   }
 
   return (

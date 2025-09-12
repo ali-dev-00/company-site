@@ -11,11 +11,31 @@ const setAuthData = (accessToken: string, user: AuthUser) => {
 };
 
 export const removeAuthData = () => {
-  deleteCookie("token");
-  deleteCookie("permissions");
-  deleteCookie("isAdmin");
-  deleteCookie("role");
-  deleteCookie("user");
+  console.log("Removing auth data from cookies...");
+  
+  // List all auth-related cookies to remove
+  const authCookies = ["token", "permissions", "isAdmin", "role", "user"];
+  
+  authCookies.forEach(cookieName => {
+    try {
+      deleteCookie(cookieName);
+      console.log(`Removed cookie: ${cookieName}`);
+    } catch (error) {
+      console.error(`Failed to remove cookie ${cookieName}:`, error);
+    }
+  });
+  
+  // Also try to remove with different path options to ensure cleanup
+  authCookies.forEach(cookieName => {
+    try {
+      deleteCookie(cookieName, { path: "/" });
+      deleteCookie(cookieName, { path: "", domain: "localhost" });
+    } catch (error) {
+      // Ignore errors for alternate deletion attempts
+    }
+  });
+  
+  console.log("Auth data removal completed");
 };
 
 export const loginUser = async (
@@ -39,9 +59,28 @@ export const registerUser = async (
 };
 
 export const logoutUser = async (): Promise<ServerResponse<null>> => {
-  const response = await postToServer<null>("auth/logout", {});
-  if (response.status) removeAuthData();
-  return response;
+  try {
+    console.log("Starting logout process...");
+    const response = await postToServer<null>("auth/logout", {});
+    
+    // Always remove auth data regardless of API response
+    // This ensures frontend is cleared even if backend logout fails
+    console.log("Clearing auth data from cookies...");
+    removeAuthData();
+    
+    console.log("Logout completed, auth data cleared");
+    return response;
+  } catch (error) {
+    // Even if logout API fails, clear the frontend data
+    console.error("Logout API failed, but clearing local data:", error);
+    removeAuthData();
+    
+    return {
+      status: false,
+      message: "Logout completed locally",
+      data: null
+    };
+  }
 };
 
 export const getUserProfile = async (): Promise<ServerResponse<AuthUser>> => {
@@ -49,7 +88,31 @@ export const getUserProfile = async (): Promise<ServerResponse<AuthUser>> => {
 };
 
 export const isAuthenticated = async (): Promise<boolean> => {
-  return Boolean(getCookie("token"));
+  const token = getCookie("token");
+  console.log("Checking authentication - Token exists:", !!token);
+  
+  if (!token) {
+    return false;
+  }
+
+  // If we have user data in cookies, assume authentication is valid
+  // This avoids unnecessary API calls on every check
+  const userData = getCookie("user");
+  console.log("User data in cookies:", !!userData);
+  
+  if (userData) {
+    try {
+      const parsedUser = JSON.parse(userData.toString());
+      console.log("User data is valid JSON, user:", parsedUser.email || parsedUser.name);
+      return true;
+    } catch (error) {
+      console.log("Invalid user data in cookies, re-validating...");
+    }
+  }
+
+  // If no valid user data, verify with server
+  console.log("No valid user data, validating token with server...");
+  return await validateToken();
 };
 
 export const hasPermission = async (permission: string): Promise<boolean> => {
@@ -67,11 +130,112 @@ export const getCurrentUser = async (): Promise<AuthUser | null> => {
   return user ? (JSON.parse(user.toString()) as AuthUser) : null;
 };
 
-export const hasAnyPermissions = (): boolean => {
+export const validateToken = async (): Promise<boolean> => {
+  const token = getCookie("token");
+  if (!token) {
+    console.log("No token found in cookies");
+    return false;
+  }
+
+  console.log("Token exists, validating with server...");
+  
   try {
-    const permissions = JSON.parse(getCookie("permissions")?.toString() || "[]");
-    return Array.isArray(permissions) && permissions.length > 0;
-  } catch {
+    // Make a simple request to verify token validity
+    const response = await getUserProfile();
+    console.log("Token validation response:", response.status, response.message);
+    
+    if (response.status) {
+      // Update user data in cookies if successful
+      const user = response.data;
+      setCookie("user", JSON.stringify(user), { path: "/" });
+      setCookie("permissions", JSON.stringify(user.permissions), { path: "/" });
+      setCookie("isAdmin", String(user.isAdmin || false), { path: "/" });
+      setCookie("role", user.role, { path: "/" });
+      console.log("Token validation successful, user data updated");
+      return true;
+    } else {
+      console.log("Token validation failed, removing auth data");
+      removeAuthData();
+      return false;
+    }
+  } catch (error) {
+    console.error("Token validation error:", error);
+    removeAuthData();
+    return false;
+  }
+};
+
+export const refreshUserData = async (): Promise<boolean> => {
+  try {
+    const response = await getUserProfile();
+    if (response.status) {
+      const user = response.data;
+      setCookie("user", JSON.stringify(user), { path: "/" });
+      setCookie("permissions", JSON.stringify(user.permissions), { path: "/" });
+      setCookie("isAdmin", String(user.isAdmin || false), { path: "/" });
+      setCookie("role", user.role, { path: "/" });
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error("Failed to refresh user data:", error);
+    return false;
+  }
+};
+
+// Debug function to check all auth cookies
+export const debugAuthState = (): void => {
+  console.log("=== Auth Debug Info ===");
+  console.log("Token:", !!getCookie("token"));
+  console.log("User:", getCookie("user"));
+  console.log("Permissions:", getCookie("permissions"));
+  console.log("IsAdmin:", getCookie("isAdmin"));
+  console.log("Role:", getCookie("role"));
+  console.log("=====================");
+};
+
+// Force logout and redirect (useful for dashboard logout button)
+export const forceLogoutAndRedirect = async (redirectPath: string = "/signin"): Promise<void> => {
+  try {
+    console.log("Force logout initiated...");
+    await logoutUser();
+  } catch (error) {
+    console.error("Logout API failed, forcing local cleanup:", error);
+  } finally {
+    // Ensure cookies are cleared regardless of API response
+    removeAuthData();
+    
+    // Redirect to signin page
+    if (typeof window !== "undefined") {
+      console.log(`Redirecting to ${redirectPath}`);
+      window.location.href = redirectPath;
+    }
+  }
+};
+
+export const hasAnyPermissions = async (): Promise<boolean> => {
+  try {
+    // Check if we have permissions in cookies first
+    const permissionsData = getCookie("permissions");
+    if (permissionsData) {
+      const permissions = JSON.parse(permissionsData.toString());
+      if (Array.isArray(permissions) && permissions.length > 0) {
+        return true;
+      }
+    }
+
+    // If no permissions found, check if user is authenticated and refresh data
+    const authenticated = await isAuthenticated();
+    if (authenticated) {
+      // Try to refresh user data to get latest permissions
+      await refreshUserData();
+      const updatedPermissions = JSON.parse(getCookie("permissions")?.toString() || "[]");
+      return Array.isArray(updatedPermissions) && updatedPermissions.length > 0;
+    }
+    
+    return false;
+  } catch (error) {
+    console.error("Error checking permissions:", error);
     return false;
   }
 };

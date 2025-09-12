@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import {
   isAuthenticated,
   hasAnyPermissions,
+  debugAuthState,
 } from "@/services/auth.service";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { DashboardShell } from "./_components/dashboard-shell";
@@ -20,15 +21,28 @@ export default function DashboardLayout({
 
   useEffect(() => {
     const checkAccess = async () => {
-      const token = await isAuthenticated();
-      const hasPerms = await hasAnyPermissions();
+      try {
+        console.log("Starting auth check...");
+        debugAuthState();
+        
+        const token = await isAuthenticated();
+        const hasPerms = await hasAnyPermissions();
+        
+        console.log("User is authenticated:", token);
+        console.log("User permissions valid:", hasPerms);
 
-      if (!token || !hasPerms) {
+        if (!token || !hasPerms) {
+          console.log("Redirecting to signin...");
+          router.push("/signin");
+          return;
+        }
+
+        console.log("Auth check passed, showing dashboard");
+        setLoading(false);
+      } catch (error) {
+        console.error("Auth check failed:", error);
         router.push("/signin");
-        return;
       }
-
-      setLoading(false);
     };
 
     checkAccess();
