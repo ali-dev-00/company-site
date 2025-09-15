@@ -16,6 +16,7 @@ export default function ContactUsContentForm() {
     description: "Feel free to reach out if you'd like more details about any of our services.",
     buttonText: "Contact Us",
     buttonLink: "/contact-us",
+    backgroundImage: "/home/latest-news-bg.png",
     rightImage: "/images/mask-group.svg",
   }, [])
   const [formData, setFormData] = useState<HomeContactUsBanner>({
@@ -23,6 +24,7 @@ export default function ContactUsContentForm() {
     description: initial.description || "Feel free to reach out if you'd like more details about any of our services.",
     buttonText: initial.buttonText || "Contact Us",
     buttonLink: initial.buttonLink || "/contact-us",
+    backgroundImage: initial.backgroundImage || "/home/latest-news-bg.png",
     rightImage: initial.rightImage || "/images/mask-group.svg",
   })
   const baselineRef = useRef<HomeContactUsBanner>({ ...initial })
@@ -71,6 +73,7 @@ export default function ContactUsContentForm() {
             description: data.description ?? formData.description,
             buttonText: data.buttonText ?? formData.buttonText,
             buttonLink: data.buttonLink ?? formData.buttonLink,
+            backgroundImage: data.backgroundImage ?? formData.backgroundImage,
             rightImage: data.rightImage ?? formData.rightImage,
           }
           baselineRef.current = { ...next }

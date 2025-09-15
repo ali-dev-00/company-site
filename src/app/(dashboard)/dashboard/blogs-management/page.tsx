@@ -113,7 +113,7 @@ export default function BlogsManagement() {
 
   useEffect(() => {
     fetchBlogs()
-  }, [page, globalSearchQuery])
+  }, [page, globalSearchQuery, fetchBlogs])
 
   useEffect(() => {
     setPage(1)

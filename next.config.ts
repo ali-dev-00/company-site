@@ -7,12 +7,6 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '10mb', // Increase body size limit to 10MB
     },
   },
-  // Also configure for API routes
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
-  },
   // Configure external image domains
   images: {
     remotePatterns: [
