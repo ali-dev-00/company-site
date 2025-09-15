@@ -1,6 +1,6 @@
 "use client";
 
-import baseContent from "../../public/content.json";
+import baseContent from "../data/content.json";
 import type { HomeHeroSection, HomeJoinWorkWithUs, HomeContactUsBanner, SiteContentWithBanner } from "@/types/content";
 
 const STORAGE_KEY = "site-content-overrides";
