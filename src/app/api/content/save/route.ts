@@ -83,6 +83,7 @@ export async function PATCH(req: NextRequest) {
         access: "public",
         contentType: "application/json",
         addRandomSuffix: false,
+        allowOverwrite: true,
         token,
       });
       url = putRes.url;
