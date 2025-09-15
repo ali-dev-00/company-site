@@ -22,7 +22,7 @@ export async function GET() {
           }
         }
       } catch {
-        // ignore and fall back to file
+        // ignore and fall back to bundled JSON
       }
     }
 
@@ -30,7 +30,9 @@ export async function GET() {
       json = fallbackContent as SiteContentWithBanner;
     }
 
-    return NextResponse.json({ status: true, data: json });
+    return new NextResponse(JSON.stringify(json), {
+      headers: { "content-type": "application/json" },
+    });
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "Failed to load content";
     return NextResponse.json({ status: false, message }, { status: 500 });

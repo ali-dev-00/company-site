@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { put, list } from "@vercel/blob";
 import type { HomeContactUsBanner, HomeHeroSection, HomeJoinWorkWithUs, SiteContentWithBanner } from "@/types/content";
+import fallbackContent from "@/data/content.json";
 
 export const runtime = "nodejs";
 
@@ -13,7 +14,7 @@ export async function PATCH(req: NextRequest) {
       HomeJoinWorkWithUs: Partial<HomeJoinWorkWithUs>;
       HomeContactUsBanner: Partial<HomeContactUsBanner>;
     }>;
-    // Load current content from Blob if available, else fall back to bundled public/content.json
+  // Load current content from Blob if available, else fall back to bundled JSON import
     const blobKey = process.env.CONTENT_BLOB_KEY || "site-content/content.json";
     const token = process.env.BLOB_READ_WRITE_TOKEN;
     let json: SiteContentWithBanner | null = null;
@@ -32,9 +33,7 @@ export async function PATCH(req: NextRequest) {
       }
     }
     if (!json) {
-      const contentPath = path.join(process.cwd(), "public", "content.json");
-      const raw = await fs.readFile(contentPath, "utf8");
-      json = JSON.parse(raw) as SiteContentWithBanner;
+      json = fallbackContent as SiteContentWithBanner;
     }
 
     // Determine which sections are being updated
@@ -77,23 +76,29 @@ export async function PATCH(req: NextRequest) {
       updates.HomeHeroSection = json.HomeHeroSection;
     }
 
-    // Persist to Vercel Blob (no database required) using a stable key
-    if (!token) {
-      throw new Error(
-        "Missing BLOB_READ_WRITE_TOKEN. Configure Vercel Blob token to persist content."
-      );
+    // Persist changes: use Blob in production when token is available; in development, write to local src/data/content.json
+    let url: string | undefined;
+    if (token && process.env.NODE_ENV === "production") {
+      const putRes = await put(blobKey, JSON.stringify(json, null, 2), {
+        access: "public",
+        contentType: "application/json",
+        addRandomSuffix: false,
+        token,
+      });
+      url = putRes.url;
+    } else {
+      if (process.env.NODE_ENV === "production") {
+        throw new Error("Content update requires BLOB_READ_WRITE_TOKEN in production");
+      }
+      // dev/local write-through to repo file for easier editing
+      const filePath = path.join(process.cwd(), "src", "data", "content.json");
+      await fs.writeFile(filePath, JSON.stringify(json, null, 2), "utf8");
     }
-    const { url } = await put(blobKey, JSON.stringify(json, null, 2), {
-      access: "public",
-      contentType: "application/json",
-      addRandomSuffix: false,
-      token,
-    });
 
     // If only one section was updated, return it directly; else return the map
     const keys = Object.keys(updates) as Array<keyof typeof updates>;
     const data = keys.length === 1 && keys[0] ? updates[keys[0]] : updates;
-    return NextResponse.json({ status: true, data, url });
+  return NextResponse.json({ status: true, data, url });
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "Update failed";
     return NextResponse.json({ status: false, message }, { status: 500 });
