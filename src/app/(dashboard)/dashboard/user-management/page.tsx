@@ -39,13 +39,12 @@ export default function UserManagement() {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const res = await getUsers();
+      const res = await getUsers(page, limit);
       if (res?.status && Array.isArray(res.data)) {
         const transformed = res.data;
-        const start = (page - 1) * limit;
-        const end = start + limit;
-        setUsers(transformed.slice(start, end));
-        setTotalPages(Math.ceil(transformed.length / limit));
+        setUsers(transformed);
+        const total = res.pagination?.total ?? transformed.length;
+        setTotalPages(Math.max(1, Math.ceil(total / limit)));
       } else {
         setUsers([]);
       }
@@ -142,11 +141,7 @@ export default function UserManagement() {
     );
   }, [users, globalSearchQuery]);
 
-  const paginatedUsers = useMemo(() => {
-    const startIndex = (page - 1) * limit;
-    const endIndex = startIndex + limit;
-    return filteredUsers.slice(startIndex, endIndex);
-  }, [filteredUsers, page, limit]);
+  const paginatedUsers = filteredUsers;
 
   return (
     <div className="m-5 border border-gray-300 rounded-lg">

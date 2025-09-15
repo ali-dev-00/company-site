@@ -50,7 +50,7 @@ export default function RoleManagement() {
   const fetchRoles = async () => {
     setLoading(true)
     try {
-      const res = await getRoles()
+      const res = await getRoles(page, limit)
       if (res?.status && Array.isArray(res.data)) {
         const transformed: Role[] = res.data.map((item) => ({
           _id: item._id,
@@ -62,10 +62,9 @@ export default function RoleManagement() {
           isToggled: item.status ?? false,
         }))
 
-        const start = (page - 1) * limit
-        const end = start + limit
-        setRoles(transformed.slice(start, end))
-        setTotalPages(Math.ceil(transformed.length / limit))
+        setRoles(transformed)
+        const total = res.pagination?.total ?? transformed.length
+        setTotalPages(Math.max(1, Math.ceil(total / limit)))
       } else {
         setRoles([])
       }
@@ -157,11 +156,7 @@ export default function RoleManagement() {
     return filtered
   }, [roles, globalSearchQuery, statusFilter, filterColumn])
 
-  const paginatedRoles = useMemo(() => {
-    const startIndex = (page - 1) * limit
-    const endIndex = startIndex + limit
-    return filteredRoles.slice(startIndex, endIndex)
-  }, [filteredRoles, page, limit])
+  const paginatedRoles = filteredRoles
 
 
   return (

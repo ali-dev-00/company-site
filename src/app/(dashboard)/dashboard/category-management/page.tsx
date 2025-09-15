@@ -41,7 +41,7 @@ export default function CategoryManagement() {
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      const res = await getCategories();
+      const res = await getCategories(page, limit);
       if (res?.status && Array.isArray(res.data)) {
         const transformed: Category[] = res.data.map((item) => ({
           _id: item._id,
@@ -50,13 +50,12 @@ export default function CategoryManagement() {
           createdAt: item.createdAt,
           updatedAt: item.updatedAt,
         }));
-
-        const start = (page - 1) * limit;
-        const end = start + limit;
-        setCategories(transformed.slice(start, end));
-        setTotalPages(Math.ceil(transformed.length / limit));
+        setCategories(transformed);
+        const total = res.pagination?.total ?? transformed.length;
+        setTotalPages(Math.max(1, Math.ceil(total / limit)));
       } else {
         setCategories([]);
+        setTotalPages(1);
       }
     } catch (err) {
       console.error("Error fetching categories:", err);
@@ -137,11 +136,8 @@ export default function CategoryManagement() {
     );
   }, [categories, globalSearchQuery]);
 
-  const paginatedCategories = useMemo(() => {
-    const startIndex = (page - 1) * limit;
-    const endIndex = startIndex + limit;
-    return filteredCategories.slice(startIndex, endIndex);
-  }, [filteredCategories, page, limit]);
+  // Server returns a single page; after local search, show filtered of current page
+  const paginatedCategories = filteredCategories;
 
   return (
     <div className="m-5 border border-gray-300 rounded-lg">
