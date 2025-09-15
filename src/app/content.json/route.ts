@@ -31,7 +31,12 @@ export async function GET() {
     }
 
     return new NextResponse(JSON.stringify(json), {
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        "cache-control": "no-store, no-cache, must-revalidate, max-age=0",
+        pragma: "no-cache",
+        expires: "0",
+      },
     });
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "Failed to load content";
