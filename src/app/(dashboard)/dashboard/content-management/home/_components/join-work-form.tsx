@@ -1,33 +1,75 @@
 "use client"
 
-import React from "react"
+import React, { useMemo, useRef, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
+import Toast from "@/components/ui/toast"
+import { getSiteContent } from "@/services/site-content.service"
+import { persistJoinWorkWithUsToServer } from "@/services/site-content.service"
+import type { HomeJoinWorkWithUs } from "@/types/content"
 
 export default function JoinWorkContentForm() {
-  const handleSave = () => {
-    const formData = {
-      joinUs: {
-        title: (document.getElementById("join-us-title") as HTMLInputElement)?.value,
-        subtitle: (document.getElementById("join-us-subtitle") as HTMLTextAreaElement)?.value,
-        buttonText: (document.getElementById("join-us-button-text") as HTMLInputElement)?.value,
-        buttonLink: (document.getElementById("join-us-button-link") as HTMLInputElement)?.value,
-      },
-      workWithUs: {
-        title: (document.getElementById("work-with-us-title") as HTMLInputElement)?.value,
-        subtitle: (document.getElementById("work-with-us-subtitle") as HTMLTextAreaElement)?.value,
-        buttonText: (document.getElementById("work-with-us-button-text") as HTMLInputElement)?.value,
-        buttonLink: (document.getElementById("work-with-us-button-link") as HTMLInputElement)?.value,
-      },
+  const initial = useMemo<HomeJoinWorkWithUs>(() => getSiteContent().HomeJoinWorkWithUs || {
+    JoinUsTitle: "",
+    JoinUsDescription: "",
+    JoinUsButtonText: "",
+    JoinUsButtonLink: "",
+    WorkWithUsTitle: "",
+    WorkWithUsDescription: "",
+    WorkWithUsButtonText: "",
+    WorkWithUsButtonLink: "",
+  }, [])
+  const baselineRef = useRef<HomeJoinWorkWithUs>({ ...initial })
+  const [saving, setSaving] = useState(false)
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null)
+  const [toastKey, setToastKey] = useState(0)
+
+  const [formData, setFormData] = useState<HomeJoinWorkWithUs>({
+    JoinUsTitle: initial.JoinUsTitle || "",
+    JoinUsDescription: initial.JoinUsDescription || "",
+    JoinUsButtonText: initial.JoinUsButtonText || "",
+    JoinUsButtonLink: initial.JoinUsButtonLink || "",
+    WorkWithUsTitle: initial.WorkWithUsTitle || "",
+    WorkWithUsDescription: initial.WorkWithUsDescription || "",
+    WorkWithUsButtonText: initial.WorkWithUsButtonText || "",
+    WorkWithUsButtonLink: initial.WorkWithUsButtonLink || "",
+  })
+
+  const showToast = (type: "success" | "error", message: string) => {
+    setToast({ type, message })
+    setToastKey((k) => k + 1)
+  }
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target
+    setFormData((prev) => ({ ...prev, [id]: value }))
+  }
+
+  const isDirty = (Object.keys(formData) as Array<keyof HomeJoinWorkWithUs>).some(
+    (k) => formData[k] !== baselineRef.current[k]
+  )
+
+  const handleSave = async () => {
+    setSaving(true)
+    try {
+      const saved = await persistJoinWorkWithUsToServer(formData)
+      if (saved) {
+        baselineRef.current = { ...saved }
+        setFormData({ ...saved })
+        showToast("success", "Content updated successfully")
+      } else {
+        showToast("error", "Failed to save content")
+      }
+    } finally {
+      setSaving(false)
     }
-    console.log("Saving form data:", formData)
-    alert("Form data saved! (Check console for details)")
   }
 
   return (
     <section className="px-6 py-2">
+      {toast && <Toast key={toastKey} message={toast.message} type={toast.type} />}
       <div className="border-gray-200 border mx-auto bg-white p-8 rounded-xl shadow-sm">
         <div className="space-y-8">
           {/* Join Us */}
@@ -38,22 +80,14 @@ export default function JoinWorkContentForm() {
               <Label htmlFor="join-us-title" className="text-base font-medium text-gray-800 mb-2 block">
                 Title
               </Label>
-              <Input
-                id="join-us-title"
-                placeholder="Welcome"
-                className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600"
-              />
+              <Input id="JoinUsTitle" value={formData.JoinUsTitle} onChange={onChange} placeholder="Welcome" className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600" />
             </div>
 
             <div>
               <Label htmlFor="join-us-subtitle" className="text-base font-medium text-gray-800 mb-2 block">
                 Subtitle
               </Label>
-              <Textarea
-                id="join-us-subtitle"
-                placeholder="Write here"
-                className="w-full h-28 resize-none border-gray-300 focus:border-red-600 focus:ring-red-600"
-              />
+              <Textarea id="JoinUsDescription" value={formData.JoinUsDescription} onChange={onChange} placeholder="Write here" className="w-full h-28 resize-none border-gray-300 focus:border-red-600 focus:ring-red-600" />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -61,21 +95,13 @@ export default function JoinWorkContentForm() {
                 <Label htmlFor="join-us-button-text" className="text-base font-medium text-gray-800 mb-2 block">
                   Button Text
                 </Label>
-                <Input
-                  id="join-us-button-text"
-                  placeholder="Get Started"
-                  className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600"
-                />
+                <Input id="JoinUsButtonText" value={formData.JoinUsButtonText} onChange={onChange} placeholder="Get Started" className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600" />
               </div>
               <div>
-                <Label htmlFor="join-us-button-link" className="text-base font-medium text-gray-800 mb-2 block">
+                <Label htmlFor="JoinUsButtonLink" className="text-base font-medium text-gray-800 mb-2 block">
                   Button Link
                 </Label>
-                <Input
-                  id="join-us-button-link"
-                  placeholder="Link"
-                  className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600"
-                />
+                <Input id="JoinUsButtonLink" value={formData.JoinUsButtonLink} onChange={onChange} placeholder="Link" className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600" />
               </div>
             </div>
           </div>
@@ -88,22 +114,14 @@ export default function JoinWorkContentForm() {
               <Label htmlFor="work-with-us-title" className="text-base font-medium text-gray-800 mb-2 block">
                 Title
               </Label>
-              <Input
-                id="work-with-us-title"
-                placeholder="Welcome"
-                className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600"
-              />
+              <Input id="WorkWithUsTitle" value={formData.WorkWithUsTitle} onChange={onChange} placeholder="Welcome" className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600" />
             </div>
 
             <div>
               <Label htmlFor="work-with-us-subtitle" className="text-base font-medium text-gray-800 mb-2 block">
                 Subtitle
               </Label>
-              <Textarea
-                id="work-with-us-subtitle"
-                placeholder="Write here"
-                className="w-full h-28 resize-none border-gray-300 focus:border-red-600 focus:ring-red-600"
-              />
+              <Textarea id="WorkWithUsDescription" value={formData.WorkWithUsDescription} onChange={onChange} placeholder="Write here" className="w-full h-28 resize-none border-gray-300 focus:border-red-600 focus:ring-red-600" />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -111,32 +129,21 @@ export default function JoinWorkContentForm() {
                 <Label htmlFor="work-with-us-button-text" className="text-base font-medium text-gray-800 mb-2 block">
                   Button Text
                 </Label>
-                <Input
-                  id="work-with-us-button-text"
-                  placeholder="Get Started"
-                  className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600"
-                />
+                <Input id="WorkWithUsButtonText" value={formData.WorkWithUsButtonText} onChange={onChange} placeholder="Get Started" className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600" />
               </div>
               <div>
-                <Label htmlFor="work-with-us-button-link" className="text-base font-medium text-gray-800 mb-2 block">
+                <Label htmlFor="WorkWithUsButtonLink" className="text-base font-medium text-gray-800 mb-2 block">
                   Button Link
                 </Label>
-                <Input
-                  id="work-with-us-button-link"
-                  placeholder="Link"
-                  className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600"
-                />
+                <Input id="WorkWithUsButtonLink" value={formData.WorkWithUsButtonLink} onChange={onChange} placeholder="Link" className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600" />
               </div>
             </div>
           </div>
 
           {/* Save */}
           <div className="flex justify-end pt-4">
-            <Button
-              onClick={handleSave}
-              className="bg-red-600 hover:bg-red-600/90 text-white font-semibold px-6 py-3 rounded-md"
-            >
-              Save
+            <Button onClick={handleSave} disabled={saving || !isDirty} className="bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-red-600/90 text-white font-semibold px-6 py-3 rounded-md">
+              {saving ? "Saving..." : "Save"}
             </Button>
           </div>
         </div>

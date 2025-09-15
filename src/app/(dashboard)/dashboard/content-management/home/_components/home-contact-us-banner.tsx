@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import FileUpload from "./FIleUpload"
+import FileUpload from "../../_components/FIleUpload"
 import Toast from "@/components/ui/toast"
 import { getSiteContent, uploadHeroImage, persistContactUsBannerToServer, saveContactUsBanner } from "@/services/site-content.service"
 import type { HomeContactUsBanner } from "@/types/content"
@@ -57,6 +57,7 @@ export default function ContactUsContentForm() {
 
   const isDirty = (Object.keys(formData) as Array<keyof HomeContactUsBanner>).some((k) => formData[k] !== baselineRef.current[k])
 
+  // Fetch the freshest content.json on mount to avoid stale static imports
   useEffect(() => {
     let active = true
     const load = async () => {
@@ -79,7 +80,9 @@ export default function ContactUsContentForm() {
       } catch {}
     }
     load()
-    return () => { active = false }
+    return () => {
+      active = false
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -107,30 +110,44 @@ export default function ContactUsContentForm() {
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Contact Us</h2>
 
         <div className="space-y-6 ">
+          {/* Title Input */}
           <div>
-            <Label htmlFor="title" className="text-base font-medium text-gray-800 mb-2 block">Title</Label>
+            <Label htmlFor="title" className="text-base font-medium text-gray-800 mb-2 block">
+              Title
+            </Label>
             <Input id="title" value={formData.title} onChange={onChange} placeholder="Contact us" className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600" />
           </div>
 
+          {/* Subtitle Textarea */}
           <div>
-            <Label htmlFor="description" className="text-base font-medium text-gray-800 mb-2 block">Subtitle</Label>
+            <Label htmlFor="description" className="text-base font-medium text-gray-800 mb-2 block">
+              Subtitle
+            </Label>
             <Textarea id="description" value={formData.description} onChange={onChange} placeholder="Write here" className="w-full h-28 resize-none border-gray-300 focus:border-red-600 focus:ring-red-600" />
           </div>
 
+          {/* Button Text Input */}
           <div>
-            <Label htmlFor="buttonText" className="text-base font-medium text-gray-800 mb-2 block">Button Text</Label>
+            <Label htmlFor="buttonText" className="text-base font-medium text-gray-800 mb-2 block">
+              Button Text
+            </Label>
             <Input id="buttonText" value={formData.buttonText} onChange={onChange} placeholder="Contact Us" className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600" />
           </div>
 
+          {/* Button Link Input */}
           <div>
-            <Label htmlFor="buttonLink" className="text-base font-medium text-gray-800 mb-2 block">Button Link</Label>
+            <Label htmlFor="buttonLink" className="text-base font-medium text-gray-800 mb-2 block">
+              Button Link
+            </Label>
             <Input id="buttonLink" value={formData.buttonLink} onChange={onChange} placeholder="/contact-us" className="w-full h-12 border-gray-300 focus:border-red-600 focus:ring-red-600" />
           </div>
 
-          <div className="grid grid-cols-1 gap-6">
-            <FileUpload label="Upload Right Image" onFileSelect={handleRightSelect} previewUrl={formData.rightImage} uploading={uploadingRight} fullWidthPreview previewHeightClass="h-64" />
+          {/* Upload Right Image */}
+          <div>
+            <FileUpload label="Upload Right Image" onFileSelect={handleRightSelect} previewUrl={formData.rightImage} uploading={uploadingRight} fullWidthPreview previewHeightClass="h-64 w-full" />
           </div>
 
+          {/* Save Button */}
           <div className="flex justify-end pt-4">
             <Button onClick={handleSave} disabled={saving || uploadingRight || !isDirty} className="bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-red-600/90 text-white font-semibold px-6 py-3 rounded-md">
               {saving ? "Saving..." : "Save"}
