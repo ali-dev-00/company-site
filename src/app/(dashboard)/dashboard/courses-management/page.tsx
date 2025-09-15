@@ -11,7 +11,10 @@ import { cn } from "@/lib/utils"
 import DeleteModal from "./_components/delete-course"
 import AddCourseModal from "./_components/add-course-modal"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-interface Course {
+import { getCourses, deleteCourse } from "@/services/courses.service"
+import type { Course as ApiCourse } from "@/types/course-types"
+
+interface RowCourse {
   _id: string
   name: string
   category: string
@@ -20,117 +23,10 @@ interface Course {
   status: "Active" | "Not Active"
 }
 
-const DUMMY_COURSES: Course[] = [
-  {
-    _id: "1",
-    name: "Design Fundamentals",
-    category: "Design",
-    location: "London",
-    type: "Compliance",
-    status: "Active",
-  },
-  {
-    _id: "2",
-    name: "Advanced React",
-    category: "Development",
-    location: "New York",
-    type: "Technical",
-    status: "Active",
-  },
-  {
-    _id: "3",
-    name: "Marketing Strategy",
-    category: "Marketing",
-    location: "Paris",
-    type: "Business",
-    status: "Not Active",
-  },
-  {
-    _id: "4",
-    name: "Data Science Basics",
-    category: "Data Science",
-    location: "Berlin",
-    type: "Technical",
-    status: "Active",
-  },
-  {
-    _id: "5",
-    name: "Project Management",
-    category: "Management",
-    location: "London",
-    type: "Business",
-    status: "Not Active",
-  },
-  {
-    _id: "6",
-    name: "UI/UX Principles",
-    category: "Design",
-    location: "San Francisco",
-    type: "Compliance",
-    status: "Active",
-  },
-  { _id: "7", name: "Cloud Computing", category: "IT", location: "Sydney", type: "Technical", status: "Active" },
-  {
-    _id: "8",
-    name: "Financial Modeling",
-    category: "Finance",
-    location: "Tokyo",
-    type: "Business",
-    status: "Not Active",
-  },
-  {
-    _id: "9",
-    name: "Cybersecurity Essentials",
-    category: "IT",
-    location: "London",
-    type: "Compliance",
-    status: "Active",
-  },
-  {
-    _id: "10",
-    name: "Content Creation",
-    category: "Marketing",
-    location: "New York",
-    type: "Business",
-    status: "Active",
-  },
-  {
-    _id: "11",
-    name: "Machine Learning",
-    category: "Data Science",
-    location: "Berlin",
-    type: "Technical",
-    status: "Active",
-  },
-  {
-    _id: "12",
-    name: "Product Design",
-    category: "Design",
-    location: "Paris",
-    type: "Compliance",
-    status: "Not Active",
-  },
-  {
-    _id: "13",
-    name: "Digital Marketing",
-    category: "Marketing",
-    location: "San Francisco",
-    type: "Business",
-    status: "Active",
-  },
-  { _id: "14", name: "Database Management", category: "IT", location: "Sydney", type: "Technical", status: "Active" },
-  {
-    _id: "15",
-    name: "Business Analytics",
-    category: "Business",
-    location: "Tokyo",
-    type: "Business",
-    status: "Not Active",
-  },
-]
+const DUMMY_COURSES: RowCourse[] = []
 
 export default function CoursesManagement() {
-  const [courses, setCourses] = useState<Course[]>([])
+  const [courses, setCourses] = useState<RowCourse[]>([])
   const [selectedRows, setSelectedRows] = useState<string[]>([])
   const [selectAll, setSelectAll] = useState(false)
   const [page, setPage] = useState(1)
@@ -146,47 +42,28 @@ export default function CoursesManagement() {
   const [statusFilter, setStatusFilter] = useState("")
 
   // Sort states
-  const [sortField, setSortField] = useState<keyof Course>("name")
+  const [sortField, setSortField] = useState<keyof RowCourse>("name")
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
 
-  const fetchCourses = () => {
+  const fetchCourses = async () => {
     setLoading(true)
     try {
-      const filteredData = DUMMY_COURSES.filter((course) => {
-        const matchesGlobalSearch =
-          course.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
-          course.category.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
-          course.location.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
-          course.type.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
-          course.status.toLowerCase().includes(globalSearchQuery.toLowerCase())
-
-        const matchesCourseName = courseNameFilter
-          ? course.name.toLowerCase().includes(courseNameFilter.toLowerCase())
-          : true
-        const matchesCategory = categoryFilter ? course.category === categoryFilter : true
-        const matchesLocation = locationFilter
-          ? course.location.toLowerCase().includes(locationFilter.toLowerCase())
-          : true
-        const matchesStatus = statusFilter ? course.status === statusFilter : true
-
-        return matchesGlobalSearch && matchesCourseName && matchesCategory && matchesLocation && matchesStatus
-      })
-
-      // Apply sorting
-      filteredData.sort((a, b) => {
-        const aValue = a[sortField]
-        const bValue = b[sortField]
-
-        if (typeof aValue === "string" && typeof bValue === "string") {
-          return sortOrder === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue)
-        }
-        return 0
-      })
-
-      setTotalPages(Math.ceil(filteredData.length / limit))
-      const startIndex = (page - 1) * limit
-      const endIndex = startIndex + limit
-      setCourses(filteredData.slice(startIndex, endIndex))
+      const res = await getCourses(page, limit)
+      if (res?.status && Array.isArray(res.data)) {
+        const transformed: RowCourse[] = res.data.map((c: ApiCourse) => ({
+          _id: c._id,
+          name: c.title,
+          category: typeof c.category === 'string' ? c.category : (c.category?.name ?? ''),
+          location: c.location,
+          type: c.type?.replace('_', ' ') ?? '',
+          status: c.status ? 'Active' : 'Not Active',
+        }))
+        setCourses(transformed)
+        const total = res.pagination?.total ?? transformed.length
+        setTotalPages(Math.max(1, Math.ceil(total / limit)))
+      } else {
+        setCourses([])
+      }
     } catch (err) {
       console.error("Error fetching courses:", err)
     } finally {
@@ -240,7 +117,7 @@ export default function CoursesManagement() {
     setPage(1)
   }
 
-  const handleSort = (field: keyof Course) => {
+  const handleSort = (field: keyof RowCourse) => {
     const newOrder = sortField === field && sortOrder === "asc" ? "desc" : "asc"
     setSortField(field)
     setSortOrder(newOrder)
@@ -291,9 +168,17 @@ export default function CoursesManagement() {
     setDeleteModalOpen(true);
   };
 
-  const confirmDelete = () => {
-    if (selectedCourseId) {
-      setCourses(courses.filter((course) => course._id !== selectedCourseId));
+  const confirmDelete = async () => {
+    if (!selectedCourseId) return;
+    try {
+      const res = await deleteCourse(selectedCourseId);
+      if (!res.status) {
+        console.error('Failed to delete course:', res.message);
+      }
+      await fetchCourses();
+    } catch (e) {
+      console.error('Delete error', e);
+    } finally {
       setDeleteModalOpen(false);
       setSelectedCourseId(null);
     }
@@ -305,18 +190,19 @@ export default function CoursesManagement() {
   };
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+  const [editCourseId, setEditCourseId] = useState<string | null>(null)
+  const openCreate = () => { setEditCourseId(null); setIsAddModalOpen(true); }
+  const openEdit = (id: string) => { setEditCourseId(id); setIsAddModalOpen(true); }
   return (
     <div className="m-5 border border-gray-300 rounded-lg ">
       <div className=" p-6 flex flex-col md:flex-row items-center justify-between  border-b border-gray-200">
 
         <div className="flex items-baseline gap-2 ">
           <h1 className="text-xl font-bold">All Courses</h1>
-          <Badge variant="secondary" className="bg-red-100 text-[#FF2424] text-sm font-medium px-2 py-1 rounded-full">
-            {DUMMY_COURSES.length} courses
-          </Badge>
+          {/* Optional total count badge removed since server pagination is used */}
         </div>
 
-        <Button className="bg-[#FF2424]  mt-2 md:mt-0 hover:bg-[#FF2424]/90 text-white" onClick={() => setIsAddModalOpen(true)}>Add New Course</Button>
+  <Button className="bg-[#FF2424]  mt-2 md:mt-0 hover:bg-[#FF2424]/90 text-white" onClick={openCreate}>Add New Course</Button>
       </div>
 
       {/* Filter Section */}
@@ -452,7 +338,20 @@ export default function CoursesManagement() {
                       <td className="p-4 text-sm font-medium text-gray-600">{course.name}</td>
                       <td className="p-4 text-sm font-medium text-gray-600">{course.category}</td>
                       <td className="p-4 text-sm font-medium text-gray-600">{course.location}</td>
-                      <td className="p-4 text-sm font-medium text-gray-600">{course.type}</td>
+                      <td className="p-4 text-sm font-medium text-gray-600">
+                        <span
+                          className={cn(
+                            "px-2 py-1 rounded-full text-xs font-medium",
+                            course.type === 'TRENDING'
+                              ? 'bg-blue-100 text-blue-700'
+                              : course.type === 'UPCOMING'
+                              ? 'bg-yellow-100 text-yellow-800'
+                              : 'bg-purple-100 text-purple-800'
+                          )}
+                        >
+                          {course.type}
+                        </span>
+                      </td>
                       <td className="p-4 text-sm font-medium text-gray-600">
                         <Badge
                           className={cn(
@@ -479,7 +378,7 @@ export default function CoursesManagement() {
                           >
                             <Trash className="h-4 w-4" />
                           </Button>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-500 hover:text-gray-700">
+                          <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-500 hover:text-gray-700" onClick={() => openEdit(course._id)}>
                             <Pencil className="h-4 w-4" />
                           </Button>
                         </div>
@@ -499,7 +398,12 @@ export default function CoursesManagement() {
         onClose={cancelDelete}
         onDelete={confirmDelete}
       />
-      <AddCourseModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} />
+      <AddCourseModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        courseId={editCourseId}
+        onSaved={() => fetchCourses()}
+      />
       {/* Pagination */}
       <div className="flex overflow-x-auto items-center justify-between  p-6">
         <Button

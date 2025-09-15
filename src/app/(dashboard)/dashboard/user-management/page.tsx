@@ -9,7 +9,7 @@ import { ChevronRight, ChevronLeft, Trash, Pencil, Search } from "lucide-react";
 import AddOrUpdateUserModal from "./add-or-update-user-modal";
 import DeleteUserModal from "./delete-user-modal";
 import { getUsers, deleteUser } from  "@/services/user.service";
-import { getRoles } from "@/services/roles.service";
+import { getAllRoles } from "@/services/roles.service";
 import { hasPermission } from "@/services/auth.service";
 import { User } from "@/types/user-types";
 import { Role } from "@/types/role-types";
@@ -57,7 +57,7 @@ export default function UserManagement() {
 
   const fetchRoles = async () => {
     try {
-      const res = await getRoles();
+      const res = await getAllRoles();
       if (res?.status && Array.isArray(res.data)) {
         setRoles(res.data);
       }

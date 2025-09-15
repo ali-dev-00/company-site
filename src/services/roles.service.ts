@@ -11,6 +11,10 @@ export const getRoleById = async (id: string): Promise<ServerResponse<Role>> => 
   return await getFromServer<Role>(`roles/${id}`);
 };
 
+export const getAllRoles = async (): Promise<ServerResponse<Role[]>> => {
+  return await getFromServer<Role[]>(`roles/all`);
+};
+
 export const createRole = async (data: CreateRoleDto): Promise<ServerResponse<Role>> => {
   return await postToServer<Role>('roles', data);
 };
