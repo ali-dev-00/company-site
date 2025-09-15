@@ -29,6 +29,7 @@ export type HomeContactUsBanner = {
   description: string;
   buttonText: string;
   buttonLink: string;
+  backgroundImage: string;
   rightImage: string;
 };
 

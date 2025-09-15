@@ -3,17 +3,7 @@
     "title": "We are Horumarka Dadka",
     "subtitle": " We are a trusted leader in providing expertise, business solutions, employment opportunities, and skills development.",
     "description": "In collaboration with our partners, clients, and teams, we take pride in setting the standard for inclusive growth driving positive economic, social, and environmental impact in East Africa.",
-    "backgroundImage": "https://res.cloudinary.com/dkwmlsiac/image/upload/v1757813852/horumarka/ywwjhqy9bmkhej7kuz9e.png",
-    "HomeJoinWorkWithUs": {
-      "JoinUsTitle": "Join Us",
-      "JoinUsDescription": "Passionate about making a difference? If you're an innovative, enterprising, and inclusive person who believes in our mission, come join Horumarka Dadka",
-      "JoinUsButtonText": "See our current opportunities",
-      "JoinUsButtonLink": "/careers/join-us",
-      "WorkWithUsTitle": "Partner with us",
-      "WorkWithUsDescription": "test",
-      "WorkWithUsButtonText": "Talk to our team",
-      "WorkWithUsButtonLink": "/work-with-us"
-    }
+    "backgroundImage": "https://res.cloudinary.com/dkwmlsiac/image/upload/v1757813852/horumarka/ywwjhqy9bmkhej7kuz9e.png"
   },
   "HomeJoinWorkWithUs": {
     "JoinUsTitle": "Join Us",
@@ -30,6 +20,7 @@
     "description": "Feel free to reach out if you'd like more details about any of our services.",
     "buttonText": "Contact Us",
     "buttonLink": "/contact-us",
+    "backgroundImage": "/home/latest-news-bg.png",
     "rightImage": "/images/mask-group.svg"
   }
 }

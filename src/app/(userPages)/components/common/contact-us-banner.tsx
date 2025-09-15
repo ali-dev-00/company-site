@@ -2,9 +2,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSiteContent } from "@/services/site-content.service";
+import type { HomeContactUsBanner } from "@/types/content";
 
 export default function ContactUsBanner() {
-  const banner = useSiteContent().HomeContactUsBanner ?? {};
+  const banner: Partial<HomeContactUsBanner> = useSiteContent().HomeContactUsBanner ?? {};
   const {
     title = "Contact us",
     description = "Feel free to reach out if you'd like more details about any of our services.",
@@ -12,7 +13,7 @@ export default function ContactUsBanner() {
     buttonLink = "/contact-us",
     backgroundImage = "/home/latest-news-bg.png",
     rightImage = "/images/mask-group.svg",
-  } = banner as any;
+  } = banner;
   return (
     <section className="relative overflow-hidden" style={{ backgroundImage: `url(${backgroundImage})` }}>
       {/* Right Image (desktop) placed outside the max-width container so it can hug the viewport edge */}

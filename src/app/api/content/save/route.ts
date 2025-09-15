@@ -33,7 +33,7 @@ export async function PATCH(req: NextRequest) {
       }
     }
     if (!json) {
-      json = fallbackContent as SiteContentWithBanner;
+      json = (fallbackContent as unknown) as SiteContentWithBanner;
     }
 
     // Determine which sections are being updated

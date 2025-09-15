@@ -27,7 +27,7 @@ export async function GET() {
     }
 
     if (!json) {
-      json = fallbackContent as SiteContentWithBanner;
+      json = (fallbackContent as unknown) as SiteContentWithBanner;
     }
 
     return new NextResponse(JSON.stringify(json), {
