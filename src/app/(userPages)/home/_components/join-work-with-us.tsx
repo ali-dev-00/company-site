@@ -1,12 +1,12 @@
 "use client";
-import { getSiteContent } from "@/services/site-content.service";
+import { useSiteContent } from "@/services/site-content.service";
 import { ArrowRight } from "lucide-react";
 import TitleWithUnderline from "../../components/common/Title-with-underline";
 import Link from "next/link";
 import type { HomeJoinWorkWithUs } from "@/types/content";
 
 export default function JoinWorkWithUs() {
-  const joinData: Partial<HomeJoinWorkWithUs> = getSiteContent().HomeJoinWorkWithUs ?? {};
+  const joinData: Partial<HomeJoinWorkWithUs> = useSiteContent().HomeJoinWorkWithUs ?? {};
   const {
     JoinUsTitle = "Join Us",
     JoinUsDescription = "Passionate about making a difference? If you're an innovative, enterprising, and inclusive person who believes in our mission, come join Horumarka Dadka",

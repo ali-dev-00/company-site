@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import baseContent from "../data/content.json";
 import type { HomeHeroSection, HomeJoinWorkWithUs, HomeContactUsBanner, SiteContentWithBanner } from "@/types/content";
 
@@ -39,6 +40,55 @@ export function getSiteContent(): SiteContentWithBanner {
       ...(overrides.HomeContactUsBanner ?? {}),
     },
   } as SiteContentWithBanner;
+}
+
+// Fetch the latest content from the server (served from Blob in production)
+export async function fetchSiteContent(): Promise<SiteContentWithBanner> {
+  try {
+    const res = await fetch("/content.json", { cache: "no-store" });
+    if (res.ok) {
+      const json = (await res.json()) as SiteContentWithBanner;
+      return json;
+    }
+  } catch {}
+  return getSiteContent();
+}
+
+// React hook that keeps content in sync with server and local overrides
+export function useSiteContent(): SiteContentWithBanner {
+  const [serverContent, setServerContent] = useState<SiteContentWithBanner | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchSiteContent().then((c) => {
+      if (!cancelled) setServerContent(c);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const merged = useMemo(() => {
+    const base = (serverContent ?? (baseContent as unknown as SiteContentWithBanner));
+    const overrides: Partial<SiteContentWithBanner> = getOverrides() ?? {};
+    return {
+      ...base,
+      HomeHeroSection: {
+        ...(base.HomeHeroSection ?? ({} as HomeHeroSection)),
+        ...(overrides.HomeHeroSection ?? {}),
+      },
+      HomeJoinWorkWithUs: {
+        ...(base.HomeJoinWorkWithUs ?? ({} as HomeJoinWorkWithUs)),
+        ...(overrides.HomeJoinWorkWithUs ?? {}),
+      },
+      HomeContactUsBanner: {
+        ...(base.HomeContactUsBanner ?? ({} as HomeContactUsBanner)),
+        ...(overrides.HomeContactUsBanner ?? {}),
+      },
+    } as SiteContentWithBanner;
+  }, [serverContent]);
+
+  return merged;
 }
 
 // Optional local cache override update

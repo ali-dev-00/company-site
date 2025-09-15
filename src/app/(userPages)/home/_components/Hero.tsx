@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
-import { getSiteContent } from "@/services/site-content.service";
+import { useSiteContent } from "@/services/site-content.service";
 
 export default function HeroSection() {
-  const heroData = getSiteContent().HomeHeroSection;
+  const heroData = useSiteContent().HomeHeroSection;
 
   const {
     title = "We are Horumarka Dadka",
