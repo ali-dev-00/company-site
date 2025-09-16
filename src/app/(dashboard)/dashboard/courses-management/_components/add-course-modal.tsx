@@ -64,7 +64,23 @@ export default function AddCourseModal({ isOpen, onClose, courseId, onSaved }: A
     if (isOpen) {
       setErrors({});
       loadCats();
-      loadCourseIfEditing();
+      if (courseId) {
+        loadCourseIfEditing();
+      } else {
+        // Opening in create mode: reset all fields to defaults so no stale edit data leaks in
+        setCourseTitle("");
+        setDescription("");
+        setWhatYouWillLearn("");
+        setCategory("");
+        setLocation("");
+        setModeOfStudy("");
+        setNoOfVacancies(0);
+        setCourseType("");
+        setCourseStatus("");
+        setThumbnailFile(undefined);
+        setExistingThumbnail(undefined);
+        setDuration("");
+      }
     } else {
       // reset when closing (for create flow)
       if (!courseId) {
@@ -92,7 +108,7 @@ export default function AddCourseModal({ isOpen, onClose, courseId, onSaved }: A
       if (!duration.trim()) newErrors.duration = 'Duration is required'
       if (!courseId && !thumbnailFile) newErrors.thumbnail = 'Thumbnail is required'
       if (!courseStatus) newErrors.status = 'Course status is required'
-      if (!noOfVacancies || noOfVacancies <= 0) newErrors.noOfVacancies = 'No. of vacancies is required'
+      if (noOfVacancies < 0) newErrors.noOfVacancies = 'No. of vacancies cannot be negative'
       if (Object.keys(newErrors).length) {
         setErrors(newErrors)
         return
@@ -223,6 +239,7 @@ export default function AddCourseModal({ isOpen, onClose, courseId, onSaved }: A
               }}
               className="border-gray-300 focus:ring-[#FF2424]"
             />
+            {errors.duration && <p className="text-xs text-red-600">{errors.duration}</p>}
           </div>
           <div className="space-y-2 md:col-span-2">
             <label htmlFor="upload-thumbnail" className="text-sm font-semibold text-gray-700">Upload Thumbnail</label>
