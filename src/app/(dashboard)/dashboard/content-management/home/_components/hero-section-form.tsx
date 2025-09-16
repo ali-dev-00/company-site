@@ -16,6 +16,7 @@ export default function HomeHeroContentForm() {
   const baselineRef = useRef<HomeHeroSection>({ ...initial });
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [hasImageChanged, setHasImageChanged] = useState(false);
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
   const [toastKey, setToastKey] = useState(0);
 
@@ -35,6 +36,7 @@ export default function HomeHeroContentForm() {
     try {
       const url = await uploadHeroImage(file);
       setFormData((prev) => ({ ...prev, backgroundImage: url }));
+      setHasImageChanged(true);
       showToast("success", "Image uploaded successfully");
     } finally {
       setUploading(false);
@@ -50,6 +52,7 @@ export default function HomeHeroContentForm() {
         saveHomeHeroSection(saved);
         baselineRef.current = { ...saved };
         setFormData({ ...saved });
+        setHasImageChanged(false);
         showToast("success", "Content updated successfully");
       } else {
         showToast("error", "Failed to save content");
@@ -64,6 +67,7 @@ export default function HomeHeroContentForm() {
     formData.subtitle !== baselineRef.current.subtitle ||
     formData.description !== baselineRef.current.description ||
     formData.backgroundImage !== baselineRef.current.backgroundImage;
+  const canSave = (isDirty || hasImageChanged) && !saving && !uploading;
 
   return (
     <section className="px-6 py-2">
@@ -96,7 +100,7 @@ export default function HomeHeroContentForm() {
           <FileUpload label="Upload Background Image" onFileSelect={handleFileSelect} previewUrl={formData.backgroundImage} uploading={uploading} />
 
           <div className="flex justify-end pt-4">
-            <Button onClick={handleSave} disabled={saving || uploading || !isDirty} className="bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-red-600/90 text-white font-semibold px-6 py-3 rounded-md">
+            <Button onClick={handleSave} disabled={!canSave} className="bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-red-600/90 text-white font-semibold px-6 py-3 rounded-md">
               {saving ? "Saving..." : "Save"}
             </Button>
           </div>
