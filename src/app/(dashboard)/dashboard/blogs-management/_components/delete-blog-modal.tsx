@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 interface DeleteModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onDelete: () => void;
+  onDelete: () => void | Promise<void>;
 
 }
 
