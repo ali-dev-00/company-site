@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import RichTextEditor from "../../_components/text-editor-formik"
 import { createBlog, getBlogById, updateBlog } from "@/services/blogs.service"
-import type { Blog } from "@/types/blog-types"
+import type { Blog, CreateBlogDto, UpdateBlogDto } from "@/types/blog-types"
 import { BlogStatus } from "@/types/blog-types"
 import { UploadCloud, Loader2 } from "lucide-react"
 import Image from "next/image"
@@ -77,16 +77,26 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
       if (Object.keys(newErrors).length) { setErrors(newErrors); return }
 
       setIsSaving(true)
-      const payload = {
-        title,
-        description,
-        slug: slug || undefined,
-        status: status as BlogStatus,
-        featuredImageFile,
+      let res
+      if (blogId) {
+        const payload: UpdateBlogDto & { featuredImageFile?: File } = {
+          title,
+          description,
+          slug: slug || undefined,
+          status: status as BlogStatus,
+          featuredImageFile,
+        }
+        res = await updateBlog(blogId, payload)
+      } else {
+        const payload: CreateBlogDto & { featuredImageFile: File } = {
+          title,
+          description,
+          slug: slug || undefined,
+          status: status as BlogStatus,
+          featuredImageFile: featuredImageFile!,
+        }
+        res = await createBlog(payload)
       }
-      const res = blogId
-        ? await updateBlog(blogId, payload)
-        : await createBlog(payload as any)
       if (!res.status) {
         const e: Record<string, string> = {}
         if (res.message?.toLowerCase().includes('title')) e.title = res.message

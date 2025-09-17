@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Search, ChevronLeft, ChevronRight, Trash, ArrowRight } from "lucide-react"
+import { Search, ChevronLeft, ChevronRight, Trash, ArrowRight, EditIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import AddBlogModal from "./_components/add-blog-modal"
 import DeleteBlogModal from "./_components/delete-blog-modal"
@@ -133,18 +133,14 @@ export default function BlogsManagement() {
                     <Trash className="h-4 w-4" />
                   </Button>
                   <Button onClick={() => openEdit(blog._id)} variant="ghost" size="icon" className="cursor-pointer h-8 w-8 text-gray-300 bg-white/20 hover:bg-white/25">
-                    <ArrowRight className="h-4 w-4" />
+                    <EditIcon className="h-4 w-4" />
                   </Button>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#ff2424]"></div>
               </div>
               <div className="p-6">
                 <h2 className="text-xl font-bold mb-2">{blog.title}</h2>
-                <p className="text-sm text-gray-600 mb-4">{blog.description}</p>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm" onClick={() => openEdit(blog._id)} className="text-[#FF2424] border-[#FF2424]">Edit</Button>
-                  <Button variant="outline" size="sm" onClick={() => handleDelete(blog._id)} className="text-red-600 border-red-600">Delete</Button>
-                </div>
+                
               </div>
             </div>
           ))}
