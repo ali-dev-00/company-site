@@ -6,6 +6,7 @@ import {
   ServerResponse,
 } from "../lib/requests";
 import type { Blog, CreateBlogDto, UpdateBlogDto } from "../types/blog-types";
+import { BlogStatus } from "../types/blog-types";
 
 // List blogs with pagination
 export const getBlogs = async (
@@ -54,4 +55,29 @@ export const deleteBlog = async (
   id: string
 ): Promise<ServerResponse<null>> => {
   return await deleteFromServer<null>(`blogs/${id}`);
+};
+
+// Get published blogs (public listing)
+export const getPublishedBlogs = async (
+  page = 1,
+  limit = 10
+): Promise<ServerResponse<Blog[]>> => {
+  return await getFromServer<Blog[]>(`blogs?page=${page}&limit=${limit}&status=${BlogStatus.PUBLISHED}`);
+};
+
+// Get a single published blog by slug (public)
+export const getBlogBySlug = async (
+  slug: string
+): Promise<ServerResponse<Blog>> => {
+  // Try to use backend filtering by slug and status
+  const res = await getFromServer<Blog[]>(`blogs?page=1&limit=1&slug=${encodeURIComponent(slug)}&status=${BlogStatus.PUBLISHED}`);
+  if (!res) return { status: false, message: 'Not found', data: {} as Blog };
+  // If backend returns array of items
+  const item = Array.isArray(res.data) ? res.data[0] : (res.data as unknown as Blog);
+  return {
+    status: res.status,
+    message: res.message,
+    pagination: res.pagination,
+    data: item as Blog,
+  };
 };
