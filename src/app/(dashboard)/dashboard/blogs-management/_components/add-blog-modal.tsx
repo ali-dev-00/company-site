@@ -7,8 +7,10 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import RichTextEditor from "../../_components/text-editor-formik"
 import { createBlog, getBlogById, updateBlog } from "@/services/blogs.service"
+import { getActiveCategories } from "@/services/categories.service"
+import type { Category } from "@/types/category-types"
 import type { Blog, CreateBlogDto, UpdateBlogDto } from "@/types/blog-types"
-import { BlogStatus } from "@/types/blog-types"
+import { BlogStatus, BlogType } from "@/types/blog-types"
 import { UploadCloud, Loader2 } from "lucide-react"
 import Image from "next/image"
 
@@ -25,6 +27,10 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
   const [description, setDescription] = useState("")
   const [slug, setSlug] = useState("")
   const [status, setStatus] = useState<BlogStatus | "">("")
+  const [blogType, setBlogType] = useState<BlogType | "">("")
+  const [category, setCategory] = useState<string>("")
+  const [categories, setCategories] = useState<Category[]>([])
+  const [categoriesLoading, setCategoriesLoading] = useState(false)
   const [featuredImageFile, setFeaturedImageFile] = useState<File | undefined>(undefined)
   const [existingImage, setExistingImage] = useState<string | undefined>(undefined)
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -35,11 +41,15 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
       if (!blogId) return
       const res = await getBlogById(blogId)
       if (res?.status && res.data) {
-        const b = res.data as Blog
+        const b: Blog = res.data
         setTitle(b.title || "")
         setDescription(b.description || "")
         setSlug(b.slug || "")
         setStatus(b.status || "")
+        setBlogType(b.type || BlogType.BLOG)
+        // category could be populated object or id
+        const catId = b.category && typeof b.category === 'object' ? b.category._id : b.category
+        setCategory(catId || "")
         setExistingImage(b.featuredImage)
       }
     }
@@ -52,6 +62,8 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
         setDescription("")
         setSlug("")
         setStatus("")
+        setBlogType(BlogType.BLOG)
+        setCategory("")
         setFeaturedImageFile(undefined)
         setExistingImage(undefined)
       }
@@ -61,18 +73,38 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
         setDescription("")
         setSlug("")
         setStatus("")
+        setBlogType(BlogType.BLOG)
+        setCategory("")
         setFeaturedImageFile(undefined)
         setExistingImage(undefined)
       }
     }
   }, [isOpen, blogId])
 
+  // Fetch categories when modal opens
+  useEffect(() => {
+    if (!isOpen) return
+    const loadCategories = async () => {
+      setCategoriesLoading(true)
+      try {
+        const res = await getActiveCategories()
+        if (res?.status && Array.isArray(res.data)) setCategories(res.data)
+        else setCategories([])
+      } finally {
+        setCategoriesLoading(false)
+      }
+    }
+    loadCategories()
+  }, [isOpen])
+
   const handleSave = async () => {
     try {
       const newErrors: Record<string, string> = {}
       if (!title.trim()) newErrors.title = 'Title is required'
       if (!description || description.replace(/<[^>]*>/g, '').trim().length === 0) newErrors.description = 'Description is required'
-      if (!status) newErrors.status = 'Status is required'
+  if (!status) newErrors.status = 'Status is required'
+  if (!blogType) newErrors.type = 'Type is required'
+      if (!category) newErrors.category = 'Category is required'
       if (!blogId && !featuredImageFile) newErrors.featuredImage = 'Featured image is required'
       if (Object.keys(newErrors).length) { setErrors(newErrors); return }
 
@@ -84,6 +116,8 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
           description,
           slug: slug || undefined,
           status: status as BlogStatus,
+          type: blogType as BlogType,
+          category,
           featuredImageFile,
         }
         res = await updateBlog(blogId, payload)
@@ -93,6 +127,8 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
           description,
           slug: slug || undefined,
           status: status as BlogStatus,
+          type: blogType as BlogType,
+          category,
           featuredImageFile: featuredImageFile!,
         }
         res = await createBlog(payload)
@@ -148,6 +184,40 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
               </SelectContent>
             </Select>
             {errors.status && <p className="text-xs text-red-600">{errors.status}</p>}
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="type" className="text-sm font-semibold text-gray-700">Type</label>
+            <Select value={blogType} onValueChange={(v) => { setBlogType(v as BlogType); if (errors.type) setErrors({ ...errors, type: '' }) }}>
+              <SelectTrigger className="w-full border-gray-300 focus:ring-[#FF2424]"><SelectValue placeholder="Select" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value={BlogType.BLOG}>Blog</SelectItem>
+                <SelectItem value={BlogType.NEWS}>News</SelectItem>
+                <SelectItem value={BlogType.CAREER_STORY}>Career Story</SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.type && <p className="text-xs text-red-600">{errors.type}</p>}
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="category" className="text-sm font-semibold text-gray-700 flex items-center justify-between">
+              <span>Category</span>
+              {categoriesLoading && <span className="text-[10px] text-gray-400">Loading...</span>}
+            </label>
+            <Select value={category} onValueChange={(v) => { setCategory(v); if (errors.category) setErrors({ ...errors, category: '' }) }}>
+              <SelectTrigger className="w-full border-gray-300 focus:ring-[#FF2424]">
+                <SelectValue placeholder={categoriesLoading ? 'Loading...' : 'Select category'} />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map(c => (
+                  <SelectItem key={c._id} value={c._id}>{c.name}</SelectItem>
+                ))}
+                {!categoriesLoading && categories.length === 0 && (
+                  <div className="px-2 py-1 text-xs text-gray-500">No categories</div>
+                )}
+              </SelectContent>
+            </Select>
+            {errors.category && <p className="text-xs text-red-600">{errors.category}</p>}
           </div>
 
           <div className="space-y-2 md:col-span-2">

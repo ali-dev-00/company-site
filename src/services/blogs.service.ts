@@ -11,9 +11,15 @@ import { BlogStatus } from "../types/blog-types";
 // List blogs with pagination
 export const getBlogs = async (
   page = 1,
-  limit = 10
+  limit = 10,
+  opts: { status?: BlogStatus; slug?: string; category?: string; categorySlug?: string } = {}
 ): Promise<ServerResponse<Blog[]>> => {
-  return await getFromServer<Blog[]>(`blogs?page=${page}&limit=${limit}`);
+  const params = new URLSearchParams({ page: String(page), limit: String(limit) });
+  if (opts.status) params.set('status', opts.status);
+  if (opts.slug) params.set('slug', opts.slug);
+  if (opts.category) params.set('category', opts.category);
+  if (opts.categorySlug) params.set('categorySlug', opts.categorySlug);
+  return await getFromServer<Blog[]>(`blogs?${params.toString()}`);
 };
 
 // Get a single blog by id
@@ -32,6 +38,8 @@ export const createBlog = async (
   fd.append("description", payload.description);
   if (payload.slug) fd.append("slug", payload.slug);
   fd.append("status", payload.status);
+  fd.append("category", payload.category);
+  if (payload.type) fd.append("type", payload.type);
   fd.append("featuredImage", payload.featuredImageFile);
   return await postToServer<Blog>("blogs", fd);
 };
@@ -46,6 +54,8 @@ export const updateBlog = async (
   if (payload.description !== undefined) fd.append("description", payload.description);
   if (payload.slug !== undefined) fd.append("slug", payload.slug);
   if (payload.status !== undefined) fd.append("status", payload.status);
+  if (payload.category !== undefined) fd.append("category", payload.category);
+  if (payload.type !== undefined) fd.append("type", payload.type);
   if (payload.featuredImageFile) fd.append("featuredImage", payload.featuredImageFile);
   return await putToServer<Blog>(`blogs/${id}`, fd);
 };

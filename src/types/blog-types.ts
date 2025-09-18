@@ -3,6 +3,12 @@ export enum BlogStatus {
   PUBLISHED = "PUBLISHED",
 }
 
+export enum BlogType {
+  BLOG = "BLOG",
+  NEWS = "NEWS",
+  CAREER_STORY = "CAREER_STORY",
+}
+
 export interface Blog {
   _id: string;
   title: string;
@@ -14,6 +20,8 @@ export interface Blog {
   postedOn: string; // ISO date string
   createdAt?: string;
   updatedAt?: string;
+  category?: { _id: string; name?: string; slug?: string } | string; // populated or id
+  type?: BlogType; // new classification
 }
 
 export interface CreateBlogDto {
@@ -21,6 +29,8 @@ export interface CreateBlogDto {
   description: string;
   slug?: string;
   status: BlogStatus;
+  category: string; // category ObjectId
+  type?: BlogType; // optional; backend defaults to BLOG
 }
 
 export interface UpdateBlogDto {
@@ -28,4 +38,6 @@ export interface UpdateBlogDto {
   description?: string;
   slug?: string;
   status?: BlogStatus;
+  category?: string;
+  type?: BlogType;
 }
