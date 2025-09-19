@@ -1,18 +1,20 @@
+"use client";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import TitleWithUnderline from "../../components/common/Title-with-underline";
 import Link from "next/link";
 import { getLatestNews } from "@/services/blogs.service";
 import type { Blog } from "@/types/blog-types";
+import { useEffect, useState, useCallback } from "react";
 
-export default async function LatestNews() {
-  const res = await getLatestNews(3);
-  const items = Array.isArray(res?.data) ? (res.data as Blog[]) : [];
-  const toPlain = (html: string, wordLimit = 30) => {
+export default function LatestNews() {
+  const [items, setItems] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const toPlain = useCallback((html: string, wordLimit = 30) => {
     if (!html) return '';
-    // Remove tags
     let text = html.replace(/<[^>]*>/g, ' ');
-    // Decode a few common entities
     text = text
       .replace(/&nbsp;/g, ' ')
       .replace(/&amp;/g, '&')
@@ -20,13 +22,31 @@ export default async function LatestNews() {
       .replace(/&#39;/g, "'")
       .replace(/&lt;/g, '<')
       .replace(/&gt;/g, '>');
-    // Collapse whitespace
     text = text.replace(/\s+/g, ' ').trim();
     if (!wordLimit) return text;
     const parts = text.split(' ');
     if (parts.length <= wordLimit) return text;
     return parts.slice(0, wordLimit).join(' ') + '…';
-  };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        setLoading(true); setError(null);
+        const res = await getLatestNews(3);
+        if (!cancelled && res?.status && Array.isArray(res.data)) {
+          setItems(res.data as Blog[]);
+        }
+      } catch (e) {
+        if (!cancelled) setError('Failed to load latest news');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
   return (
     <section className="py-8 bg-[url('/home/latest-news-bg.png')]">
       <div className="max-w-[1366px] mx-auto px-4 md:px-8 lg:px-16">
@@ -34,8 +54,28 @@ export default async function LatestNews() {
         <div className="mb-12 max-w-[210px]">
           <TitleWithUnderline title="Latest News" />
         </div>
-
-        {/* News Cards Grid */}
+        {loading && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12" aria-label="Loading latest news">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="bg-white rounded-lg shadow-sm overflow-hidden animate-pulse">
+                <div className="h-48 w-full bg-gray-200" />
+                <div className="p-5 space-y-4">
+                  <div className="h-5 bg-gray-200 rounded w-3/4" />
+                  <div className="space-y-2">
+                    <div className="h-3 bg-gray-200 rounded w-full" />
+                    <div className="h-3 bg-gray-200 rounded w-11/12" />
+                    <div className="h-3 bg-gray-200 rounded w-2/3" />
+                  </div>
+                  <div className="h-4 bg-gray-200 rounded w-24" />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        {error && !loading && (
+          <div className="text-center text-sm text-red-600 mb-8">{error}</div>
+        )}
+        {!loading && !error && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {items.map((news) => (
             <div
@@ -54,7 +94,7 @@ export default async function LatestNews() {
                 />
                 </Link>
               </div>
-
+              
               <div className="p-5 relative">
                 <Link href={`/news/${news.slug}`} className="cursor-pointer  text-lg font-semibold text-gray-900 group-hover:text-[#ff2424] transition-colors duration-300 line-clamp-2 min-h-[48px]">
                   {news.title}
@@ -73,6 +113,7 @@ export default async function LatestNews() {
             </div>
           ))}
         </div>
+        )}
 
         {/* View All News Link */}
         <div className="text-center">

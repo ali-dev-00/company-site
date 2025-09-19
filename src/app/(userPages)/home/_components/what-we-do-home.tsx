@@ -10,7 +10,7 @@ import type { Course } from '@/types/course-types'
 
 export default function WhatWeDo() {
   const [courses, setCourses] = useState<Course[]>([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true) // start true so skeletons show immediately (avoid empty state flicker)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -43,7 +43,20 @@ export default function WhatWeDo() {
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {loading && (
-            <div className="col-span-full text-sm text-gray-500">Loading...</div>
+            Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="bg-white rounded-lg shadow-sm overflow-hidden animate-pulse">
+                <div className="relative h-48 w-full bg-gray-200" />
+                <div className="p-6 space-y-4">
+                  <div className="h-5 bg-gray-200 rounded w-3/4" />
+                  <div className="space-y-2">
+                    <div className="h-3 bg-gray-200 rounded w-full" />
+                    <div className="h-3 bg-gray-200 rounded w-11/12" />
+                    <div className="h-3 bg-gray-200 rounded w-2/3" />
+                  </div>
+                  <div className="h-4 bg-gray-200 rounded w-24" />
+                </div>
+              </div>
+            ))
           )}
           {error && !loading && (
             <div className="col-span-full text-sm text-red-600">{error}</div>
