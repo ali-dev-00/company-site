@@ -42,7 +42,39 @@ export default function CourseDetailPage() {
   }
 
   if (loading) {
-    return <div className="max-w-[1366px] mx-auto px-4 md:px-8 lg:px-16 py-20 text-center text-sm text-gray-500">Loading course...</div>;
+    return (
+      <main className="max-w-[1366px] mx-auto px-4 md:px-8 lg:px-16 py-10">
+        <article className="w-full animate-pulse">
+          <div className="mb-8">
+            <div className="h-10 md:h-12 bg-gray-200 rounded w-2/3" />
+            <div className="mt-6 flex flex-wrap gap-3">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="h-6 bg-gray-200 rounded-full w-24" />
+              ))}
+            </div>
+            <div className="mt-8">
+              <div className="h-10 bg-gray-200 rounded w-32" />
+            </div>
+          </div>
+          <section className="border border-gray-300 rounded-xl p-6 bg-white shadow-sm mb-10">
+            <div className="h-6 bg-gray-200 rounded w-40 mb-6" />
+            <div className="space-y-3">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="h-4 bg-gray-200 rounded w-full" />
+              ))}
+            </div>
+          </section>
+          <section className="border border-gray-300 rounded-xl p-6 bg-white shadow-sm">
+            <div className="h-6 bg-gray-200 rounded w-56 mb-6" />
+            <div className="space-y-3">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="h-4 bg-gray-200 rounded w-full" />
+              ))}
+            </div>
+          </section>
+        </article>
+      </main>
+    );
   }
 
   if (error || !course) {
