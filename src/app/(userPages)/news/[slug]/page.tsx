@@ -5,15 +5,15 @@ import Link from "next/link"
 import { getPublishedBlogs } from "@/services/blogs.service";
 import { SocialShareIcons } from "@/components/ui/social-share-icons";
 import { FeaturedBlogCard } from "@/components/blog/featured-blog-card";
+import RichText from "@/components/common/RichText";
 
 // (Removed unused estimateReadTime utility to satisfy lint rule)
 
 // Route params type
 type RouteParams = { slug: string }
-interface PageProps { params: Promise<RouteParams> }
 
-export async function generateMetadata({ params }: PageProps) {
-  const { slug } = await params
+export async function generateMetadata({ params }: { params?: Promise<RouteParams> }) {
+  const { slug } = await (params ?? Promise.resolve({ slug: '' }))
   const res = await getBlogBySlug(slug)
   if (!res?.status || !res.data) return { title: 'News' }
   const blog = res.data
@@ -28,8 +28,8 @@ export async function generateMetadata({ params }: PageProps) {
   }
 }
 
-export default async function BlogDetailPage({ params }: PageProps) {
-  const { slug } = await params
+export default async function BlogDetailPage({ params }: { params?: Promise<RouteParams> }) {
+  const { slug } = await (params ?? Promise.resolve({ slug: '' }))
   const res = await getBlogBySlug(slug)
   if (!res?.status || !res.data) {
     return (
@@ -62,9 +62,8 @@ export default async function BlogDetailPage({ params }: PageProps) {
           {/* Remove old header (title/category/share) now replaced by card */}
 
 
-          <section className="mt-10 px-10 prose prose-lg max-w-none dark:prose-invert prose-headings:scroll-mt-20 border border-gray-300 rounded-xl p-6 bg-white shadow-sm">
-            {/* description stored as HTML from the RichText editor */}
-            <div dangerouslySetInnerHTML={{ __html: blog.description }} />
+          <section className="mt-10 border border-gray-300 rounded-xl p-6 bg-white shadow-sm">
+            <RichText html={blog.description} />
           </section>
         </article>
 

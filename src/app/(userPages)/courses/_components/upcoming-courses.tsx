@@ -1,62 +1,72 @@
-import Image from "next/image"
-import Link from "next/link";
+"use client"
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { getUpcomingCourses } from '@/services/courses.service';
+import type { Course } from '@/types/course-types';
 
 export default function UpcomingCourses() {
-    const upcomingCourses = [
-        {
-          id: 1,
-          title: "Level 2 Certificate in Cleaning Principles",
-          image: "/courses/upcoming-course-01.svg",
-          isBestSeller: true,
-        },
-        {
-          id: 2,
-          title: "Level 1 Award in Environmental Sustainability Awareness",
-          image: "/courses/upcoming-course-02.svg",
-          isBestSeller: true,
-        },
-        {
-          id: 3,
-          title: "Level 1 Award in Health and Safety within a Construction Environment",
-          image: "/courses/upcoming-course-03.svg",
-          isBestSeller: true,
-        },
-        {
-          id: 4,
-          title: "Level 2 Award in Conflict Management",
-          image: "/courses/upcoming-course-04.svg",
-          isBestSeller: true,
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const load = async () => {
+      setLoading(true); setError(null);
+      try {
+        const res = await getUpcomingCourses();
+        if (res?.status && Array.isArray(res.data)) {
+          setCourses(res.data);
+        } else {
+          setCourses([]);
         }
-      ];
+      } catch (e) {
+        console.error('Failed to load upcoming courses', e);
+        setError('Failed to load courses');
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, []);
 
   return (
     <section className="w-full py-8 md:py-12 lg:py-16 bg-white">
       <div className="mx-auto max-w-[1366px] px-4 md:px-8 lg:px-16">
         <h2 className="text-3xl font-bold tracking-tight text-center mb-8 md:mb-12">Upcoming Courses</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6 justify-items-center mx-auto">
-          {upcomingCourses.map((course) => (
-            <div key={course.id} className="w-full max-w-[300px]">
-              <div className="relative rounded-5xl">
-                <Image
-                  src={course.image || "/placeholder.svg"}
-                  alt={course.title}
-                  width={300}
-                  height={200}
-                  className="w-full h-full max-h-44 rounded-lg" // Keep image rounded
-                />
-                {course.isBestSeller && (
-                  <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
-                    Best Seller
-                  </div>
-                )}
+        {loading && (
+          <div className="text-center text-sm text-gray-500">Loading...</div>
+        )}
+        {error && !loading && (
+          <div className="text-center text-sm text-red-600">{error}</div>
+        )}
+        {!loading && !error && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 mx-auto">
+            {courses.length === 0 && (
+              <p className="text-sm text-gray-500 col-span-full text-center">No upcoming courses.</p>
+            )}
+            {courses.map(course => (
+              <div key={course._id} className="group flex flex-col">
+                <div className="relative w-full aspect-[4/3] overflow-hidden rounded-lg ring-1 ring-gray-200 bg-gray-50">
+                  <Image
+                    src={(course.thumbnail as string) || '/placeholder.svg'}
+                    alt={course.title}
+                    fill
+                    sizes="(max-width:768px) 50vw, 25vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  />
+                  {course.isBestSeller && (
+                    <span className="absolute top-2 left-2 bg-[#FF2424] text-white text-[10px] font-semibold px-2 py-1 rounded-full shadow-sm">Best Seller</span>
+                  )}
+                </div>
+                <Link href={`/courses/${course._id}`} className="mt-3 text-sm md:text-base font-semibold leading-snug hover:text-red-600 line-clamp-2">
+                  {course.title}
+                </Link>
               </div>
-              <div className="py-4">
-                <Link href="/course-detail" className="text-md font-semibold mb-2 hover:text-red-600">{course.title}</Link>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
-  )
+  );
 }

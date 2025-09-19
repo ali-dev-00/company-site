@@ -2,41 +2,31 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import TitleWithUnderline from "../../components/common/Title-with-underline";
 import Link from "next/link";
+import { getLatestNews } from "@/services/blogs.service";
+import type { Blog } from "@/types/blog-types";
 
-
-interface NewsCard {
-  id: string;
-  title: string;
-  image: string;
-  description: string;
-  link: string;
-}
-const newsItems: NewsCard[] = [
-  {
-    id: "growth-company-shortlisted",
-    title: "Level 2 Award for Security Officers in Private Security Industry",
-    image: "/home/latest-news-02.svg",
-    description: `This qualification equips individuals with the core knowledge and practical skills required to work as security officers within the private security industry, ensuring safety and compliance with industry standards.`,
-    link: "/news/",
-  },
-  {
-    id: "tehseen-ali-joins",
-    title: "Level 2 Certificate in Cleaning Principles",
-    image: "/home/latest-news-01.svg",
-    description: `This certificate covers the essential principles of cleaning, focusing on hygiene, safety, and professional standards needed to build a career in the cleaning industry.`,
-    link: "/news/",
-  },
-  {
-    id: "supporting-businesses-trade",
-    title: "Level 2 Certificate in Cleaning and Support Services Skills",
-    image: "/home/latest-news-03.svg",
-    description: `This qualification develops both cleaning techniques and wider support service skills, preparing learners for roles across facilities management and support service environments.`,
-    link: "/news/",
-  },
-];
-
-
-export default function LatestNews() {
+export default async function LatestNews() {
+  const res = await getLatestNews(3);
+  const items = Array.isArray(res?.data) ? (res.data as Blog[]) : [];
+  const toPlain = (html: string, wordLimit = 30) => {
+    if (!html) return '';
+    // Remove tags
+    let text = html.replace(/<[^>]*>/g, ' ');
+    // Decode a few common entities
+    text = text
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>');
+    // Collapse whitespace
+    text = text.replace(/\s+/g, ' ').trim();
+    if (!wordLimit) return text;
+    const parts = text.split(' ');
+    if (parts.length <= wordLimit) return text;
+    return parts.slice(0, wordLimit).join(' ') + '…';
+  };
   return (
     <section className="py-8 bg-[url('/home/latest-news-bg.png')]">
       <div className="max-w-[1366px] mx-auto px-4 md:px-8 lg:px-16">
@@ -47,16 +37,16 @@ export default function LatestNews() {
 
         {/* News Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {newsItems.map((news) => (
+          {items.map((news) => (
             <div
-              key={news.id}
+              key={news._id}
               className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden hover:scale-105 transform group "
             >
               {/* Card Image */}
               <div className="relative h-48 w-full cursor-pointer">
-                <Link href={news.link} className="absolute inset-0 z-10" >
+                <Link href={`/news/${news.slug}`} className="absolute inset-0 z-10" >
                 <Image
-                  src={news.image || "/placeholder.svg"}
+                  src={news.featuredImage || "/placeholder.svg"}
                   alt={news.title}
                   fill
                   className="object-cover"
@@ -66,14 +56,14 @@ export default function LatestNews() {
               </div>
 
               <div className="p-5 relative">
-                <Link href={news.link} className="cursor-pointer mb-6 text-lg font-semibold text-gray-900 group-hover:text-[#ff2424] transition-colors duration-300 line-clamp-2 min-h-[56px]">
+                <Link href={`/news/${news.slug}`} className="cursor-pointer  text-lg font-semibold text-gray-900 group-hover:text-[#ff2424] transition-colors duration-300 line-clamp-2 min-h-[48px]">
                   {news.title}
                 </Link>
-                <p className="text-sm text-gray-600 leading-relaxed mb-6 min-h-[120px]">
-                  {news.description}
+                <p className="rt-editor text-gray-600 leading-relaxed mb-5 line-clamp-4 min-h-[88px]">
+                  {toPlain(news.description)}
                 </p>
                  <Link
-                  href={news.link}
+                  href={`/news/${news.slug}`}
                   className="inline-flex cursor-pointer items-center group-hover:underline text-[#ff2424] hover:text-red-600 font-medium text-sm transition-all duration-300 group"
                 >
                   More Info

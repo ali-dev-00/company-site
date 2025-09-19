@@ -19,6 +19,13 @@ export interface Course {
   noOfVacancies: number;
   type: 'TRENDING' | 'UPCOMING' | 'BEST_SELLER';
   status: boolean;
+  // New pricing & merchandising fields
+  price: number;
+  isBestSeller: boolean;
+  isOnSale: boolean;
+  salePrice: number | null;
+  // Computed on backend (not stored separately)
+  effectivePrice?: number;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -34,6 +41,10 @@ export interface CreateCourseDto {
   noOfVacancies: number;
   type: 'TRENDING' | 'UPCOMING' | 'BEST_SELLER';
   status?: boolean; 
+  price: number;
+  isBestSeller: boolean;
+  isOnSale: boolean;
+  salePrice?: number | null;
   // Note: thumbnail upload is not included here since we're sending JSON like categories.
 }
 
@@ -48,4 +59,8 @@ export interface UpdateCourseDto {
   noOfVacancies?: number;
   type?: 'TRENDING' | 'UPCOMING' | 'BEST_SELLER';
   status?: boolean;
+  price?: number;
+  isBestSeller?: boolean;
+  isOnSale?: boolean;
+  salePrice?: number | null;
 }

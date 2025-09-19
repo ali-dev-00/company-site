@@ -37,6 +37,12 @@ export default function AddCourseModal({ isOpen, onClose, courseId, onSaved }: A
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [existingThumbnail, setExistingThumbnail] = useState<string | undefined>(undefined)
   const [isSaving, setIsSaving] = useState(false)
+  // Pricing & merchandising
+  // Keep price as string for controlled input so user can clear/backspace without forced 0
+  const [price, setPrice] = useState<string>("0")
+  const [isBestSeller, setIsBestSeller] = useState<boolean>(false)
+  const [isOnSale, setIsOnSale] = useState<boolean>(false)
+  const [salePrice, setSalePrice] = useState<number | "">("")
 
   useEffect(() => {
     const loadCats = async () => {
@@ -59,6 +65,11 @@ export default function AddCourseModal({ isOpen, onClose, courseId, onSaved }: A
         setCourseStatus(c.status ? 'active' : 'not-active');
         setExistingThumbnail(c.thumbnail);
         setDuration(c.duration || "");
+        // Pricing fields
+  setPrice(String(c.price ?? 0));
+        setIsBestSeller(c.isBestSeller ?? false);
+        setIsOnSale(c.isOnSale ?? false);
+        setSalePrice(c.salePrice == null ? "" : c.salePrice);
       }
     };
     if (isOpen) {
@@ -80,6 +91,10 @@ export default function AddCourseModal({ isOpen, onClose, courseId, onSaved }: A
         setThumbnailFile(undefined);
         setExistingThumbnail(undefined);
         setDuration("");
+  setPrice("0");
+        setIsBestSeller(false);
+        setIsOnSale(false);
+        setSalePrice("");
       }
     } else {
       // reset when closing (for create flow)
@@ -94,6 +109,10 @@ export default function AddCourseModal({ isOpen, onClose, courseId, onSaved }: A
         setCourseType("");
         setCourseStatus("");
         setThumbnailFile(undefined);
+  setPrice("0");
+        setIsBestSeller(false);
+        setIsOnSale(false);
+        setSalePrice("");
       }
     }
   }, [isOpen, courseId])
@@ -109,6 +128,12 @@ export default function AddCourseModal({ isOpen, onClose, courseId, onSaved }: A
       if (!courseId && !thumbnailFile) newErrors.thumbnail = 'Thumbnail is required'
       if (!courseStatus) newErrors.status = 'Course status is required'
       if (noOfVacancies < 0) newErrors.noOfVacancies = 'No. of vacancies cannot be negative'
+  const numericPrice = Number(price === '' ? 0 : price)
+  if (numericPrice < 0) newErrors.price = 'Price cannot be negative'
+      if (isOnSale) {
+        if (salePrice === '' || salePrice === null) newErrors.salePrice = 'Sale price is required when on sale'
+        else if (Number(salePrice) >= numericPrice) newErrors.salePrice = 'Sale price must be less than price'
+      }
       if (Object.keys(newErrors).length) {
         setErrors(newErrors)
         return
@@ -126,6 +151,10 @@ export default function AddCourseModal({ isOpen, onClose, courseId, onSaved }: A
         status: courseStatus === 'active',
         thumbnailFile,
         duration,
+  price: numericPrice,
+        isBestSeller,
+        isOnSale,
+        salePrice: isOnSale ? (salePrice === '' ? null : Number(salePrice)) : null,
       };
       const res = courseId
         ? await updateCourse(courseId, payload as UpdateCourseDto & { thumbnailFile?: File })
@@ -329,6 +358,69 @@ export default function AddCourseModal({ isOpen, onClose, courseId, onSaved }: A
             </Select>
             {errors.status && <p className="text-xs text-red-600">{errors.status}</p>}
           </div>
+          {/* Pricing & Merchandising */}
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-gray-700">Price</label>
+            <Input
+              type="number"
+              min={0}
+              value={price}
+              onChange={(e) => {
+                const raw = e.target.value;
+                // Allow empty, digits only.
+                if (raw === '') {
+                  setPrice('');
+                } else {
+                  // Strip leading zeros unless value is just '0'
+                  const normalized = raw.replace(/[^0-9]/g, '');
+                  if (normalized === '') {
+                    setPrice('');
+                  } else {
+                    const trimmed = normalized.replace(/^0+(\d)/, '$1');
+                    setPrice(trimmed);
+                  }
+                }
+                if (errors.price) setErrors({ ...errors, price: '' });
+              }}
+              onBlur={() => {
+                if (price === '') setPrice('0');
+              }}
+              className="border-gray-300 focus:ring-[#FF2424]"
+            />
+            {errors.price && <p className="text-xs text-red-600">{errors.price}</p>}
+          </div>
+          <div className="space-y-2 flex flex-col">
+            <label className="text-sm font-semibold text-gray-700">Best Seller</label>
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="isBestSeller" checked={isBestSeller} onChange={(e) => setIsBestSeller(e.target.checked)} className="h-4 w-4" />
+              <label htmlFor="isBestSeller" className="text-sm text-gray-700">Mark as Best Seller</label>
+            </div>
+          </div>
+          <div className="space-y-2 flex flex-col">
+            <label className="text-sm font-semibold text-gray-700">On Sale</label>
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="isOnSale" checked={isOnSale} onChange={(e) => {
+                const checked = e.target.checked;
+                setIsOnSale(checked);
+                if (!checked) {
+                  setSalePrice('');
+                  if (errors.salePrice) setErrors({ ...errors, salePrice: '' });
+                }
+              }} className="h-4 w-4" />
+              <label htmlFor="isOnSale" className="text-sm text-gray-700">Enable Sale Pricing</label>
+            </div>
+          </div>
+          {isOnSale && (
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">Sale Price</label>
+              <Input type="number" min={0} value={salePrice} onChange={(e) => {
+                const v = e.target.value === '' ? '' : Number(e.target.value);
+                setSalePrice(v);
+                if (errors.salePrice) setErrors({ ...errors, salePrice: '' });
+              }} className="border-gray-300 focus:ring-[#FF2424]" />
+              {errors.salePrice && <p className="text-xs text-red-600">{errors.salePrice}</p>}
+            </div>
+          )}
         </div>
         <div className="p-4 md:p-6 pt-4 border-t border-gray-200 flex justify-end">
           <Button className="bg-[#FF2424] hover:bg-[#FF2424]/90 text-white" onClick={handleSaveCourse} disabled={isSaving}>

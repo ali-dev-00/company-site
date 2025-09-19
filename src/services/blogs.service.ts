@@ -6,7 +6,7 @@ import {
   ServerResponse,
 } from "../lib/requests";
 import type { Blog, CreateBlogDto, UpdateBlogDto } from "../types/blog-types";
-import { BlogStatus } from "../types/blog-types";
+import { BlogStatus, BlogType } from "../types/blog-types";
 
 // List blogs with pagination
 export const getBlogs = async (
@@ -73,6 +73,21 @@ export const getPublishedBlogs = async (
   limit = 10
 ): Promise<ServerResponse<Blog[]>> => {
   return await getFromServer<Blog[]>(`blogs?page=${page}&limit=${limit}&status=${BlogStatus.PUBLISHED}`);
+};
+
+// Get latest N news (type=NEWS) published
+export const getLatestNews = async (
+  limit = 3
+): Promise<ServerResponse<Blog[]>> => {
+  // Backend sorts by postedOn desc by default
+  const page = 1;
+  const params = new URLSearchParams({
+    page: String(page),
+    limit: String(limit),
+    status: BlogStatus.PUBLISHED,
+    type: BlogType.NEWS,
+  });
+  return await getFromServer<Blog[]>(`blogs?${params.toString()}`);
 };
 
 // Get a single published blog by slug (public)

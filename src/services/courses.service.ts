@@ -40,6 +40,20 @@ import {
   export const getCourseById = async (id: string): Promise<ServerResponse<Course>> => {
     return await getFromServer<Course>(`courses/${id}`);
   };
+
+  /**
+   * Get courses filtered by type (public). Example types: TRENDING, UPCOMING, BEST_SELLER
+   */
+  export const getCoursesByType = async (type: string): Promise<ServerResponse<Course[]>> => {
+    return await getFromServer<Course[]>(`courses/by-type?type=${encodeURIComponent(type)}`);
+  };
+
+  /**
+   * Convenience wrapper to fetch upcoming courses
+   */
+  export const getUpcomingCourses = async (): Promise<ServerResponse<Course[]>> => {
+    return getCoursesByType('UPCOMING');
+  };
   
   /**
    * Create a course (JSON payload)
@@ -58,6 +72,13 @@ import {
     fd.append("noOfVacancies", String(payload.noOfVacancies));
     fd.append("type", payload.type);
     if (payload.status !== undefined) fd.append("status", String(payload.status));
+    // Pricing fields
+    fd.append('price', String(payload.price));
+    fd.append('isBestSeller', String(payload.isBestSeller));
+    fd.append('isOnSale', String(payload.isOnSale));
+    if (payload.salePrice !== undefined && payload.salePrice !== null) {
+      fd.append('salePrice', String(payload.salePrice));
+    }
     if (payload.thumbnailFile) fd.append("thumbnail", payload.thumbnailFile);
     return await postToServer<Course>("courses", fd);
   };
@@ -80,6 +101,12 @@ import {
     if (payload.noOfVacancies !== undefined) fd.append("noOfVacancies", String(payload.noOfVacancies));
     if (payload.type !== undefined) fd.append("type", payload.type);
     if (payload.status !== undefined) fd.append("status", String(payload.status));
+    if (payload.price !== undefined) fd.append('price', String(payload.price));
+    if (payload.isBestSeller !== undefined) fd.append('isBestSeller', String(payload.isBestSeller));
+    if (payload.isOnSale !== undefined) fd.append('isOnSale', String(payload.isOnSale));
+    if (payload.salePrice !== undefined && payload.salePrice !== null) {
+      fd.append('salePrice', String(payload.salePrice));
+    }
     if (payload.thumbnailFile) fd.append("thumbnail", payload.thumbnailFile);
     return await putToServer<Course>(`courses/${id}`, fd);
   };
