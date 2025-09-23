@@ -221,6 +221,24 @@ export default function BlogsManagement() {
                   return null;
                 })()}
                 <h2 className="text-xl font-bold mb-2">{blog.title}</h2>
+                {Array.isArray(blog.tags) && blog.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {blog.tags.slice(0,4).map((tg, idx) => {
+                      const name = typeof tg === 'string' ? undefined : tg.name;
+                      if (!name) return null;
+                      return (
+                        <span key={idx} className="inline-block px-2 py-0.5 text-[10px] font-medium bg-gray-100 text-gray-600 rounded-full border border-gray-200">
+                          {name}
+                        </span>
+                      );
+                    })}
+                    {blog.tags.length > 4 && (
+                      <span className="inline-block px-2 py-0.5 text-[10px] font-medium bg-gray-50 text-gray-500 rounded-full border border-dashed border-gray-300">
+                        +{blog.tags.length - 4} more
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           ))}

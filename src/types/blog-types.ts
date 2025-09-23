@@ -22,6 +22,7 @@ export interface Blog {
   updatedAt?: string;
   category?: { _id: string; name?: string; slug?: string } | string; // populated or id
   type?: BlogType; // new classification
+  tags?: (string | { _id: string; name?: string })[]; // tags can be populated or id strings
 }
 
 export interface CreateBlogDto {
@@ -31,6 +32,7 @@ export interface CreateBlogDto {
   status: BlogStatus;
   category: string; // category ObjectId
   type?: BlogType; // optional; backend defaults to BLOG
+  tags?: string[]; // array of tag ids
 }
 
 export interface UpdateBlogDto {
@@ -40,4 +42,5 @@ export interface UpdateBlogDto {
   status?: BlogStatus;
   category?: string;
   type?: BlogType;
+  tags?: string[];
 }

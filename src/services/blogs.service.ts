@@ -40,6 +40,7 @@ export const createBlog = async (
   fd.append("status", payload.status);
   fd.append("category", payload.category);
   if (payload.type) fd.append("type", payload.type);
+  if (Array.isArray(payload.tags)) payload.tags.forEach(t => fd.append('tags', t));
   fd.append("featuredImage", payload.featuredImageFile);
   return await postToServer<Blog>("blogs", fd);
 };
@@ -56,6 +57,10 @@ export const updateBlog = async (
   if (payload.status !== undefined) fd.append("status", payload.status);
   if (payload.category !== undefined) fd.append("category", payload.category);
   if (payload.type !== undefined) fd.append("type", payload.type);
+  if (Array.isArray(payload.tags)) {
+    // Clear semantics: backend will replace with provided list
+    payload.tags.forEach(t => fd.append('tags', t));
+  }
   if (payload.featuredImageFile) fd.append("featuredImage", payload.featuredImageFile);
   return await putToServer<Blog>(`blogs/${id}`, fd);
 };

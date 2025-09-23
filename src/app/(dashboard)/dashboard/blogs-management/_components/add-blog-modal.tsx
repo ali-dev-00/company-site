@@ -5,11 +5,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { SimpleMultiSelect, Option as SelectOption } from '@/components/ui/multi-select'
 import RichTextEditor from "../../_components/text-editor-formik"
 import { createBlog, getBlogById, updateBlog } from "@/services/blogs.service"
 import { getActiveCategories } from "@/services/categories.service"
 import type { Category } from "@/types/category-types"
 import type { Blog, CreateBlogDto, UpdateBlogDto } from "@/types/blog-types"
+import { fetchActiveTags } from "@/services/tag.service";
+import type { Tag } from "@/types/tag";
 import { BlogStatus, BlogType } from "@/types/blog-types"
 import { UploadCloud, Loader2 } from "lucide-react"
 import Image from "next/image"
@@ -31,6 +34,9 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
   const [category, setCategory] = useState<string>("")
   const [categories, setCategories] = useState<Category[]>([])
   const [categoriesLoading, setCategoriesLoading] = useState(false)
+  const [tags, setTags] = useState<Tag[]>([])
+  const [tagsLoading, setTagsLoading] = useState(false)
+  const [selectedTagIds, setSelectedTagIds] = useState<string[]>([])
   const [featuredImageFile, setFeaturedImageFile] = useState<File | undefined>(undefined)
   const [existingImage, setExistingImage] = useState<string | undefined>(undefined)
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -51,6 +57,13 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
         const catId = b.category && typeof b.category === 'object' ? b.category._id : b.category
         setCategory(catId || "")
         setExistingImage(b.featuredImage)
+        // load existing tags (populated or ids)
+        if (Array.isArray(b.tags)) {
+          const ids = b.tags.map(t => typeof t === 'string' ? t : t._id).filter(Boolean) as string[];
+          setSelectedTagIds(ids);
+        } else {
+          setSelectedTagIds([]);
+        }
       }
     }
     if (isOpen) {
@@ -65,6 +78,7 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
         setBlogType(BlogType.BLOG)
         setCategory("")
         setFeaturedImageFile(undefined)
+        setSelectedTagIds([])
         setExistingImage(undefined)
       }
     } else {
@@ -76,6 +90,7 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
         setBlogType(BlogType.BLOG)
         setCategory("")
         setFeaturedImageFile(undefined)
+        setSelectedTagIds([])
         setExistingImage(undefined)
       }
     }
@@ -94,8 +109,21 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
         setCategoriesLoading(false)
       }
     }
-    loadCategories()
+    const loadTags = async () => {
+      setTagsLoading(true)
+      try {
+        const res = await fetchActiveTags();
+        if (res?.status && Array.isArray(res.data)) setTags(res.data)
+        else setTags([])
+      } finally {
+        setTagsLoading(false)
+      }
+    }
+    loadCategories();
+    loadTags();
   }, [isOpen])
+
+  const tagOptions: SelectOption[] = tags.map(t => ({ label: t.name, value: t._id }))
 
   const handleSave = async () => {
     try {
@@ -105,7 +133,7 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
   if (!status) newErrors.status = 'Status is required'
   if (!blogType) newErrors.type = 'Type is required'
       if (!category) newErrors.category = 'Category is required'
-      if (!blogId && !featuredImageFile) newErrors.featuredImage = 'Featured image is required'
+  if (!blogId && !featuredImageFile) newErrors.featuredImage = 'Featured image is required'
       if (Object.keys(newErrors).length) { setErrors(newErrors); return }
 
       setIsSaving(true)
@@ -118,6 +146,7 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
           status: status as BlogStatus,
           type: blogType as BlogType,
           category,
+          tags: selectedTagIds,
           featuredImageFile,
         }
         res = await updateBlog(blogId, payload)
@@ -129,6 +158,7 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
           status: status as BlogStatus,
           type: blogType as BlogType,
           category,
+          tags: selectedTagIds,
           featuredImageFile: featuredImageFile!,
         }
         res = await createBlog(payload)
@@ -218,6 +248,20 @@ export default function AddBlogModal({ isOpen, onClose, blogId, onSaved }: AddBl
               </SelectContent>
             </Select>
             {errors.category && <p className="text-xs text-red-600">{errors.category}</p>}
+          </div>
+
+          <div className="space-y-2 md:col-span-2">
+            <label className="text-sm font-semibold text-gray-700 flex items-center justify-between">
+              <span>Tags (optional)</span>
+              {tagsLoading && <span className="text-[10px] text-gray-400">Loading...</span>}
+            </label>
+            <SimpleMultiSelect
+              options={tagOptions}
+              value={selectedTagIds}
+              onChange={setSelectedTagIds}
+              placeholder={tagsLoading ? 'Loading tags...' : 'Select tags'}
+              disabled={tagsLoading}
+            />
           </div>
 
           <div className="space-y-2 md:col-span-2">

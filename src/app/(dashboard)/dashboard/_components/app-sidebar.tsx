@@ -16,6 +16,7 @@ import { useState } from "react"
 
 const menuItems = [
   { title: "Category Management", icon: FolderPlus, href: "/dashboard/category-management" },
+  { title: "Tags Management", icon: FolderPlus, href: "/dashboard/tag-management" },
   { title: "Course Management", icon: Book, href: "/dashboard/courses-management" },
   { title: "Job Management", icon: Briefcase, href: "/dashboard/job-management" },
   { title: "Blogs Management", icon: ShoppingBag, href: "/dashboard/blogs-management" },

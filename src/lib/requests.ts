@@ -1,4 +1,3 @@
-
 import { removeAuthData } from "@/services/auth.service";
 import { getCookie } from "cookies-next";
 
@@ -20,9 +19,7 @@ export type ServerResponse<T = unknown> = {
 
 const getHeaders = () => {
   const headers = new Headers();
-  headers.append("Content-Type", "application/json");
   headers.append("Accept", "*/*");
-
   const token = getCookie("token");
   if (token) {
     headers.append("Authorization", `Bearer ${token}`);
@@ -35,16 +32,20 @@ const apiRequest = async <T>(
   method: "GET" | "POST" | "PUT" | "DELETE" | "OPTIONS",
   body?: unknown
 ): Promise<ServerResponse<T>> => {
+  const headers = getHeaders();
+
   const requestOptions: RequestInit = {
     method,
-    headers: getHeaders(),
+    headers,
     credentials: "include",
   };
 
   if (body instanceof FormData) {
-    delete requestOptions.headers;
+    // Ensure we do not send an inappropriate JSON content type; rely on browser for multipart boundary
+    if (headers.has("Content-Type")) headers.delete("Content-Type");
     requestOptions.body = body;
   } else if (body !== undefined) {
+    headers.set("Content-Type", "application/json");
     requestOptions.body = JSON.stringify(body);
   }
 
@@ -53,12 +54,15 @@ const apiRequest = async <T>(
       process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3001";
     const response = await fetch(`${backendUrl}/api/${urlPath}`, requestOptions);
 
-    // Parse JSON only if status is not 304
-    const result = (await response.json()) as ServerResponse<T>;
+    let result: ServerResponse<T>;
+    try {
+      result = (await response.json()) as ServerResponse<T>;
+    } catch {
+      result = { status: false, message: "Invalid server response", data: {} as T };
+    }
 
-    // Handle unauthorized
-    if (response.status === 401 || response.status === 403) {
-      if (typeof window !== "undefined" && window.location.pathname !== "/signin") {
+    if ((response.status === 401 || response.status === 403) && typeof window !== "undefined") {
+      if (window.location.pathname !== "/signin") {
         removeAuthData();
         window.location.href = "/signin";
       }
@@ -77,25 +81,17 @@ const apiRequest = async <T>(
 export const postToServer = async <T>(
   urlPath: string,
   body: unknown
-): Promise<ServerResponse<T>> => {
-  return apiRequest<T>(urlPath, "POST", body);
-};
+): Promise<ServerResponse<T>> => apiRequest<T>(urlPath, "POST", body);
 
 export const getFromServer = async <T>(
   urlPath: string
-): Promise<ServerResponse<T>> => {
-  return apiRequest<T>(urlPath, "GET");
-};
+): Promise<ServerResponse<T>> => apiRequest<T>(urlPath, "GET");
 
 export const putToServer = async <T>(
   urlPath: string,
   body: unknown
-): Promise<ServerResponse<T>> => {
-  return apiRequest<T>(urlPath, "PUT", body);
-};
+): Promise<ServerResponse<T>> => apiRequest<T>(urlPath, "PUT", body);
 
 export const deleteFromServer = async <T>(
   urlPath: string
-): Promise<ServerResponse<T>> => {
-  return apiRequest<T>(urlPath, "DELETE");
-};
+): Promise<ServerResponse<T>> => apiRequest<T>(urlPath, "DELETE");
